@@ -67,17 +67,7 @@ const Hero = () => {
           </div>
         </AnimatedLink>
       </T>
-      <motion.div
-        {...FadeUp}
-        {...Animate}
-        transition={{
-          duration: 1,
-          delay: 2,
-        }}
-        className="absolute  -bottom-full lg:-bottom-4/5 left-1/2 -translate-x-1/2 -z-10"
-      >
-        <AnimatedEarth />
-      </motion.div>
+    
     </section>
   );
 };
