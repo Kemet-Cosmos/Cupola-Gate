@@ -2,11 +2,11 @@
 import { Animate, FadeUp } from "@/Animation";
 import React from "react";
 import { motion } from "framer-motion";
-import AnimatedEarth from "../ui/AnimatedEarth";
+import AnimatedEarth from "../ui/Planets/Earth";
 
 const Earth = () => {
   return (
-    <div className="overflow-hidden">
+    <div className="absolute -bottom-[670px] overflow-hidden h-[2000px] w-full">
       <motion.div
         {...FadeUp}
         {...Animate}
@@ -14,7 +14,7 @@ const Earth = () => {
           duration: 1,
           delay: 2,
         }}
-        className="absolute  -bottom-full lg:-bottom-4/5 left-1/2 -translate-x-1/2 -z-10"
+        className="absolute  bottom-0 left-1/2 -translate-x-1/2 -z-10"
       >
         <AnimatedEarth />
       </motion.div>

@@ -6,8 +6,9 @@ import { useGT } from "gt-next";
 import { useDetectLanguage } from "@/Hook/Language";
 import { Russo_One } from "next/font/google";
 import NavBar from "@/components/NavBar";
-import { StarField } from "@/components/ui/AnimatedSpace";
+import { StarField } from "@/components/ui/Planets/SpaceBg";
 import { ClerkProvider } from "@clerk/nextjs";
+import Footer from "@/components/Footer";
 const russoOne = Russo_One({
   subsets: ["latin"],
   weight: "400",
@@ -42,6 +43,7 @@ export default function RootLayout({
             <StarField />
 
             {children}
+            <Footer/>
           </GTProvider>
         </body>
       </html>

@@ -3,7 +3,7 @@
 /* ---break---  */
 
 body {
-  @apply text-white bg-gradient-to-bl from-black via-neutral-900 to-neutral-950;
+  @apply text-white bg-gradient-to-bl from-black via-neutral-900 to-neutral-950 overflow-x-hidden;
 }
 h1 {
   @apply text-5xl lg:text-7xl font-bold;
@@ -20,13 +20,16 @@ h3 {
 h4 {
   @apply text-2xl lg:text-4xl font-bold;
 }
+h5 {
+  @apply text-xl lg:text-3xl font-bold;
+}
 
 p {
   @apply text-xl lg:text-2xl text-neutral-400;
 }
 
 section {
-  @apply min-h-screen px-5 lg:px-10;
+  @apply min-h-screen px-5 lg:px-10 overflow-hidden;
 }
 button,
 Link {
@@ -523,6 +526,104 @@ Link {
   background-color: #fbfdfa;
   border-radius: 0 30px 0 0;
   border-bottom: 10px solid #b0cfe4;
+}
+
+/* For Sun  */
+.section-banner-sun {
+  height: 800px;
+  width: 800px;
+  position: relative;
+  transition: left 0.3s linear;
+  background: url(/Sun.jpg);
+  background-size: cover;
+  background-position: left;
+  bottom: 0px;
+  border-radius: 50%;
+  animation: sunRotate 30s linear 0s infinite,
+    shadowPulse 5s ease-in-out infinite;
+  box-shadow: 0px 0px 40px 20px RGBA(255, 140, 0, 0.8),
+    -5px 0px 10px 1px #ffb453 inset, 15px 2px 40px 20px #bb6d01c5 inset,
+    -24px -2px 50px 25px #ffa265c2 inset, 150px 0px 80px 35px #c55f00aa inset;
+}
+
+@keyframes sunRotate {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+@keyframes shadowPulse {
+  0%,
+  100% {
+    box-shadow: 0px 0px 40px 20px RGBA(255, 140, 0, 0.8),
+      -5px 0px 10px 1px #ffb453 inset, 15px 2px 40px 20px #bb6d01c5 inset,
+      -24px -2px 50px 25px #ffa265c2 inset, 150px 0px 80px 35px #c55f00aa inset;
+  }
+
+  50% {
+    box-shadow: 0px 0px 60px 30px RGBA(255, 140, 0, 0.9),
+      -5px 0px 20px 5px #ffb453 inset, 15px 2px 60px 30px #bb6d01c5 inset,
+      -24px -2px 70px 35px #ffa265c2 inset, 150px 0px 100px 45px #c55f00aa inset;
+  }
+}
+.curved-corner-star {
+  display: flex;
+  position: relative;
+}
+#curved-corner-bottomleft,
+#curved-corner-bottomright,
+#curved-corner-topleft,
+#curved-corner-topright {
+  width: 4px;
+  height: 5px;
+  overflow: hidden;
+  position: relative;
+}
+#curved-corner-bottomleft:before,
+#curved-corner-bottomright:before,
+#curved-corner-topleft:before,
+#curved-corner-topright:before {
+  content: "";
+  display: block;
+  width: 200%;
+  height: 200%;
+  position: absolute;
+  border-radius: 50%;
+}
+#curved-corner-bottomleft:before {
+  bottom: 0;
+  left: 0;
+  box-shadow: -5px 5px 0 0 white;
+}
+#curved-corner-bottomright:before {
+  bottom: 0;
+  right: 0;
+  box-shadow: 5px 5px 0 0 white;
+}
+#curved-corner-topleft:before {
+  top: 0;
+  left: 0;
+  box-shadow: -5px -5px 0 0 white;
+}
+#curved-corner-topright:before {
+  top: 0;
+  right: 0;
+  box-shadow: 5px -5px 0 0 white;
+}
+
+@keyframes twinkling {
+  0%,
+  100% {
+    opacity: 0.1;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 /* ---break---  */

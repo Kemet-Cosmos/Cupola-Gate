@@ -28,9 +28,10 @@ export const opacity = {
   initial: { opacity: 0 },
   exit: { opacity: 0 },
 };
-export const opacityWithBlur = {
+export const opacityAllTime = {
   initial: { opacity: 0 },
   whileInView: { opacity: 1 },
+  // viewport:{margin: "50px"},
 };
 export const BlurAnimate = {
   initial: { scale: 0.8 },

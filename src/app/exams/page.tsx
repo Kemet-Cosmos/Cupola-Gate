@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import { AnimatedImage } from "@/components/ui/AnimatedImage";
+import { AnimatedImage } from "@/components/ui/Media_UI/AnimatedImage";
 import { motion } from "framer-motion";
 import { Animate, delay1, FadeLeft, FadeUp, transition } from "@/Animation";
-import AnimatedMoon from "@/components/ui/AnimatedMoon";
+import AnimatedMoon from "@/components/ui/Planets/Moon";
 import { T } from "gt-next";
 import { useGT } from "gt-next";
 export default function page() {
