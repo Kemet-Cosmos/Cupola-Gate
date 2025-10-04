@@ -98,8 +98,20 @@ export default function DialogueAnimation({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -30, scale: 0.95 }}
               transition={{ duration: 0.6, ease: "easeInOut" }}
-              className="flex flex-col sm:flex-row items-center gap-8"
+              className="flex flex-col  items-center gap-8"
             >
+              {dialogues[current].slideImage && (
+                <motion.img
+                  key={dialogues[current].slideImage}
+                  src={dialogues[current].slideImage}
+                  alt="Slide"
+                  className="w-96 h-atuo object-contain rounded-xl shadow-lg border border-white/20"
+                  initial={{ opacity: 0, x: 40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -40 }}
+                  transition={{ duration: 0.6 }}
+                />
+              )}
               <div className="flex items-center gap-4">
                 <motion.img
                   src={dialogues[current].image}
@@ -110,7 +122,7 @@ export default function DialogueAnimation({
                   transition={{ duration: 0.5 }}
                 />
                 <motion.div
-                  className="p-4 rounded-2xl shadow-xl max-w-md text-center bg-white/10 backdrop-blur"
+                  className="p-4 rounded-2xl shadow-xl max-w-md text-center  "
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
@@ -123,19 +135,6 @@ export default function DialogueAnimation({
                   </p>
                 </motion.div>
               </div>
-
-              {dialogues[current].slideImage && (
-                <motion.img
-                  key={dialogues[current].slideImage}
-                  src={dialogues[current].slideImage}
-                  alt="Slide"
-                  className="w-64 h-40 object-contain rounded-xl shadow-lg border border-white/20"
-                  initial={{ opacity: 0, x: 40 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -40 }}
-                  transition={{ duration: 0.6 }}
-                />
-              )}
             </motion.div>
           )}
         </AnimatePresence>
@@ -192,7 +191,7 @@ export default function DialogueAnimation({
               {/* Questions List */}
               <div className="space-y-6">
                 {shuffledQuestions.map((q) => (
-                  <div key={q.id} className="p-4 border rounded-xl bg-gray-50">
+                  <div key={q.id} className="p-4 border rounded-xl ">
                     <p className="font-semibold mb-3">{q.question}</p>
                     <div className="space-y-2">
                       {q.options.map((opt, i) => {

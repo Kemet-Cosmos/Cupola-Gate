@@ -15,13 +15,24 @@ export default function Page() {
       title: t("Level 1"),
       desc: t("Learn about the Cupola and its role"),
     },
-    { id: 2, title: t("Level 2"), desc: t("Natural disaster observation") },
+    {
+      id: 2,
+      title: t("Level 2"),
+      desc: t("Natural disaster observation"),
+      disabled: true,
+    },
     {
       id: 3,
       title: t("Level 3"),
       desc: t("Working with astronauts and cameras"),
+      disabled: true,
     },
-    { id: 4, title: t("Level 4"), desc: t("Final mission challenge!") },
+    {
+      id: 4,
+      title: t("Level 4"),
+      desc: t("Final mission challenge!"),
+      disabled: true,
+    },
   ];
   const handleStart = (id: number) => {
     router.push(`/levels/level${id}`);
@@ -43,15 +54,16 @@ export default function Page() {
           <motion.div
             key={lvl.id}
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={{ opacity: lvl.disabled ? 0.4 : 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="   bg-gradient-to-b from-white/3 to-white/2/0 rounded-2xl shadow-xl p-6 flex flex-col items-center text-center hover:scale-105 transition-transform"
+            className={`bg-gradient-to-b from-white/3 to-white/2/0 rounded-2xl shadow-xl p-6 flex flex-col items-center text-center hover:scale-105 transition-transform  `}
           >
             <h2 className="text-2xl font-semibold mb-3">{lvl.title}</h2>
             <p className="text-sm text-gray-300 mb-6">{lvl.desc}</p>
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => handleStart(lvl.id)}
+              disabled={lvl.disabled}
               className="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 transition font-medium shadow-lg"
             >
               <T>Start</T>

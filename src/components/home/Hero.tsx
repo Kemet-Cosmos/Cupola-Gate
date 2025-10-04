@@ -50,7 +50,7 @@ const Hero = () => {
           {...Animate}
           {...FadeUp}
           transition={{ duration: transition.transition.duration, delay: 1.4 }}
-          href={user ? "/courses" : "/register"}
+          href={user ? "/levels" : "/register"}
           className="relative group overflow-hidden text-white text-xl py-3 px-8 rounded-2xl flex justify-center items-center gap-2 bg-gradient-to-br from-blue-800 via-blue-600 to-purple-700 duration-300 cursor-pointer select-none"
         >
           <div className="relative z-10 transition-all duration-300 ease-out group-hover:rotate-45 group-hover:translate-x-1 group-hover:-translate-y-1">

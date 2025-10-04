@@ -11,9 +11,9 @@ const Footer = () => {
   const menuItems = [
     { label: t("Home"), ariaLabel: t("Go to home page"), link: "/" },
     { label: t("About"), ariaLabel: t("Learn about us"), link: "/about" },
-    { label: t("Exams"), ariaLabel: t("View our services"), link: "/exams" },
+    { label: t("Levels"), ariaLabel: t("View our services"), link: "/levels" },
     { label: t("Contact"), ariaLabel: t("Get in touch"), link: "/contact" },
-    { label: t("Settings"), ariaLabel: t("Get in touch"), link: "/setting" },
+    { label: t("Chat Bot"), ariaLabel: t("Get in touch"), link: "/Chat" },
   ];
 
   const socialItems = [

@@ -4,7 +4,7 @@ import DialogueAnimation from "@/components/Scane";
 export default function Page() {
   const t = useGT();
   const Mis = { name: t("Miss Star"), image: "/MissStar.jpg" };
-  const Mr = { name: t("Mr Comet"), image: "/MSComet.jpg" };
+  const Mr = { name: t("Mr Comet"), image: "/MsComet.png" };
 
   const dialogues = [
     {
