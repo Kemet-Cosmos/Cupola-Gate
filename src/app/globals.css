@@ -33,7 +33,7 @@ section {
 }
 button,
 Link {
-  @apply cursor-pointer;
+  @apply cursor-pointer disabled:cursor-not-allowed;
 }
 
 /* For earth  */

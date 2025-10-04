@@ -3,7 +3,7 @@ import { withGTConfig } from "gt-next/config";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   turbopack: {
-    root: "C:\\Users\\Apolo\\Coding\\CupolaGate",
+    root: "C:\\Users\\Apolo\\Coding\\Cupola-Gate",
   },
 };
 
