@@ -451,7 +451,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           className="staggered-menu-header absolute top-0 left-0 w-full flex items-center justify-between p-[2em] bg-transparent pointer-events-none z-20"
           aria-label="Main navigation header"
         >
-          <div
+          <Link
+            href="/"
             className="sm-logo flex gap-3 items-center select-none pointer-events-auto"
             aria-label="Logo"
           >
@@ -464,7 +465,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               height={24}
             />
             <h4>CupolaGate</h4>
-          </div>
+          </Link>
           <div className="flex justify-center items-center gap-6">
             <SignedIn>
               <UserButton />
