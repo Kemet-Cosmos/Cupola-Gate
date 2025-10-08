@@ -1,10 +1,12 @@
-import WhyUs from '@/components/home/WhyUs'
-import React from 'react'
+import Hero from "@/components/About/Hero";
+import WhyUs from "@/components/home/WhyUs";
+import React from "react";
 
 export default function Page() {
   return (
-    <section className='mt-20'>
-      <WhyUs/>
-    </section>
-  )
+    <main className="">
+      <Hero />
+      <WhyUs />
+    </main>
+  );
 }

@@ -1,11 +1,9 @@
 "use client";
 import React from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { FadeLeft, FadeRight, transition, ViewPort } from "@/Animation";
 import { T } from "gt-next";
 import { useUser } from "@clerk/nextjs";
-import { Rocket } from "lucide-react";
 import { AnimatedVideo } from "../ui/Media_UI/AnimatedVideo";
 
 const EndOFPage = () => {

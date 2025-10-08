@@ -7,7 +7,7 @@ export default clerkMiddleware(async (auth, req) => {
 
   const blockedForSignedIn = ["/login", "/register", "/sign-in", "/sign-up"];
 
-  const protectedRoutes = ["/profile"];
+  const protectedRoutes = ["/profile","/levels","/Chat"];
 
   if (userId) {
     if (blockedForSignedIn.some((path) => url.pathname.startsWith(path))) {
@@ -16,7 +16,7 @@ export default clerkMiddleware(async (auth, req) => {
   } else {
     if (protectedRoutes.some((path) => url.pathname.startsWith(path))) {
       return NextResponse.redirect(
-        new URL("/sign-in?redirect_url=" + url.pathname, req.url)
+        new URL("/register?redirect_url=" + url.pathname, req.url)
       );
     }
   }

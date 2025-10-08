@@ -58,7 +58,7 @@ const Hero = () => {
           </div>
 
           <div className="relative z-10 font-semibold transition-all duration-300 ease-out group-hover:-translate-y-full group-hover:opacity-0">
-            Launch Rocket
+            Start your journey
           </div>
 
           <div className="absolute inset-0 flex items-center justify-center font-bold text-2xl transition-all duration-300 ease-out translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
@@ -66,7 +66,6 @@ const Hero = () => {
           </div>
         </AnimatedLink>
       </T>
-      
     </section>
   );
 };

@@ -9,7 +9,7 @@ export default function Home() {
     <main className="">
       <Hero />
       <Earth />
-      <WhyUs />
+
       <EndOFPage />
       <Sun />
     </main>
