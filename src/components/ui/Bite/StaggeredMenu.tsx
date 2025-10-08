@@ -4,7 +4,14 @@ import { gsap } from "gsap";
 import { useGT } from "gt-next";
 import Link from "next/link";
 import { T } from "gt-next";
-import { SignedIn, UserButton, useUser } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+  useUser,
+} from "@clerk/nextjs";
 
 export interface StaggeredMenuItem {
   label: string;
@@ -51,7 +58,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const [open, setOpen] = useState(false);
   const t = useGT();
   const openRef = useRef(false);
-  const { isSignedIn } = useUser();
+  const { user } = useUser();
 
   const panelRef = useRef<HTMLDivElement | null>(null);
   const preLayersRef = useRef<HTMLDivElement | null>(null);
@@ -468,8 +475,26 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           </Link>
           <div className="flex justify-center items-center gap-6">
             <SignedIn>
-              <UserButton />
+              <Link href="/profile" className="flex items-center gap-2">
+                <img
+                  src={user?.imageUrl}
+                  alt="User Avatar"
+                  className="w-10 h-10 rounded-full border border-white/20"
+                />
+              </Link>
             </SignedIn>
+            <SignedOut>
+              <SignInButton
+                mode="modal"
+                appearance={{
+                  baseTheme: dark,
+                }}
+              >
+                <button className="px-4 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition">
+                  Sign In
+                </button>
+              </SignInButton>
+            </SignedOut>
 
             <button
               ref={toggleBtnRef}
@@ -564,32 +589,6 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                   </span>
                 </li>
               )}
-              <li
-                className="sm-panel-itemWrap relative overflow-hidden leading-none"
-                key={"Get in touch" + 8}
-              >
-                {isSignedIn ? (
-                  <Link
-                    className={`relative text-black font-semibold text-[4rem] cursor-pointer leading-none tracking-[-2px] uppercase transition-[background,color] duration-150 ease-linear inline-block no-underline `}
-                    href={"/profile"}
-                    onClick={toggleMenu}
-                  >
-                    <span className="sm-panel-item sm-panel-itemLabel inline-block [transform-origin:50%_100%] will-change-transform pb-3">
-                      <T>Profile</T>
-                    </span>
-                  </Link>
-                ) : (
-                  <Link
-                    className={`relative text-black font-semibold text-[4rem] cursor-pointer leading-none tracking-[-2px] uppercase transition-[background,color] duration-150 ease-linear inline-block no-underline `}
-                    href={"/register"}
-                    onClick={toggleMenu}
-                  >
-                    <span className="sm-panel-item sm-panel-itemLabel inline-block [transform-origin:50%_100%] will-change-transform pb-3">
-                      <T>Register</T>
-                    </span>
-                  </Link>
-                )}
-              </li>
             </ul>
 
             {displaySocials && socialItems && socialItems.length > 0 && (
