@@ -158,6 +158,8 @@ export default function Page() {
         dialogues={dialogues}
         link="/levels"
         questions={questions}
+        scanBadge="Level_1"
+        QuestionsBadge="Q_Level_1"
       />
     </section>
   );

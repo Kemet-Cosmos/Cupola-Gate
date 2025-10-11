@@ -1,5 +1,7 @@
-import DialogueAnimation from "@/components/Scane";
+"use client";
 import React from "react";
+import DialogueAnimation from "@/components/Scane";
+
 import { useGT } from "gt-next";
 const page = () => {
   const t = useGT();
@@ -18,7 +20,7 @@ const page = () => {
       text: t(
         "And I'm Mr. Comet! Always curious, full of questions, and ready to explore with you"
       ),
-      image: "/MSComet.jpg",
+      image: "/MsComet.png",
     },
     {
       id: 3,
@@ -29,9 +31,14 @@ const page = () => {
       image: "/MissStar.jpg",
     },
   ];
+
   return (
     <div>
-      <DialogueAnimation dialogues={dialogues} link="/levels" />
+      <DialogueAnimation
+        dialogues={dialogues}
+        link="/levels"
+        scanBadge="Welcome"
+      />
     </div>
   );
 };

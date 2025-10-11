@@ -12,6 +12,7 @@ import {
   Lightbulb,
   LucideIcon,
   Volleyball,
+  Telescope,
 } from "lucide-react";
 
 export interface BadgeConfig {
@@ -26,9 +27,19 @@ export interface BadgeConfig {
 }
 
 export const badgeConfigs: Record<string, BadgeConfig> = {
+  Welcome: {
+    title: "first journey",
+    description: "Just Started your journey",
+    icon: Telescope,
+    color: "rgba(108, 117, 125, 0.9)",
+    bgColor: "rgba(233, 236, 239, 0.15)",
+    borderColor: "rgba(233, 236, 239, 0.3)",
+    rarity: "common",
+    points: 10,
+  },
   Level_0: {
     title: "Level 0",
-    description: "Just starting your journey",
+    description: "learned the basics",
     icon: Sprout,
     color: "rgba(108, 117, 125, 0.9)",
     bgColor: "rgba(233, 236, 239, 0.15)",

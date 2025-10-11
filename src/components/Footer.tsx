@@ -5,8 +5,10 @@ import { AnimatedImage } from "./ui/Media_UI/AnimatedImage";
 import { useGT } from "gt-next";
 import Link from "next/link";
 import { T } from "gt-next";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+  const pathname = usePathname();
   const t = useGT();
   const menuItems = [
     { label: t("Home"), ariaLabel: t("Go to home page"), link: "/" },
@@ -21,7 +23,13 @@ const Footer = () => {
     { label: "GitHub", link: "https://github.com" },
     { label: "LinkedIn", link: "https://linkedin.com" },
   ];
-
+  if (
+    pathname.startsWith("/levels") ||
+    pathname.startsWith("/profile") ||
+    pathname.startsWith("/badge") ||
+    pathname.startsWith("/HiMessage")
+  )
+    return null;
   return (
     <div className="mt-20 relative min-h-96 flex flex-col lg:flex-row justify-between items-center text-center lg:text-start lg:items-start gap-7 overflow-hidden px-5 lg:px-10 bg-black/50 py-10  ">
       <h3 className="flex justify-center items-center gap-2 w-fit">

@@ -133,12 +133,7 @@ export default function Page() {
     {
       id: 2,
       question: t("Which instrument studies how plants handle heat and water?"),
-      options: [
-        t("ECOSTRESS"),
-        t("OCO-3"),
-        t("GEDI"),
-        t("TSIS-1"),
-      ],
+      options: [t("ECOSTRESS"), t("OCO-3"), t("GEDI"), t("TSIS-1")],
       correct: t("ECOSTRESS"),
     },
     {
@@ -191,6 +186,8 @@ export default function Page() {
       <DialogueAnimation
         dialogues={dialogues}
         link="/levels"
+        QuestionsBadge="Q_Level_2"
+        scanBadge="Level_2"
         questions={questions}
       />
     </section>

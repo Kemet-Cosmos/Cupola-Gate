@@ -155,7 +155,7 @@ export default function Page() {
   ];
   return (
     <section>
-      <DialogueAnimation dialogues={dialogues} link="/levels" />
+      <DialogueAnimation dialogues={dialogues} link="/levels" scanBadge="Level_0"/>
     </section>
   );
 }
