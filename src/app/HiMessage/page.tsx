@@ -3,15 +3,17 @@ import React from "react";
 import DialogueAnimation from "@/components/Scane";
 
 import { useGT } from "gt-next";
+import { useUser } from "@clerk/nextjs";
 const page = () => {
+  const { user } = useUser();
   const t = useGT();
   const dialogues = [
     {
       id: 1,
       character: t("Miss Star"),
-      text: t(
-        "Hello, explorer. I’m Miss Star. I’m here to guide you through the science and facts behind the Cupola. Think of me as your calm instructor from orbit.  "
-      ),
+      text: `Hi ${user?.firstName} ${t(
+        " I’m Miss Star. I’m here to guide you through the science and facts behind the Cupola. Think of me as your calm instructor from orbit.  "
+      )} `,
       image: "/MissStar.jpg",
     },
     {
