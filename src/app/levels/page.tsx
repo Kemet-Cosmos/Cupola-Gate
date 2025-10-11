@@ -10,7 +10,14 @@ import Loading from "@/components/ui/Loading";
 import { useRouter } from "next/navigation";
 import Sun from "@/components/ui/Planets/Sun";
 import Earth from "@/components/ui/Planets/Earth";
-import { Animate, FadeLeft, FadeRight } from "@/Animation";
+import {
+  Animate,
+  FadeLeft,
+  FadeRight,
+  FadeUp,
+  transition,
+  ViewPort,
+} from "@/Animation";
 
 const MotionLink = motion.create(Link);
 
@@ -23,32 +30,31 @@ export default function Page() {
   const levels = [
     {
       id: 1,
-      Link: 0,
+
       title: t("The Basics"),
       desc: t("Learn about the Cupola and its role"),
     },
     {
       id: 2,
-      Link: 1,
 
       title: t("Level 1"),
       desc: t("Learn about the Cupola and its role"),
     },
     {
       id: 3,
-      Link: 2,
+
       title: t("Level 2"),
       desc: t("Natural disaster observation"),
     },
     {
       id: 4,
-      Link: 3,
+
       title: t("Level 3"),
       desc: t("Working with astronauts and cameras"),
     },
     {
       id: 5,
-      Link: 4,
+
       title: t("Level 4"),
       desc: t("Final mission challenge!"),
     },
@@ -94,7 +100,7 @@ export default function Page() {
       </section>
     );
   return (
-    <section className="relative !pt-24 lg:!pt-10 flex flex-col items-center justify-center text-white px-6 py-12 overflow-hidden">
+    <section className="relative !pt-24 lg:!pt-20 flex flex-col items-center justify-center text-white px-6 py-12 overflow-hidden">
       <motion.h1
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -106,11 +112,11 @@ export default function Page() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl">
         {levels.map((lvl, index) => {
-          const isUnlocked = lvl.Link === 0 || hasBadge(lvl.Link - 1);
+          const isUnlocked = lvl.id - 1 === 0 || hasBadge(lvl.id - 2);
 
           return (
             <MotionLink
-              href={isUnlocked ? `/levels/level${lvl.Link}` : "#"}
+              href={isUnlocked ? `/levels/level${lvl.id - 1}` : "#"}
               key={lvl.id}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: !isUnlocked ? 0.4 : 1, y: 0 }}
@@ -140,6 +146,44 @@ export default function Page() {
             </MotionLink>
           );
         })}
+      </div>
+
+      <div className="mt-20 flex flex-col justify-center items-center">
+        <motion.h1 {...ViewPort} {...FadeUp}>
+          Try Those Too
+        </motion.h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 w-fit gap-5 my-10">
+          {[
+            {
+              title: "NBL",
+              link: "/levels/NBL",
+              description: "try to achieve perfect balance!",
+            },
+            {
+              title: "Chat Bot",
+              link: "/Chat",
+              description: "Talk To Star",
+            },
+          ].map((item, i) => (
+            <MotionLink
+              key={i}
+              href={item.link}
+              {...ViewPort}
+              {...FadeUp}
+              {...transition}
+              className="flex flex-col justify-center items-center bg-gradient-to-b from-white/3 to-white/2/0 rounded-2xl shadow-xl p-6 text-center "
+            >
+              <h4 className="!text-3xl mb-3">{item.title}</h4>
+              <p className="!text-lg mb-6">{item.description}</p>
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                className={`px-5 py-2 rounded-xl bg-indigo-600  transition font-medium`}
+              >
+                <T>Start</T>
+              </motion.button>
+            </MotionLink>
+          ))}
+        </div>
       </div>
       <motion.div
         {...Animate}

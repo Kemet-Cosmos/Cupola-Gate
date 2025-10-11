@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { Animate, opacity, transition } from "@/Animation";
+import { Animate, opacity } from "@/Animation";
 import BadgeToast from "./Badges/BadgeToast";
 import { X } from "lucide-react";
 import Link from "next/link";

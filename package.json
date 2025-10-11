@@ -17,6 +17,7 @@
     "gsap": "^3.13.0",
     "gt-next": "^6.6.1",
     "lucide-react": "^0.544.0",
+    "matter-js": "^0.20.0",
     "mongoose": "^8.19.1",
     "next": "15.5.3",
     "react": "19.1.0",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/matter-js": "^0.20.2",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
