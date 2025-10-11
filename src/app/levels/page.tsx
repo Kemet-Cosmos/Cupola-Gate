@@ -8,6 +8,9 @@ import { useGT } from "gt-next";
 import Link from "next/link";
 import Loading from "@/components/ui/Loading";
 import { useRouter } from "next/navigation";
+import Sun from "@/components/ui/Planets/Sun";
+import Earth from "@/components/ui/Planets/Earth";
+import { Animate, FadeLeft, FadeRight } from "@/Animation";
 
 const MotionLink = motion.create(Link);
 
@@ -91,7 +94,7 @@ export default function Page() {
       </section>
     );
   return (
-    <section className="mt-10 flex flex-col items-center justify-center text-white px-6 py-12">
+    <section className="relative !pt-24 lg:!pt-10 flex flex-col items-center justify-center text-white px-6 py-12 overflow-hidden">
       <motion.h1
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -138,6 +141,22 @@ export default function Page() {
           );
         })}
       </div>
+      <motion.div
+        {...Animate}
+        {...FadeRight}
+        transition={{ duration: 1, delay: 0.2 }}
+        className="absolute -bottom-[800px] -right-[600px] -z-10"
+      >
+        <Sun />
+      </motion.div>
+      <motion.div
+        {...Animate}
+        {...FadeLeft}
+        transition={{ duration: 1, delay: 0.2 }}
+        className="absolute -top-[800px] -left-[600px] -z-10"
+      >
+        <Earth />
+      </motion.div>
     </section>
   );
 }

@@ -68,7 +68,7 @@ const Footer = () => {
           ))}
         </div>
       </div>
-      <div className="absolute -bottom-[460px] -right-[460px] -z-10">
+      <div className="absolute -bottom-[660px] -right-[660px] -z-10">
         <Sun />
       </div>
     </div>

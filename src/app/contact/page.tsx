@@ -15,6 +15,7 @@ export default function Page() {
   const [type, setType] = useState("issue");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   useEffect(() => {
     if (isSignedIn && user) {
@@ -34,24 +35,52 @@ export default function Page() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError("");
 
-    // Simulate submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "e7029218-643e-46ed-80a6-d305482adde0",
+          from_name: "Kemet Cosmos, CupolaGate website",
+          name,
+          email,
+          phone,
+          type,
+          message,
+        }),
+      });
 
-    setIsSubmitting(false);
-    setSubmitSuccess(true);
+      const result = await response.json();
 
-    // Reset form after success
-    setTimeout(() => {
-      setSubmitSuccess(false);
-      if (!isSignedIn) {
-        setName("");
-        setEmail("");
+      if (result.success) {
+        setIsSubmitting(false);
+        setSubmitSuccess(true);
+
+        setTimeout(() => {
+          setSubmitSuccess(false);
+          if (!isSignedIn) {
+            setName("");
+            setEmail("");
+          }
+          setPhone("");
+          setMessage("");
+          setType("issue");
+        }, 3000);
+      } else {
+        throw new Error(result.message || "Failed to send message");
       }
-      setPhone("");
-      setMessage("");
-      setType("issue");
-    }, 3000);
+    } catch (error) {
+      setIsSubmitting(false);
+      setSubmitError(
+        error instanceof Error ? error.message : "Failed to send message"
+      );
+      setTimeout(() => setSubmitError(""), 5000);
+    }
   };
 
   return (
@@ -95,6 +124,25 @@ export default function Page() {
             <p className="!text-sm text-blue-300 flex items-center gap-2">
               <BadgeInfo size={26} />
               <T>We prefilled your name and email from your account</T>
+            </p>
+          </motion.div>
+        )}
+
+        {submitError && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl"
+          >
+            <p className="!text-sm text-red-300 flex items-center gap-2">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              {submitError}
             </p>
           </motion.div>
         )}

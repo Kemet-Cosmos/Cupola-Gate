@@ -530,8 +530,8 @@ Link {
 
 /* For Sun  */
 .section-banner-sun {
-  height: 800px;
-  width: 800px;
+  height: 1000px;
+  width: 1000px;
   position: relative;
   transition: left 0.3s linear;
   background: url(/Sun.jpg);
