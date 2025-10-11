@@ -4,6 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useGT, T } from "gt-next";
 import { useUser } from "@clerk/nextjs";
 import { BadgeInfo, Lock } from "lucide-react";
+import Pluto from "@/components/ui/Planets/Pluto";
+import Earth from "@/components/ui/Planets/Earth";
+import { opacity } from "@/Animation";
 
 export default function Page() {
   const t = useGT();
@@ -84,7 +87,7 @@ export default function Page() {
   };
 
   return (
-    <section className="mt-20 flex items-center justify-center p-4 sm:p-6 text-white relative overflow-hidden">
+    <section className="relative mt-20 flex items-center justify-center p-4 sm:p-6 text-white overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -382,6 +385,17 @@ export default function Page() {
             </motion.form>
           )}
         </AnimatePresence>
+      </motion.div>
+      <motion.div
+        {...opacity}
+        animate={{ opacity: 0.4 }}
+        className="absolute bottom-10 right-10 flex flex-col justify-center items-center gap-3 text-center"
+      >
+        <Pluto />
+        Pluto
+      </motion.div>
+      <motion.div className="absolute -top-[700px] -left-[700px]">
+        <Earth />
       </motion.div>
     </section>
   );
