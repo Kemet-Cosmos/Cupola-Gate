@@ -2,28 +2,72 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
+import { useUser } from "@clerk/nextjs";
+import BadgeToast from "@/components/Badges/BadgeToast";
 
 type Message = {
   id: number;
   from: "ai" | "user";
   text: string;
 };
+
 export default function MarsAIChat() {
+  const { user } = useUser();
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
       from: "ai",
-      text: "Hello! I'm Star",
+      text: `Hello ${user?.firstName}, I'm Star`,
     },
   ]);
 
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
+
   const listRef = useRef<HTMLDivElement | null>(null);
+  const [toast, setToast] = useState<string>("");
+  const [showToast, setShowToast] = useState<boolean>(false);
+
+  useEffect(() => {
+    addBadge("Chat");
+    setToast("Chat");
+  }, []);
+
+  useEffect(() => {
+    const userMessages = messages.filter((m) => m.from === "user").length;
+    if (userMessages === 10) {
+      addBadge("Chat_10");
+      setToast("Chat Legend");
+    }
+  }, [messages]);
 
   useEffect(() => {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight });
   }, [messages]);
+
+  const addBadge = async (badgeTitle: string) => {
+    try {
+      const response = await fetch("/api/badge", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title: badgeTitle }),
+      });
+
+      const data = await response.json();
+
+      if (data.error) {
+        console.error("Badge already exists:", data.error);
+        return;
+      }
+
+      setShowToast(true);
+      console.log(`Badge awarded: ${badgeTitle}`);
+    } catch (error) {
+      console.error("Error adding badge:", error);
+    }
+  };
 
   async function onSend(e?: React.FormEvent) {
     e?.preventDefault();
@@ -130,6 +174,14 @@ export default function MarsAIChat() {
               {sending ? "Analyzing..." : "Send"}
             </motion.button>
           </form>
+
+          {/* Badges Display */}
+          <BadgeToast
+            show={showToast}
+            onClose={() => setShowToast(false)}
+            title="New Badge Earned!"
+            message={`You unlocked ${toast}`}
+          />
         </main>
       </div>
     </div>
