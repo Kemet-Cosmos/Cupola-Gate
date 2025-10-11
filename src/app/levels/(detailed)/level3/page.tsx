@@ -227,12 +227,16 @@ export default function Page() {
         "What’s the overall mission of observing Earth from space on the ISS?"
       ),
       options: [
-        t("To understand and protect our planet through continuous observation"),
+        t(
+          "To understand and protect our planet through continuous observation"
+        ),
         t("To prepare for future moon missions"),
         t("To study alien life forms"),
         t("To test new astronaut suits"),
       ],
-      correct: t("To understand and protect our planet through continuous observation"),
+      correct: t(
+        "To understand and protect our planet through continuous observation"
+      ),
     },
   ];
 
@@ -242,6 +246,8 @@ export default function Page() {
         dialogues={dialogues}
         link="/levels"
         questions={questions}
+        scanBadge="Level_3"
+        QuestionsBadge="Q_Level_3"
       />
     </section>
   );

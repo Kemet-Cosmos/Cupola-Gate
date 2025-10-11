@@ -119,7 +119,12 @@ export default function Level4Page() {
 
   return (
     <section className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 text-white flex items-center justify-center p-8">
-      <DialogueAnimation dialogues={dialogues} link="/levels" />
+      <DialogueAnimation
+        dialogues={dialogues}
+        link="/levels"
+        scanBadge="Level_4"
+        QuestionsBadge="Q_Level_4"
+      />
     </section>
   );
 }
