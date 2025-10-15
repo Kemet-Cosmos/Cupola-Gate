@@ -27,6 +27,7 @@ const Footer = () => {
     pathname.startsWith("/levels") ||
     pathname.startsWith("/profile") ||
     pathname.startsWith("/badge") ||
+    pathname.startsWith("/explore") ||
     pathname.startsWith("/HiMessage")
   )
     return null;

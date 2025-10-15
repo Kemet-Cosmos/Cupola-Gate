@@ -471,7 +471,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               width={110}
               height={24}
             />
-            <h4>CupolaGate</h4>
+            <h4 className="hidden sm:inline">CupolaGate</h4>
           </Link>
           <div className="flex justify-center items-center gap-6">
             <SignedIn>

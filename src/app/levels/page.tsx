@@ -18,6 +18,7 @@ import {
   transition,
   ViewPort,
 } from "@/Animation";
+import { AnimatedImage } from "@/components/ui/Media_UI/AnimatedImage";
 
 const MotionLink = motion.create(Link);
 
@@ -129,7 +130,7 @@ export default function Page() {
               <h2 className="!text-3xl font-semibold mb-3">{lvl.title}</h2>
               <p className="!text-lg text-gray-300 mb-6">
                 {!isUnlocked
-                  ? `Complete Level ${lvl.id - 1} to unlock this level`
+                  ? `Complete Level ${lvl.id - 2} to unlock this level`
                   : lvl.desc}
               </p>
               <motion.button
@@ -157,11 +158,19 @@ export default function Page() {
             {
               title: "NBL",
               link: "/levels/NBL",
+              image: "/NBL.jpg",
               description: "try to achieve perfect balance!",
             },
             {
               title: "Chat Bot",
               link: "/Chat",
+              image: "/Chat.png",
+              description: "Talk To Star",
+            },
+            {
+              title: "Cupola",
+              link: "/explore",
+              image: "/Cupola.jpg",
               description: "Talk To Star",
             },
           ].map((item, i) => (
@@ -171,16 +180,40 @@ export default function Page() {
               {...ViewPort}
               {...FadeUp}
               {...transition}
-              className="flex flex-col justify-center items-center bg-gradient-to-b from-white/3 to-white/2/0 rounded-2xl shadow-xl p-6 text-center "
+              className="  bg-gradient-to-b from-white/3 to-white/2/0 rounded-2xl shadow-xl "
             >
-              <h4 className="!text-3xl mb-3">{item.title}</h4>
-              <p className="!text-lg mb-6">{item.description}</p>
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                className={`px-5 py-2 rounded-xl bg-indigo-600  transition font-medium`}
+              <motion.div
+                key={item.title}
+                variants={{ rest: { y: 0 }, hover: { y: -5 } }}
+                initial="rest"
+                whileHover="hover"
+                transition={{ duration: 0.1 }}
               >
-                <T>Start</T>
-              </motion.button>
+                <motion.div
+                  {...FadeUp}
+                  {...Animate}
+                  transition={{ duration: 0.3 }}
+                  className="relative w-full max-w-xl h-[450px] border border-neutral-400/20 p-5 rounded-2xl overflow-hidden flex flex-col justify-between"
+                >
+                  <motion.div
+                    variants={{
+                      rest: { width: "0px", height: "0px" },
+                      hover: { width: "150%", height: "150%" },
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute -bottom-28 -right-28 bg-white/40 rounded-full "
+                  />
+
+                  <AnimatedImage
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-2/3 object-cover rounded-2xl"
+                    noAnimate
+                  />
+                  <h3>{item.title}</h3>
+                  <p>{item.description.slice(0, 60) + "...."}</p>
+                </motion.div>
+              </motion.div>
             </MotionLink>
           ))}
         </div>

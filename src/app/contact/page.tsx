@@ -87,7 +87,7 @@ export default function Page() {
   };
 
   return (
-    <section className="relative mt-20 flex items-center justify-center p-4 sm:p-6 text-white overflow-hidden">
+    <section className="relative !pt-24 flex items-center justify-center p-4 sm:p-6 text-white overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

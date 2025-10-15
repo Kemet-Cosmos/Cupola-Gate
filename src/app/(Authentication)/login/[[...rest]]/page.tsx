@@ -1,9 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { SignIn } from "@clerk/nextjs";
+import { ClerkLoaded, ClerkLoading, SignIn } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { motion } from "framer-motion";
 import { Animate, FadeUp } from "@/Animation";
+import Loading from "@/components/ui/Loading";
 export default function Page() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -14,13 +15,18 @@ export default function Page() {
 
   return (
     <section className="flex justify-center items-center">
-      <motion.div {...FadeUp} {...Animate} transition={{ duration: 0.6 }}>
-        <SignIn
-          appearance={{
-            baseTheme: dark,
-          }}
-        />
-      </motion.div>
+      <ClerkLoading>
+        <Loading/>
+      </ClerkLoading>
+      <ClerkLoaded>
+        <motion.div {...FadeUp} {...Animate} transition={{ duration: 0.6 }}>
+          <SignIn
+            appearance={{
+              baseTheme: dark,
+            }}
+          />
+        </motion.div>
+      </ClerkLoaded>
     </section>
   );
 }

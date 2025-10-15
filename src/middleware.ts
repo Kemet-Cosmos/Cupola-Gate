@@ -7,7 +7,7 @@ export default clerkMiddleware(async (auth, req) => {
 
   const blockedForSignedIn = ["/login", "/register", "/sign-in", "/sign-up"];
 
-  const protectedRoutes = ["/profile", "/levels", "/Chat"];
+  const protectedRoutes = ["/profile", "/levels", "/Chat","/explore"];
 
   if (userId) {
     if (blockedForSignedIn.some((path) => url.pathname.startsWith(path))) {
