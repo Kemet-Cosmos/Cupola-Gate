@@ -43,7 +43,7 @@ const Hero = () => {
         {...FadeUp}
         transition={{ duration: transition.transition.duration, delay: 1 }}
       >
-        <T>Here you will get a really good trip</T>
+        <T>Get ready for an unforgettable learning adventure.</T>
       </motion.p>
       <T>
         <AnimatedLink

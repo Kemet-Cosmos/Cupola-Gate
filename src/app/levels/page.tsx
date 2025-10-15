@@ -222,7 +222,7 @@ export default function Page() {
         {...Animate}
         {...FadeRight}
         transition={{ duration: 1, delay: 0.2 }}
-        className="absolute -bottom-[800px] -right-[600px] -z-10"
+        className="absolute -bottom-[600px] -right-[500px] -z-10"
       >
         <Sun />
       </motion.div>
@@ -230,7 +230,7 @@ export default function Page() {
         {...Animate}
         {...FadeLeft}
         transition={{ duration: 1, delay: 0.2 }}
-        className="absolute -top-[800px] -left-[600px] -z-10"
+        className="absolute -top-[570px] -left-[500px] -z-10"
       >
         <Earth />
       </motion.div>

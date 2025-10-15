@@ -1,12 +1,5 @@
 "use client";
-import {
-  FadeLeft,
-  FadeRight,
-  FadeUp,
-  opacity,
-  transition,
-  ViewPort,
-} from "@/Animation";
+import { FadeLeft, FadeRight, FadeUp, transition, ViewPort } from "@/Animation";
 import { T } from "gt-next";
 import { motion } from "framer-motion";
 import { AnimatedImage } from "../ui/Media_UI/AnimatedImage";
@@ -17,9 +10,12 @@ const WhyUs = () => {
       <motion.h1
         {...FadeUp}
         {...ViewPort}
-        className="px-5 py-3 rounded-2xl bg-black/45 w-fit mx-auto"
+        className="px-5 py-3 rounded-2xl w-fit mx-auto"
       >
-        <T> Why Us ?</T>
+        <T>
+          {" "}
+          Why <span className="text-indigo-600">Us</span> ?
+        </T>
       </motion.h1>
 
       <div className="flex flex-col justify-center items-center gap-10 mt-20">
@@ -39,7 +35,7 @@ const WhyUs = () => {
               <T> Learn</T>
             </motion.h1>
             <motion.p
-              {...opacity}
+              {...FadeRight}
               {...ViewPort}
               {...transition}
               className="text-center md:text-start"
@@ -61,7 +57,7 @@ const WhyUs = () => {
               <T>Having Fun</T>
             </motion.h1>
             <motion.p
-              {...opacity}
+              {...FadeLeft}
               {...ViewPort}
               {...transition}
               className="text-center md:text-start"
@@ -94,7 +90,7 @@ const WhyUs = () => {
               <T>Community</T>
             </motion.h1>
             <motion.p
-              {...opacity}
+              {...FadeRight}
               {...ViewPort}
               {...transition}
               className="text-center md:text-start"
@@ -114,7 +110,7 @@ const WhyUs = () => {
               <T>Competitive</T>
             </motion.h1>
             <motion.p
-              {...opacity}
+              {...FadeLeft}
               {...ViewPort}
               {...transition}
               className="text-center md:text-start"

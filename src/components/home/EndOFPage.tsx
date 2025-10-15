@@ -29,7 +29,9 @@ const EndOFPage = () => {
         className="max-w-2xl space-y-5"
       >
         <h1>
-          <T>Save your spot</T>
+          <T>
+            Save Your <span className="mark"> Spot </span>
+          </T>
         </h1>
         <p>
           <T>

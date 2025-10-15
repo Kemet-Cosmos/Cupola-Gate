@@ -36,6 +36,10 @@ a {
   @apply cursor-pointer disabled:cursor-not-allowed;
 }
 
+.mark {
+  @apply text-indigo-600;
+}
+
 /* For earth  */
 .section-banner {
   height: 1000px;

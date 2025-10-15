@@ -5,27 +5,33 @@ import { AudioLines, Award, Bot } from "lucide-react";
 import { AnimatedImage } from "../ui/Media_UI/AnimatedImage";
 import { transition } from "@/Animation";
 import Button from "../ui/Button";
+import { useGT } from "gt-next";
+import { T } from "gt-next";
 
 const Features = () => {
+  const t = useGT();
   const features = [
     {
-      title: "EnterActive Levels",
-      description:
-        "Engage users with dynamic levels that grow as they interact and participate more on the platform.",
+      title: t("EnterActive Levels"),
+      description: t(
+        "Engage users with dynamic levels that grow as they interact and participate more on the platform."
+      ),
       icon: AudioLines,
       image: "/Level.png",
     },
     {
-      title: "AI Chat Bot",
-      description:
-        "An intelligent assistant that provides instant answers, guidance, and support to enhance user experience.",
+      title: t("AI Chat Bot"),
+      description: t(
+        "An intelligent assistant that provides instant answers, guidance, and support to enhance user experience."
+      ),
       icon: Bot,
       image: "/Chat Ai.png",
     },
     {
-      title: "Achievement & Badges",
-      description:
-        "Reward users for their progress and milestones with unique badges and achievements to boost motivation.",
+      title: t("Achievement & Badges"),
+      description: t(
+        "Reward users for their progress and milestones with unique badges and achievements to boost motivation."
+      ),
       icon: Award,
       image: "/Badge.png",
     },
@@ -41,7 +47,9 @@ const Features = () => {
             {...transition}
             className="mb-3"
           >
-            One Platform. Endless Exploration.
+            <T>
+              One Platform. <span className="mark"> Endless </span> Exploration.
+            </T>
           </motion.h3>
           <motion.p
             {...FadeLeft}
@@ -49,9 +57,11 @@ const Features = () => {
             {...transition}
             className="!text-lg mb-10"
           >
-            Learn about the Cupola and NBL like never before. Rotate the 3D
-            Earth, explore iconic locations, chat with AI, and earn badges and
-            certificates along your journey.
+            <T>
+              Learn about the Cupola and NBL like never before. Rotate the 3D
+              Earth, explore iconic locations, chat with AI, and earn badges and
+              certificates along your journey.
+            </T>
           </motion.p>
         </div>
         <motion.div

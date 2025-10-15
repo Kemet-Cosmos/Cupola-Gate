@@ -7,6 +7,7 @@ import Link from "next/link";
 import Pluto from "../ui/Planets/Pluto";
 import Moon from "../ui/Planets/Moon";
 import Button from "../ui/Button";
+import { T } from "gt-next";
 
 const MotionLink = motion.create(Link);
 
@@ -30,7 +31,9 @@ const Gallery = () => {
         {...transition}
         className="text-center"
       >
-        Discover Every Place
+        <T>
+          Discover <span className="mark"> Every </span> Place
+        </T>
       </motion.h1>
       <motion.p
         {...FadeUp}
@@ -38,16 +41,20 @@ const Gallery = () => {
         {...transition}
         className="text-center mt-4"
       >
-        Explore the world by rotating an interactive 3D globe.
+        <T>Explore the world by rotating an interactive 3D globe.</T>
       </motion.p>
 
-      <div className="lg:w-3xl mx-auto">
+      <motion.div
+        {...FadeUp}
+        {...ViewPort}
+        {...transition}
+        className="lg:w-3xl mx-auto"
+      >
         <RollingGallery autoplay={true} pauseOnHover={true} images={Images} />
-      </div>
-      <motion.div className="w-full flex justify-center  ">
-        <Button text="Explore Now!" url="/explore" className="text-xl" />
+        <div className="w-full flex justify-center  ">
+          <Button text="Explore Now!" url="/explore" className="text-xl" />
+        </div>
       </motion.div>
-
       <motion.div
         {...FadeRight}
         {...ViewPort}
@@ -55,7 +62,7 @@ const Gallery = () => {
         className="absolute top-4 -right-32 lg:right-10 flex flex-col gap-3 justify-center items-center text-white/30 -z-10"
       >
         <Pluto />
-        Pluto
+        <T>Pluto</T>
       </motion.div>
       <motion.div
         {...FadeLeft}
@@ -64,7 +71,7 @@ const Gallery = () => {
         className="absolute bottom-4 -left-32 lg:left-10 flex flex-col gap-3 justify-center items-center text-white/30 -z-10"
       >
         <Moon />
-        Moon
+        <T>Moon</T>
       </motion.div>
     </div>
   );

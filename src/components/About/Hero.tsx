@@ -28,7 +28,7 @@ const Hero = () => {
       <div className="text-center lg:text-start">
         <motion.h1 {...FadeLeft} {...Animate} {...transition}>
           <T>
-            About <span className="text-blue-500">Us</span>
+            About <span className="text-indigo-600">Us</span>
           </T>
         </motion.h1>
         <motion.p
