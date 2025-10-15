@@ -1,5 +1,6 @@
 import Earth from "@/components/home/Earth";
 import EndOFPage from "@/components/home/EndOFPage";
+import FAQs from "@/components/home/FAQs";
 import Features from "@/components/home/Features";
 import Gallery from "@/components/home/Gallery";
 import Hero from "@/components/home/Hero";
@@ -12,6 +13,7 @@ export default function Home() {
       <Earth />
       <Features />
       <Gallery/>
+      <FAQs/>
       <EndOFPage />
       <Sun />
     </main>

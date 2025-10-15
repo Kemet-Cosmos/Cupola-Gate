@@ -32,7 +32,7 @@ section {
   @apply min-h-screen px-5 lg:px-10 overflow-hidden;
 }
 button,
-Link {
+a {
   @apply cursor-pointer disabled:cursor-not-allowed;
 }
 
@@ -43,7 +43,7 @@ Link {
   position: relative;
   transition: left 0.3s linear;
   /* background-image: url(/Earth.jpeg); */
-  background-image: url(/Earth3.jpeg);
+  background-image: url(/Planets_Map/Earth3.jpeg);
   background-size: cover;
   background-position: left;
   bottom: 0px;
@@ -58,7 +58,7 @@ Link {
   width: 200px;
   position: relative;
   transition: left 0.3s linear;
-  background-image: url(/Pluto.jpg);
+  background-image: url(/Planets_Map/Pluto.jpg);
   background-size: cover;
   background-position: left;
   bottom: 0px;
@@ -68,12 +68,27 @@ Link {
     15px 2px 25px #000 inset, -24px -2px 34px #c3f4ff25 inset,
     250px 0px 44px #00000066 inset, 150px 0px 38px #000000e0 inset;
 }
+.section-banner-Jupiter {
+  height: 1200px;
+  width: 1200px;
+  position: relative;
+  transition: left 0.3s linear;
+  background-image: url(/Planets_Map/jupitermap.jpg);
+  background-size: cover;
+  background-position: left;
+  bottom: 0px;
+  border-radius: 50%;
+  animation: earthRotate 30s linear 0s infinite;
+  box-shadow: 0px 0 20px RGBA(255, 255, 255, 0.2), -5px 0px 8px #c3f4ff inset,
+    15px 2px 25px #000 inset, -24px -2px 34px #c3f4ff99 inset,
+    250px 0px 44px #00000066 inset, 150px 0px 38px #000000aa inset;
+}
 .section-banner-Moon {
   height: 200px;
   width: 200px;
   position: relative;
   transition: left 0.3s linear;
-  background-image: url(/Moon.jpg);
+  background-image: url(/Planets_Map/Moon.jpg);
   background-size: cover;
   background-position: left;
   bottom: 0px;
@@ -549,7 +564,7 @@ Link {
   width: 1000px;
   position: relative;
   transition: left 0.3s linear;
-  background: url(/Sun.jpg);
+  background-image: url(/Planets_Map/Sun.jpg);
   background-size: cover;
   background-position: left;
   bottom: 0px;

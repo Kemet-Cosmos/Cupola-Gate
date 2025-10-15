@@ -6,7 +6,7 @@ import AnimatedEarth from "../ui/Planets/Earth";
 
 const Earth = () => {
   return (
-    <div className="absolute -bottom-[670px] overflow-hidden h-[2000px] w-full">
+    <div className="absolute -bottom-[670px] overflow-hidden h-[2000px] w-full -z-10">
       <motion.div
         {...FadeUp}
         {...Animate}

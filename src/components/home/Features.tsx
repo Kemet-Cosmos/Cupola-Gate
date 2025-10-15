@@ -1,9 +1,11 @@
 "use client";
-import { FadeLeft, opacity, ViewPort } from "@/Animation";
+import { FadeLeft, FadeRight, opacity, ViewPort } from "@/Animation";
 import { motion } from "framer-motion";
 import { AudioLines, Award, Bot } from "lucide-react";
 import { AnimatedImage } from "../ui/Media_UI/AnimatedImage";
 import { transition } from "@/Animation";
+import Button from "../ui/Button";
+
 const Features = () => {
   const features = [
     {
@@ -28,32 +30,54 @@ const Features = () => {
       image: "/Badge.png",
     },
   ];
+
   return (
-    <section className="">
-      <motion.h2 {...FadeLeft} {...ViewPort} {...transition} className="mb-3">
-        One PlatForm. To learn
-      </motion.h2>
-      <motion.p {...FadeLeft} {...ViewPort} {...transition} className="mb-10">
-        Click through to see how Planquo adapts to each layer of your team’s
-        productivity.
-      </motion.p>
-      <motion.div
-        {...opacity}
-        {...ViewPort}
-        {...transition}
-        className="grid md:grid-cols-2 lg:grid-cols-3 rounded-2xl overflow-hidden border border-blue-600/40"
-      >
+    <section className=" z-20">
+      <div className="flex justify-between items-center w-full">
+        <div className="md:w-3/5">
+          <motion.h3
+            {...FadeLeft}
+            {...ViewPort}
+            {...transition}
+            className="mb-3"
+          >
+            One Platform. Endless Exploration.
+          </motion.h3>
+          <motion.p
+            {...FadeLeft}
+            {...ViewPort}
+            {...transition}
+            className="!text-lg mb-10"
+          >
+            Learn about the Cupola and NBL like never before. Rotate the 3D
+            Earth, explore iconic locations, chat with AI, and earn badges and
+            certificates along your journey.
+          </motion.p>
+        </div>
+        <motion.div
+          {...FadeRight}
+          {...ViewPort}
+          {...transition}
+          className="hidden md:inline"
+        >
+          <Button text="Start Now!" url="/register" className="text-xl" />
+        </motion.div>
+      </div>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 rounded-2xl overflow-hidden border border-indigo-600/40">
         {features.map((item, i) => (
-          <div
+          <motion.div
             key={i}
-            className={`flex flex-col justify-between   w-full  border border-blue-600/40  ${
+            {...opacity}
+            {...ViewPort}
+            {...transition}
+            className={`flex flex-col justify-between   w-full  border border-indigo-600/40  ${
               i === features.length - 1
                 ? "md:col-span-2 lg:col-span-1 "
                 : "col-span-1"
             }`}
           >
             <div className="p-8 space-y-4">
-              <item.icon className="w-14 h-14 p-4 border border-blue-700 bg-blue-600/40 rounded-full text-white" />
+              <item.icon className="w-14 h-14 p-4 border border-indigo-700 bg-indigo-600/40 rounded-full text-white" />
               <h5>{item.title}</h5>
               <p className="!text-lg">{item.description}</p>
             </div>
@@ -65,9 +89,9 @@ const Features = () => {
                 noAnimate
               />
             </div>
-          </div>
+          </motion.div>
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 };

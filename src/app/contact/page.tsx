@@ -100,7 +100,7 @@ export default function Page() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-3xl sm:text-4xl font-bold mb-2 bg-gradient-to-br from-blue-600 to-blue-400  bg-clip-text text-transparent"
+            className="text-3xl sm:text-4xl font-bold mb-2 bg-gradient-to-br from-indigo-600 to-indigo-400  bg-clip-text text-transparent"
           >
             <T>Contact Us</T>
           </motion.div>
@@ -122,9 +122,9 @@ export default function Page() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="mb-6 p-4 bg-blue-500/10 border border-blue-500/20 rounded-xl"
+            className="mb-6 p-4 bg-indigo-500/10 border border-indigo-500/20 rounded-xl"
           >
-            <p className="!text-sm text-blue-300 flex items-center gap-2">
+            <p className="!text-sm text-indigo-300 flex items-center gap-2">
               <BadgeInfo size={26} />
               <T>We prefilled your name and email from your account</T>
             </p>
@@ -212,9 +212,9 @@ export default function Page() {
                   }}
                   readOnly={isSignedIn}
                   required
-                  className={`w-full p-3.5 rounded-xl  border border-white/10 outline-none focus:border-blue-500/50 focus:bg-white/10 transition-all ${
+                  className={`w-full p-3.5 rounded-xl  border border-white/10 outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all ${
                     isSignedIn
-                      ? "cursor-not-allowed opacity-70 bg-blue-600/30"
+                      ? "cursor-not-allowed opacity-70 bg-indigo-600/30"
                       : " bg-white/5"
                   }`}
                   placeholder={t("Enter your name")}
@@ -245,9 +245,9 @@ export default function Page() {
                   }}
                   readOnly={isSignedIn}
                   required
-                  className={`w-full p-3.5 rounded-xl border border-white/10 outline-none focus:border-blue-500/50 focus:bg-white/10 transition-all ${
+                  className={`w-full p-3.5 rounded-xl border border-white/10 outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all ${
                     isSignedIn
-                      ? "cursor-not-allowed opacity-70 bg-blue-600/30"
+                      ? "cursor-not-allowed opacity-70 bg-indigo-600/30"
                       : "bg-white/5"
                   }`}
                   placeholder={t("your@email.com")}
@@ -274,7 +274,7 @@ export default function Page() {
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full p-3.5 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-blue-500/50 focus:bg-white/10 transition-all"
+                  className="w-full p-3.5 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all"
                   placeholder={t("+20 123 456 7890")}
                 />
               </motion.div>
@@ -292,7 +292,7 @@ export default function Page() {
                   whileTap={{ scale: 0.995 }}
                   value={type}
                   onChange={(e) => setType(e.target.value)}
-                  className="w-full p-3.5 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-blue-500/50 focus:bg-white/10 transition-all cursor-pointer"
+                  className="w-full p-3.5 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all cursor-pointer"
                   required
                 >
                   <option value="issue" className="bg-[#1e293b]">
@@ -321,7 +321,7 @@ export default function Page() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   required
-                  className="w-full p-3.5 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-blue-500/50 focus:bg-white/10 transition-all h-32 resize-none"
+                  className="w-full p-3.5 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all h-32 resize-none"
                   placeholder={t("Tell us how we can help you...")}
                 />
                 <p className="!text-xs mt-1.5">
@@ -338,7 +338,7 @@ export default function Page() {
                 whileTap={{ scale: 0.98 }}
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full px-6 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 transition-all font-semibold text-base shadow-lg shadow-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full px-6 py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 transition-all font-semibold text-base shadow-lg shadow-indigo-500/25 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>

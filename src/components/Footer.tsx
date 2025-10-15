@@ -48,7 +48,7 @@ const Footer = () => {
         <div className="px-5 flex flex-col gap-3 w-fit mt-5">
           {menuItems.map((item, i) => (
             <Link href={item.link} key={i}>
-              <h5 className="text-neutral-500 hover:text-blue-500 hover:translate-x-3 duration-100">
+              <h5 className="text-neutral-500 hover:text-indigo-500 hover:translate-x-3 duration-100">
                 {item.label}
               </h5>
             </Link>
@@ -62,7 +62,7 @@ const Footer = () => {
         <div className="px-5 flex flex-col gap-3 w-fit mt-5">
           {socialItems.map((item, i) => (
             <Link href={item.link} key={i}>
-              <h5 className="text-neutral-500 hover:text-blue-500 hover:translate-x-3 duration-100">
+              <h5 className="text-neutral-500 hover:text-indigo-500 hover:translate-x-3 duration-100">
                 {item.label}
               </h5>
             </Link>
