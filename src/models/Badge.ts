@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const badgeSchema = new mongoose.Schema({
   clerkId: { type: String, required: true },
+  fullName: { type: String, required: true },
   title: {
     type: String,
     required: true,
@@ -15,6 +16,7 @@ const badgeSchema = new mongoose.Schema({
       "Chat",
       "Chat_10",
       "NBL",
+      "GlobeExplorer",
       "Q_Level_1",
       "Q_Level_2",
       "Q_Level_3",

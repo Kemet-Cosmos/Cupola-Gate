@@ -13,6 +13,7 @@ import {
   LucideIcon,
   Volleyball,
   Telescope,
+  Earth,
 } from "lucide-react";
 
 export interface BadgeConfig {
@@ -109,6 +110,16 @@ export const badgeConfigs: Record<string, BadgeConfig> = {
     points: 150,
   },
 
+  GlobeExplorer: {
+    title: "Globe Explorer",
+    description: "For Discovering  all Places on the 3D Globe",
+    icon: Earth,
+    color: "rgba(255, 107, 53, 0.9)",
+    bgColor: "rgba(255, 107, 53, 0.15)",
+    borderColor: "rgba(255, 107, 53, 0.3)",
+    rarity: "legendary",
+    points: 300,
+  },
   NBL: {
     title: "NBL",
     description: "National Big League member",

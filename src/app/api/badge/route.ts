@@ -11,16 +11,19 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { title } = await req.json();
+    const { title, fullName } = await req.json();
 
     if (!title) {
       return NextResponse.json({ error: "Title is required" }, { status: 400 });
     }
 
     await connectDB();
-
+    if (!fullName) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
     const existingBadge = await Badge.findOne({
       clerkId: userId,
+      fullName: fullName,
       title,
     });
 
@@ -33,6 +36,7 @@ export async function POST(req: Request) {
 
     const newBadge = await Badge.create({
       clerkId: userId,
+      fullName,
       title,
     });
 

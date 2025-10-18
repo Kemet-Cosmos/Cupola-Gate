@@ -6,6 +6,7 @@ import BadgeCard from "./BadgeCard";
 
 interface BadgeListProps {
   badges: Badge[];
+  all?: boolean;
   variant?: "card" | "inline" | "large";
 }
 
@@ -90,12 +91,7 @@ export default function BadgeList({
 
   if (variant === "large") {
     return (
-      <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
+      <>
         {sortedBadges.map((badge) => (
           <motion.div
             key={badge._id}
@@ -119,7 +115,7 @@ export default function BadgeList({
             </motion.div>
           </motion.div>
         ))}
-      </motion.div>
+      </>
     );
   }
 
@@ -135,14 +131,14 @@ export default function BadgeList({
           }}
           className="rounded-lg overflow-hidden bg-white/5 backdrop-blur-md border border-white/10 transition-all duration-300 cursor-pointer"
         >
-          <BadgeCard title={badge.title} />
+          <BadgeCard title={badge.title}  />
           <motion.div
             className="px-4 py-3 border-t border-white/10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            <p className="m-0 text-sm font-medium text-white/50">
+            <p className="m-0 !text-sm font-medium text-white/50">
               {formatDate(badge.createdAt || new Date())}
             </p>
           </motion.div>

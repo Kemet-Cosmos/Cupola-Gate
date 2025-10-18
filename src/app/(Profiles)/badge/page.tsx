@@ -37,8 +37,8 @@ export default function Page() {
         ) : badges.length === 0 ? (
           <p>You don't have any badges yet</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            <BadgeList badges={badges} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-4">
+            <BadgeList badges={badges} variant="large" />
           </div>
         )}
       </div>

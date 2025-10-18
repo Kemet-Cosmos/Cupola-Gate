@@ -6,6 +6,7 @@ import { Animate, opacity } from "@/Animation";
 import BadgeToast from "./Badges/BadgeToast";
 import { X } from "lucide-react";
 import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
 
 type Dialogue = {
   id: number;
@@ -40,6 +41,7 @@ export default function DialogueAnimation({
   isFinished,
   QuestionsBadge,
 }: Props) {
+  const { user } = useUser();
   const [current, setCurrent] = useState(isFinished ? dialogues.length : 0);
   const [finished, setFinished] = useState(false);
   const [showToast, setShowToast] = useState<boolean>(false);
@@ -57,7 +59,7 @@ export default function DialogueAnimation({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ title: newBadge }),
+        body: JSON.stringify({ title: newBadge, fullName: user?.fullName }),
       });
 
       const data = await response.json();
@@ -77,13 +79,14 @@ export default function DialogueAnimation({
   };
 
   useEffect(() => {
+    if (!user) return;
     if (current === dialogues.length - 1) {
       setFinished(true);
       Add(scanBadge);
     } else {
       setFinished(false);
     }
-  }, [current, dialogues.length]);
+  }, [current, user, dialogues.length]);
 
   const shuffleArray = <T,>(arr: T[]): T[] => {
     return [...arr].sort(() => Math.random() - 0.5);

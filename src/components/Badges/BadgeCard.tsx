@@ -46,7 +46,7 @@ export default function BadgeCard({
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ scale: 1.03, y: -4 }}
         whileTap={{ scale: 0.98 }}
-        className={`p-6 rounded-xl text-center ${
+        className={`relative p-6 rounded-xl text-center ${
           onClick ? "cursor-pointer" : "cursor-default"
         }`}
         style={{
@@ -63,16 +63,28 @@ export default function BadgeCard({
           <Icon size={56} color={config.color} strokeWidth={1.5} />
         </motion.div>
         <h3
-          className="m-0 font-bold text-lg tracking-tight"
+          className="m-0 font-bold !text-lg tracking-tight"
           style={{ color: config.color }}
         >
           {config.title}
         </h3>
         <p
-          className="m-0 mt-2 text-sm font-medium opacity-85"
+          className="m-0 mt-2 !text-sm   opacity-85"
           style={{ color: config.color }}
         >
           {config.description}
+        </p>
+        <p
+          className="absolute top-2 right-2  !text-xs   opacity-85"
+          style={{ color: config.color }}
+        >
+          {config.points} Points
+        </p>
+        <p
+          className="absolute top-2 left-2  !text-sm !font-bold opacity-85"
+          style={{ color: config.color }}
+        >
+          {config.rarity} 
         </p>
       </motion.div>
     );
@@ -103,12 +115,12 @@ export default function BadgeCard({
         </motion.div>
         <div className="flex-1 min-w-0">
           <h5
-            className="m-0 font-bold text-base"
+            className="m-0 font-bold !text-base"
             style={{ color: config.color }}
           >
             {config.title}
           </h5>
-          <p className="m-0 mt-1 text-xs font-medium text-gray-400 line-clamp-2">
+          <p className="m-0 mt-1 !text-xs font-medium text-gray-400 line-clamp-2">
             {config.description}
           </p>
         </div>

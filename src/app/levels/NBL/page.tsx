@@ -4,8 +4,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import Matter from "matter-js";
 import BadgeToast from "@/components/Badges/BadgeToast";
 import { Animate, FadeLeft, transition } from "@/Animation";
+import { useUser } from "@clerk/nextjs";
 
 const NBLSimulation = () => {
+  const { user } = useUser();
   const [weight, setWeight] = useState<number>(0);
   const [buoyantForce, setBuoyantForce] = useState<number>(0);
   const [netForce, setNetForce] = useState<number>(0);
@@ -76,6 +78,7 @@ const NBLSimulation = () => {
   }, []);
 
   useEffect(() => {
+    if (!user) return;
     if (canvasRef.current && weight > 0) {
       const engine = Matter.Engine.create({ gravity: { y: 0.1 } });
       const render = Matter.Render.create({
@@ -157,6 +160,7 @@ const NBLSimulation = () => {
           });
         });
       }
+
       const Add = async (newBadge: string) => {
         try {
           const response = await fetch("/api/badge", {
@@ -164,7 +168,7 @@ const NBLSimulation = () => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ title: newBadge }),
+            body: JSON.stringify({ title: newBadge, fullName: user?.fullName }),
           });
 
           const data = await response.json();

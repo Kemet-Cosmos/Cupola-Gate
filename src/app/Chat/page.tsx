@@ -29,6 +29,7 @@ export default function MarsAIChat() {
   const [showToast, setShowToast] = useState<boolean>(false);
 
   useEffect(() => {
+    if (!user) return;
     addBadge("Chat");
     setToast("Chat");
   }, []);
@@ -52,7 +53,7 @@ export default function MarsAIChat() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ title: badgeTitle }),
+        body: JSON.stringify({ title: badgeTitle, fullName: user?.fullName }),
       });
 
       const data = await response.json();

@@ -3,8 +3,9 @@ import { withGTConfig } from "gt-next/config";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   turbopack: {
-    root: "C:\\Users\\Apolo\\Coding\\Cupola-Gate",
+    root: process.cwd(),
   },
+  outputFileTracingRoot: process.cwd(),
 };
 
 export default withGTConfig(nextConfig, {
