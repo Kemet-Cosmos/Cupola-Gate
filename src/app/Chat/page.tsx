@@ -4,6 +4,7 @@ import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUser } from "@clerk/nextjs";
 import BadgeToast from "@/components/Badges/BadgeToast";
+import { opacity, Animate, FadeUp, transition, FadeLeft } from "@/Animation";
 
 type Message = {
   id: number;
@@ -125,9 +126,17 @@ export default function MarsAIChat() {
     <div className="min-h-screen p-6 flex items-center justify-center">
       <div className="w-full max-w-6xl mt-10">
         {/* Chat area */}
-        <main className=" bg-gradient-to-b from-white/3 to-white/2/0 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
-          <div
+        <motion.main
+          {...FadeUp}
+          {...Animate}
+          {...transition}
+          className=" bg-gradient-to-b from-white/3 to-white/2/0 rounded-3xl p-6 shadow-2xl relative overflow-hidden"
+        >
+          <motion.div
             ref={listRef}
+            {...opacity}
+            {...Animate}
+            transition={{ delay: 0.2 }}
             className="h-[75vh] overflow-auto p-4 rounded-2xl bg-gradient-to-b from-white/4 to-transparent border border-white/5"
           >
             <ul className="flex flex-col gap-4">
@@ -153,23 +162,28 @@ export default function MarsAIChat() {
                 ))}
               </AnimatePresence>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Input */}
           <form onSubmit={onSend} className="mt-6 flex items-center gap-3">
-            <motion.div whileFocus={{ scale: 1.01 }} className="flex-1">
-              <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Type your waste description or question..."
-                className="w-full rounded-2xl p-3 bg-white/5 placeholder:text-neutral-400 outline-none"
-              />
-            </motion.div>
+            <motion.input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Type your waste description or question..."
+              whileFocus={{ scale: 1.01 }}
+              {...FadeUp}
+              {...Animate}
+              transition={{ delay: 0.2, ...transition.transition }}
+              className="flex-1 w-full rounded-2xl p-3 bg-white/5 placeholder:text-neutral-400 outline-none"
+            />
 
             <motion.button
-              whileTap={{ scale: 0.95 }}
               type="submit"
+              whileTap={{ scale: 0.95 }}
               disabled={sending}
+              {...FadeLeft}
+              {...Animate}
+              transition={{ delay: 0.2, ...transition.transition }}
               className="px-4 py-2 rounded-2xl bg-gradient-to-br from-indigo-600 to-indigo-400 text-white flex items-center gap-2 disabled:opacity-50"
             >
               {sending ? "Analyzing..." : "Send"}
@@ -183,7 +197,7 @@ export default function MarsAIChat() {
             title="New Badge Earned!"
             message={`You unlocked ${toast}`}
           />
-        </main>
+        </motion.main>
       </div>
     </div>
   );
