@@ -89,11 +89,17 @@ const Chart = () => {
     .filter((n) => !isNaN(n))
     .sort((a, b) => a - b);
   const lastLevel =
-    levelBadges.length > 0 ? levelBadges[levelBadges.length - 1] : 0;
+    levelBadges.length > 0 ? levelBadges[levelBadges.length - 1] : 1;
+ 
+  const currentLevelData =
+    lastLevel <= 0
+      ? levels.find((lvl) => lvl.id === 1)
+      : levels.find((lvl) => lvl.id === lastLevel + 1);
 
-  const currentLevelData = levels.find((lvl) => lvl.id === lastLevel + 1);
-  const nextLevelData = levels.find((lvl) => lvl.id === lastLevel + 2);
-
+  const nextLevelData =
+    lastLevel <= 0
+      ? levels.find((lvl) => lvl.id === 2)
+      : levels.find((lvl) => lvl.id === lastLevel + 2);
   const allLevelsCompleted = lastLevel >= levels.length - 1;
 
   const fetchBadges = async () => {
@@ -277,33 +283,41 @@ const Chart = () => {
           </span>
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2   gap-6">
-          <MotionLink
-            href={`/levels/level${currentLevelData?.id! - 1}`}
-            initial="rest"
-            animate="animate"
-            whileHover="hover"
-            variants={{
-              rest: { ...FadeUp.initial },
-              animate: { ...Animate.animate },
-            }}
-            transition={{ ...transition.transition, delay: 0.9 }}
-            className="relative min-h-60 rounded-2xl flex flex-col justify-center items-center gap-3 border border-white/45 text-center p-5 bg-gradient-to-b from-white/3 to-white/2/0 overflow-hidden"
-          >
-            <motion.div
-              variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
-              className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black/60 cursor-pointer text-2xl font-bold "
+          {currentLevelData?.id && (
+            <MotionLink
+              href={
+                currentLevelData?.id === 1
+                  ? "/levels/level0"
+                  : `/levels/level${currentLevelData?.id! - 1}`
+              }
+              initial="rest"
+              animate="animate"
+              whileHover="hover"
+              variants={{
+                rest: { ...FadeUp.initial },
+                animate: { ...Animate.animate },
+              }}
+              transition={{ ...transition.transition, delay: 0.9 }}
+              className="relative min-h-60 rounded-2xl flex flex-col justify-center items-center gap-3 border border-white/45 text-center p-5 bg-gradient-to-b from-white/3 to-white/2/0 overflow-hidden"
             >
-              <T>Click To Replay </T>
-            </motion.div>
-            <h2>{currentLevelData?.title}</h2>
-            <p>{currentLevelData?.desc}</p>
-            <span className="absolute top-2 left-2 bg-indigo-500 p-2 rounded-2xl ">
-              {t("Current Level")}
-            </span>
-          </MotionLink>
+              <motion.div
+                variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
+                className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black/60 cursor-pointer text-2xl font-bold "
+              >
+                <T>Click To Replay </T>
+              </motion.div>
+              <h2>{currentLevelData?.title}</h2>
+              <p>{currentLevelData?.desc}</p>
+              <span className="absolute top-2 left-2 bg-indigo-500 p-2 rounded-2xl ">
+                {t("Current Level")}
+              </span>
+            </MotionLink>
+          )}
           {nextLevelData ? (
             <MotionLink
-              href={`/levels/level${nextLevelData?.id! - 1}`}
+              href={
+                `/levels/Level_${nextLevelData?.id! - 1}`
+              }
               initial="rest"
               animate="animate"
               whileHover="hover"
@@ -363,36 +377,38 @@ const Chart = () => {
           </span>
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2   gap-6">
-          <MotionLink
-            href={`/levels/level${currentLevelExamData?.id! - 1}`}
-            initial="rest"
-            animate="animate"
-            whileHover="hover"
-            variants={{
-              rest: { ...FadeUp.initial },
-              animate: { ...Animate.animate },
-            }}
-            transition={{ ...transition.transition, delay: 0.9 }}
-            className="relative min-h-60 rounded-2xl flex flex-col justify-center items-center gap-3 border border-white/45 text-center p-5 bg-gradient-to-b from-white/3 to-white/2/0 overflow-hidden"
-          >
-            <motion.div
-              variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
-              className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black/60 cursor-pointer text-2xl font-bold "
+          {currentLevelExamData?.id != 1 && (
+            <MotionLink
+              href={`/levels/Level_${currentLevelExamData?.id! - 1}/Exam`}
+              initial="rest"
+              animate="animate"
+              whileHover="hover"
+              variants={{
+                rest: { ...FadeUp.initial },
+                animate: { ...Animate.animate },
+              }}
+              transition={{ ...transition.transition, delay: 0.9 }}
+              className="relative min-h-60 rounded-2xl flex flex-col justify-center items-center gap-3 border border-white/45 text-center p-5 bg-gradient-to-b from-white/3 to-white/2/0 overflow-hidden"
             >
-              <T>Click To Replay </T>
-            </motion.div>
-            <h2>
-              <T>Exam</T>
-              {currentLevelExamData?.id! - 1}
-            </h2>
-            <p>{currentLevelExamData?.desc}</p>
-            <span className="absolute top-2 left-2 bg-indigo-500 p-2 rounded-2xl ">
-              {t("Completed Exam")}
-            </span>
-          </MotionLink>
+              <motion.div
+                variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
+                className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black/60 cursor-pointer text-2xl font-bold "
+              >
+                <T>Click To Replay </T>
+              </motion.div>
+              <h2>
+                <T>Exam</T>
+                {currentLevelExamData?.id! - 1}
+              </h2>
+              <p>{currentLevelExamData?.desc}</p>
+              <span className="absolute top-2 left-2 bg-indigo-500 p-2 rounded-2xl ">
+                {t("Completed Exam")}
+              </span>
+            </MotionLink>
+          )}
           {nextLevelExamData ? (
             <MotionLink
-              href={`/levels/level${nextLevelExamData?.id! - 1}`}
+              href={`/levels/Level_${nextLevelExamData?.id! - 1}/Exam`}
               initial="rest"
               animate="animate"
               whileHover="hover"

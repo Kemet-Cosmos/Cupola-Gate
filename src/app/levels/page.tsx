@@ -14,12 +14,7 @@ import {
   Animate,
   FadeLeft,
   FadeRight,
-  FadeUp,
-  transition,
-  ViewPort,
 } from "@/Animation";
-import { AnimatedImage } from "@/components/ui/Media_UI/AnimatedImage";
-
 const MotionLink = motion.create(Link);
 
 export default function Page() {
@@ -117,7 +112,7 @@ export default function Page() {
 
           return (
             <MotionLink
-              href={isUnlocked ? `/levels/level${lvl.id - 1}` : "#"}
+              href={isUnlocked ? lvl.id === 1 ? `/levels/level0` :`/levels/Level_${lvl.id - 1}` : "#"}
               key={lvl.id}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: !isUnlocked ? 0.4 : 1, y: 0 }}

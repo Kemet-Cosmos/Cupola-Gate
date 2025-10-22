@@ -9,9 +9,11 @@ import { T } from "gt-next";
 interface Props {
   text: string;
   url?: string;
+  title?: string;
   className?: string;
   onClick?: () => void;
   icon?: React.ReactNode;
+  disabled?: boolean;
 }
 
 const Button: React.FC<Props> = ({
@@ -20,6 +22,8 @@ const Button: React.FC<Props> = ({
   className,
   onClick,
   icon = <Rocket />,
+  disabled,
+  title,
 }) => {
   const router = useRouter();
 
@@ -31,6 +35,8 @@ const Button: React.FC<Props> = ({
         onClick?.();
         if (url) router.push(url);
       }}
+      disabled={disabled}
+      title={title}
       className={cn(
         `relative group overflow-hidden text-white text-lg py-3 px-8 
          rounded-2xl flex justify-center items-center gap-2 

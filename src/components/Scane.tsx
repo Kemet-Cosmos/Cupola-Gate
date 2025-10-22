@@ -343,7 +343,7 @@ export default function DialogueAnimation({
         show={showToast}
         onClose={() => setShowToast(false)}
         title={t("New Badge Earned!")}
-        message={t(`You unlocked ${toast}`)}
+        message={`${t("You unlocked")} ${toast}`}
       />
     </section>
   );
