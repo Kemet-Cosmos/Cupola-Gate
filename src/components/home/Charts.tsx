@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Award, Target, Trophy, Zap } from "lucide-react";
+import { Award, Settings, Target, Trophy, Zap } from "lucide-react";
 import {
   calculateAllBadgePoints,
   calculateTotalPoints,
@@ -171,8 +171,12 @@ const Chart = () => {
             Hi <span className="mark"> {user?.fullName} </span>{" "}
           </T>{" "}
         </motion.h1>
-
-        <LanguageSelector />
+        <div className="flex items-center gap-4">
+          <LanguageSelector />
+          <Link href={`/profile`} className="bg-indigo-500 rounded-2xl p-2 ">
+            <Settings size={35} />
+          </Link>
+        </div>{" "}
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <motion.div
