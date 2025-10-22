@@ -102,9 +102,9 @@ export default function Page() {
   return (
     <section className="mt-20">
       <h1>
-        <T>Exam</T> <span className="mark">{t(Level.title)}</span>
+        <T>Exam</T> <span className="mark">{Level.title}</span>
       </h1>
-      <p>{t(Level.desc)}</p>
+      <p>{Level.desc}</p>
       <div className="flex flex-col justify-center items-center max-w-4xl mx-auto my-5">
         <div className="space-y-6 h-fit pr-4">
           {shuffledQuestions.map((q, idx) => (
