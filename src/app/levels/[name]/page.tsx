@@ -160,14 +160,13 @@ export default function Page() {
         <div className="flex flex-col justify-center items-center gap-10 max-w-4xl pb-10">
           {Level.content.map((item) => (
             <div key={item.title}>
-              <h4 className="text-2xl mb-3">{translate(t, item.title)}</h4>
-              <p className="text-xl">{translate(t, item.desc)}</p>
+              <h4 className="!text-2xl mb-3">{translate(t, item.title)}</h4>
+              <p className="!text-xl">{translate(t, item.desc)}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* MODAL: Video/Voice Choice */}
       <AnimatePresence>
         {isVideo === null && (
           <motion.div
@@ -209,7 +208,7 @@ export default function Page() {
         )}
       </AnimatePresence>
 
-      {/* MODAL: Loading */}
+
       <AnimatePresence>
         {wait && (
           <motion.div
