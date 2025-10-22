@@ -1,55 +1,58 @@
 "use client";
+
 import CustomAudioPlayer from "@/components/ui/CustomAudioPlayer";
 import { AnimatedImage } from "@/components/ui/Media_UI/AnimatedImage";
 import { Levels } from "@/data/Levels";
-import { AnimatePresence } from "framer-motion";
-import { useGT } from "gt-next";
-import { T } from "gt-next";
+import { AnimatePresence, motion } from "framer-motion";
+import { useGT, T } from "gt-next";
 import { notFound, useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { Animate, FadeUp, opacity, transition } from "@/Animation";
 import Button from "@/components/ui/Button";
 import { useUser } from "@clerk/nextjs";
 import Loading from "@/components/ui/Loading";
 import { Crown } from "lucide-react";
 
+
+const translate = (t: (key: string) => string, text: string | undefined) => {
+  if (!text) return "";
+  try {
+    return t(text);
+  } catch {
+    return text;
+  }
+};
+
 export default function Page() {
   const params = useParams();
   const { user } = useUser();
   const route = useRouter();
   const [isVideo, setIsVideo] = useState<boolean | null>(null);
-  console.log(params.name);
   const Level = Levels.find((b) => b.href === params.name);
-  if (!Level) return notFound();
   const t = useGT();
-  const [wait, setWait] = useState<boolean>(false);
+  const [wait, setWait] = useState(false);
   const [success, setSuccess] = useState<boolean | null>(null);
   const [exists, setExists] = useState<boolean | null>(null);
 
+  if (!Level) return notFound();
+
+  // Add badge
   const Add = async (newBadge: string) => {
     try {
       const response = await fetch("/api/badge", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title: newBadge, fullName: user?.fullName }),
       });
-
       const data = await response.json();
-
-      if (data.error) {
-        console.error("Badge already exists:", data.error);
-
-        return;
-      }
+      if (data.error) return console.error("Badge already exists:", data.error);
       setSuccess(true);
     } catch (error) {
-      console.error("Error fetching badges:", error);
+      console.error("Error adding badge:", error);
     }
   };
 
+  // Check if badge exists
   useEffect(() => {
     const checkBadge = async () => {
       try {
@@ -57,11 +60,7 @@ export default function Page() {
           `/api/badge/ByName?title=${encodeURIComponent(Level.href)}`
         );
         const data = await res.json();
-        if (res.ok) {
-          setExists(data.exists);
-        } else {
-          console.error(data.error || "Unknown error");
-        }
+        setExists(res.ok ? data.exists : false);
       } catch (error) {
         console.error("Error checking badge:", error);
       }
@@ -70,8 +69,7 @@ export default function Page() {
   }, [Level.href]);
 
   const GoToExamButton = () => {
-    if (!success) return;
-    route.push(`/levels/${Level.href}/Exam`);
+    if (success) route.push(`/levels/${Level.href}/Exam`);
   };
 
   const ExamHandleButton = () => {
@@ -79,20 +77,19 @@ export default function Page() {
       setWait(true);
       Add(Level.href);
     } else {
-      if (!Level.questions) {
-        route.push(`/`);
-      } else {
-        route.push(`/levels/${Level.href}/Exam`);
-      }
+      route.push(Level.questions ? `/levels/${Level.href}/Exam` : "/");
     }
   };
+
   return (
-    <section className="mt-24 !px-5 flex flex-col lg:flex-row justify-center gap-10 max-w-7xl mx-auto">
+    <section className="mt-24 px-5 flex flex-col lg:flex-row justify-center gap-10 max-w-7xl mx-auto">
+      {/* LEFT SIDE */}
       <div className="w-full lg:w-2/4">
         <div className="mb-5">
-          <h1 className="mark">{t(Level.title)}</h1>
-          <p>{t(Level.desc)}</p>
+          <h1 className="mark">{translate(t, Level.title)}</h1>
+          <p>{translate(t, Level.desc)}</p>
         </div>
+
         {isVideo ? (
           <iframe
             src={Level.videoLink}
@@ -109,13 +106,15 @@ export default function Page() {
             />
           </div>
         )}
+
+        {/* Teacher Info */}
         <div className="bg-gradient-to-b from-white/3 to-white/2/0 border border-white/40 rounded-2xl mt-5 p-5">
-          <h5 className="mb-5 text- center">
+          <h5 className="mb-5 text-center">
             <T>
               Teacher <span className="mark">Info</span>
             </T>
           </h5>
-          <div className="flex items-center gap-5 ">
+          <div className="flex items-center gap-5">
             <AnimatedImage
               src={Level.teacher?.image}
               alt="teacher Image"
@@ -126,28 +125,34 @@ export default function Page() {
             <h6 className="text-2xl font-bold">{Level.teacher.name}</h6>
           </div>
         </div>
+
+        {/* Exam / Continue Section */}
         <div className="flex flex-col justify-center items-center gap-5 mt-5 bg-gradient-to-b from-white/3 to-white/2/0 border border-white/40 rounded-2xl p-5">
           <h5 className="text-center">
             {Level.questions ? (
               <T>
-                Ready For <span className="mark"> Exam </span> ?
+                Ready For <span className="mark">Exam</span> ?
               </T>
             ) : (
               <T>
-                Go Home , and Complete Your Tasks to earn{" "}
-                <span className="mark"> Certificate </span>
+                Go Home and Complete Your Tasks to earn{" "}
+                <span className="mark">Certificate</span>
               </T>
             )}
           </h5>
           <Button
-            disabled={exists === null ? true : false}
-            title={exists === null ? "Loading" : "Exam"}
-            text={t(Level.questions ? "Yes, Im Ready " : "Lets GOO !")}
+            disabled={exists === null}
+            text={
+              exists === null
+                ? "Loading..."
+                : translate(t, Level.questions ? "Yes, I'm Ready" : "Let's GOO!")
+            }
             onClick={ExamHandleButton}
           />
-          {/* disabled={exists  ? "true" : "false"} */}
         </div>
       </div>
+
+      {/* RIGHT SIDE */}
       <div className="w-full lg:w-2/4 lg:mt-10">
         <h4 className="mb-10 mark">
           <T>Content</T>
@@ -155,12 +160,14 @@ export default function Page() {
         <div className="flex flex-col justify-center items-center gap-10 max-w-4xl pb-10">
           {Level.content.map((item) => (
             <div key={item.title}>
-              <h4 className="!text-2xl mb-3">{t(item.title)}</h4>
-              <p className="!text-xl">{t(item.desc)}</p>
+              <h4 className="text-2xl mb-3">{translate(t, item.title)}</h4>
+              <p className="text-xl">{translate(t, item.desc)}</p>
             </div>
           ))}
         </div>
       </div>
+
+      {/* MODAL: Video/Voice Choice */}
       <AnimatePresence>
         {isVideo === null && (
           <motion.div
@@ -201,6 +208,8 @@ export default function Page() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* MODAL: Loading */}
       <AnimatePresence>
         {wait && (
           <motion.div
@@ -210,11 +219,11 @@ export default function Page() {
             {...transition}
             className="fixed top-0 left-0 w-full h-full bg-black/70 flex justify-center items-center z-40"
           >
-            <div>
-              <Loading />
-            </div>
+            <Loading />
           </motion.div>
         )}
+
+        {/* MODAL: Success */}
         {success && (
           <motion.div
             key="success"
@@ -239,15 +248,15 @@ export default function Page() {
                   <Crown size={35} />
                 </motion.div>
 
-                <h1 className="!text-2xl font-bold tracking-wide">
-                  Congratulations!
+                <h1 className="text-2xl font-bold tracking-wide">
+                  🎉 Congratulations!
                 </h1>
 
-                <p className="!text-white/80 !text-sm leading-relaxed">
+                <p className="text-white/80 text-sm leading-relaxed">
                   You’ve just earned a{" "}
                   <span className="text-yellow-300 font-semibold">
-                    new badge{" "}
-                  </span>
+                    new badge
+                  </span>{" "}
                   for your amazing progress! Keep going — more challenges await!
                 </p>
 
