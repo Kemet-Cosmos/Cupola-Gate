@@ -8,6 +8,7 @@ import {
   transition,
   ViewPort,
 } from "@/Animation";
+import Button from "@/components/ui/Button";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -178,6 +179,7 @@ export default function NBLPage() {
           </p>
         </motion.div>
       </div>
+      <Button text="Lets Practice !" url="/levels/NBL" className="mx-auto mb-20"/>
     </main>
   );
 }
