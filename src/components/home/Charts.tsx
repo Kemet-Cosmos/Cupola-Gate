@@ -163,19 +163,13 @@ const Chart = () => {
         <Loading />
       </section>
     );
-  if (!isSignedIn) {
-    return (
-      <div className="flex items-center justify-center h-full text-gray-400">
-        Please sign in to view achievements
-      </div>
-    );
-  }
-
   return (
     <div className="mt-24 mx-auto p-6 rounded-2xl shadow-2xl bg-gradient-to-b from-white/3 to-white/2/0  overflow-hidden w-11/12 min-h-screen">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-10">
         <motion.h1 {...FadeUp} {...Animate} {...transition} className="mb-4">
-          Hi <span className="mark"> {user?.fullName} </span>{" "}
+          <T>
+            Hi <span className="mark"> {user?.fullName} </span>{" "}
+          </T>{" "}
         </motion.h1>
 
         <LanguageSelector />
@@ -190,7 +184,7 @@ const Chart = () => {
           <Zap className="mb-3 h-10 w-10 text-blue-400" />
           <span className="text-4xl font-bold tracking-wide">{points}</span>
           <span className="text-sm uppercase tracking-wider text-gray-300">
-            Points Earned
+            <T> Points Earned</T>
           </span>
         </motion.div>
 
@@ -205,7 +199,7 @@ const Chart = () => {
             {TotalBadges}/{TotalAllBadges}
           </span>
           <span className="text-sm uppercase tracking-wider text-gray-300">
-            Badges Unlocked
+            <T> Badges Unlocked</T>
           </span>
         </motion.div>
 
@@ -229,11 +223,11 @@ const Chart = () => {
             transition={{ ...transition.transition, delay: 0.4 }}
             className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black/50 rounded-xl z-20 cursor-pointer"
           >
-            Click to explore badges
+            <T>Click to explore badges</T>
           </motion.div>
           <h3 className="!text-xl font-semibold mb-4 flex items-center tracking-tight">
             <Target className="mr-2 h-6 w-6 text-green-400" />
-            Progress Overview
+            <T> Progress Overview</T>
           </h3>
           <div className="relative w-40 h-40">
             <svg className="w-full h-full" viewBox="0 0 100 100">
@@ -275,9 +269,9 @@ const Chart = () => {
           transition={{ ...transition.transition, delay: 0.6 }}
           className="text-2xl font-bold mb-6"
         >
-          Levels{" "}
+          <T>Levels</T>{" "}
           <span className="mark text-lg">
-            {allLevelsCompleted ? "(All Completed!)" : ""}
+            {allLevelsCompleted ? t("( All Completed )") : ""}
           </span>
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2   gap-6">
@@ -338,8 +332,10 @@ const Chart = () => {
               transition={{ ...transition.transition, delay: 1.1 }}
               className="rounded-2xl border border-white/45 bg-indigo-500/70 flex flex-col justify-center items-center min-h-60"
             >
-              <h5>Its the End of your journey</h5>
-              <p> Finish Your Exams to get Certificate </p>
+              <T>
+                <h5>Its the End of your journey</h5>
+                <p> Finish Your Exams to get Certificate </p>
+              </T>
             </motion.div>
           )}
         </div>
@@ -349,7 +345,7 @@ const Chart = () => {
           transition={{ ...transition.transition, delay: 1.3 }}
           className="flex justify-center items-center my-4"
         >
-          <Button text="See All Levels" url="/levels" />
+          <Button text={t("See All Levels")} url="/levels" />
         </motion.div>
       </div>
       <div>
@@ -359,14 +355,14 @@ const Chart = () => {
           transition={{ ...transition.transition, delay: 0.6 }}
           className="text-2xl font-bold mb-6"
         >
-          Exams
+          <T>Exams</T>
           <span className="mark text-lg">
-            {allExamsCompleted ? "(All Completed!)" : ""}
+            {allExamsCompleted ? t("( All Completed )") : ""}
           </span>
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2   gap-6">
           <MotionLink
-            href={`/levels/level${currentLevelData?.id! - 1}`}
+            href={`/levels/level${currentLevelExamData?.id! - 1}`}
             initial="rest"
             animate="animate"
             whileHover="hover"
@@ -383,7 +379,10 @@ const Chart = () => {
             >
               <T>Click To Replay </T>
             </motion.div>
-            <h2>{currentLevelExamData?.title} Exam</h2>
+            <h2>
+              <T>Exam</T>
+              {currentLevelExamData?.id! - 1}
+            </h2>
             <p>{currentLevelExamData?.desc}</p>
             <span className="absolute top-2 left-2 bg-indigo-500 p-2 rounded-2xl ">
               {t("Completed Exam")}
@@ -409,7 +408,11 @@ const Chart = () => {
                 <T>Click when You ready </T>
               </motion.div>
 
-              <h2>{nextLevelExamData?.title}</h2>
+              <h2>
+                {" "}
+                <T>Exam</T>
+                {nextLevelExamData?.id! - 1}
+              </h2>
               <p>{nextLevelExamData?.desc}</p>
               <span className="absolute top-2 left-2 bg-indigo-500 p-2 rounded-2xl ">
                 {t("Next Exam")}
@@ -436,25 +439,25 @@ const Chart = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-fit gap-5 my-10">
           {[
             {
-              title: "NBL",
+              title: t("NBL"),
               link: "/levels/NBL",
               image: "/NBL.jpg",
               badgeTitle: "NBL",
-              description: "try to achieve perfect balance!",
+              description: t("try to achieve perfect balance!"),
             },
             {
-              title: "Chat Bot",
+              title: t("Chat Bot"),
               link: "/Chat",
               image: "/Chat.png",
               badgeTitle: "Chat",
-              description: "Talk To Star",
+              description: t("Talk To Star"),
             },
             {
-              title: "Cupola",
+              title: t("Cupola"),
               link: "/explore",
               image: "/Cupola.jpg",
               badgeTitle: "GlobeExplorer",
-              description: " explore the Earth in 3D!",
+              description: t("explore the Earth in 3D!"),
             },
           ].map((item, i) => (
             <MotionLink

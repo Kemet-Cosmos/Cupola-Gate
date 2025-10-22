@@ -149,7 +149,7 @@ export default function Page() {
         })}
       </div>
 
-      <div className="mt-20 flex flex-col justify-center items-center">
+      {/* <div className="mt-20 flex flex-col justify-center items-center">
         <motion.h1 {...ViewPort} {...FadeUp}>
           Try Those Too
         </motion.h1>
@@ -217,7 +217,7 @@ export default function Page() {
             </MotionLink>
           ))}
         </div>
-      </div>
+      </div> */}
       <motion.div
         {...Animate}
         {...FadeRight}

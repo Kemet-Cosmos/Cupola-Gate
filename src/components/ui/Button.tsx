@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { Rocket } from "lucide-react";
+import { T } from "gt-next";
 
 interface Props {
   text: string;
@@ -57,7 +58,7 @@ const Button: React.FC<Props> = ({
         duration-300 ease-out transform translate-y-full opacity-0 
         group-hover:translate-y-0 group-hover:opacity-100"
       >
-        GO!
+        <T>Lets Go !</T>
       </div>
     </motion.button>
   );
