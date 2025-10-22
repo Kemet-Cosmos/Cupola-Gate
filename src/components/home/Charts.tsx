@@ -167,9 +167,7 @@ const Chart = () => {
     <div className="mt-24 mx-auto p-6 rounded-2xl shadow-2xl bg-gradient-to-b from-white/3 to-white/2/0  overflow-hidden w-11/12 min-h-screen">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-10">
         <motion.h1 {...FadeUp} {...Animate} {...transition} className="mb-4">
-          <T>
-            Hi <span className="mark"> {user?.fullName} </span>{" "}
-          </T>{" "}
+          <T>Hi </T> <span className="mark"> {user?.fullName} </span>
         </motion.h1>
         <div className="flex items-center gap-4">
           <LanguageSelector />

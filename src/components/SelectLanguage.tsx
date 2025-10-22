@@ -28,13 +28,13 @@ const SelectLanguage = () => {
           {...opacity}
           {...Animate}
           {...transition}
-          className="fixed top-0 left-0 bg-black/40 w-full h-screen z-50 flex items-center justify-center"
+          className="fixed top-0 left-0 bg-black/40 w-full h-screen z-50 flex items-center justify-center px-5"
         >
           <motion.div
             {...FadeUp}
             {...Animate}
             transition={{ delay: 0.2 }}
-            className="relative overflow-hidden max-w-2xl flex flex-col justify-center items-center border border-indigo-600 rounded-2xl bg-black p-10"
+            className="relative overflow-hidden max-w-2xl flex flex-col justify-center items-center border border-indigo-600 rounded-2xl bg-black p-5 lg:p-10"
           >
             <button
               onClick={handleClose}
