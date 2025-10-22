@@ -6,8 +6,10 @@ import { useGT } from "gt-next";
 import Link from "next/link";
 import { T } from "gt-next";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@clerk/nextjs";
 
 const Footer = () => {
+  const { isSignedIn } = useAuth();
   const pathname = usePathname();
   const t = useGT();
   const menuItems = [
@@ -23,13 +25,15 @@ const Footer = () => {
     { label: "GitHub", link: "https://github.com" },
     { label: "LinkedIn", link: "https://linkedin.com" },
   ];
+  const okayOrNot = isSignedIn && pathname.startsWith("/");
   if (
     pathname.startsWith("/levels") ||
     pathname.startsWith("/profile") ||
     pathname.startsWith("/badge") ||
     pathname.startsWith("/explore") ||
     pathname.startsWith("/Chat") ||
-    pathname.startsWith("/HiMessage")
+    pathname.startsWith("/HiMessage") ||
+    okayOrNot
   )
     return null;
   return (
@@ -49,7 +53,7 @@ const Footer = () => {
         <div className="px-5 flex flex-col gap-3 w-fit mt-5">
           {menuItems.map((item, i) => (
             <Link href={item.link} key={i}>
-              <h5 className="text-neutral-500 hover:text-indigo-500 hover:translate-x-3 duration-100">
+              <h5 className="!text-xl text-neutral-500 hover:text-indigo-500 hover:translate-x-3 duration-100">
                 {item.label}
               </h5>
             </Link>
@@ -63,7 +67,7 @@ const Footer = () => {
         <div className="px-5 flex flex-col gap-3 w-fit mt-5">
           {socialItems.map((item, i) => (
             <Link href={item.link} key={i}>
-              <h5 className="text-neutral-500 hover:text-indigo-500 hover:translate-x-3 duration-100">
+              <h5 className="!text-xl text-neutral-500 hover:text-indigo-500 hover:translate-x-3 duration-100">
                 {item.label}
               </h5>
             </Link>
