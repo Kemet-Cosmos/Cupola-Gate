@@ -90,7 +90,7 @@ const Chart = () => {
     .sort((a, b) => a - b);
   const lastLevel =
     levelBadges.length > 0 ? levelBadges[levelBadges.length - 1] : 1;
- 
+
   const currentLevelData =
     lastLevel <= 0
       ? levels.find((lvl) => lvl.id === 1)
@@ -288,7 +288,7 @@ const Chart = () => {
               href={
                 currentLevelData?.id === 1
                   ? "/levels/level0"
-                  : `/levels/level${currentLevelData?.id! - 1}`
+                  : `/levels/Level_${currentLevelData?.id! - 1}`
               }
               initial="rest"
               animate="animate"
@@ -315,9 +315,7 @@ const Chart = () => {
           )}
           {nextLevelData ? (
             <MotionLink
-              href={
-                `/levels/Level_${nextLevelData?.id! - 1}`
-              }
+              href={`/levels/Level_${nextLevelData?.id! - 1}`}
               initial="rest"
               animate="animate"
               whileHover="hover"
@@ -458,7 +456,7 @@ const Chart = () => {
           {[
             {
               title: t("NBL"),
-              link: "/levels/NBL",
+              link: "/What_is_NBL",
               image: "/NBL.jpg",
               badgeTitle: "NBL",
               description: t("try to achieve perfect balance!"),
