@@ -5,6 +5,7 @@ import Features from "@/components/home/Features";
 import Gallery from "@/components/home/Gallery";
 import Hero from "@/components/home/Hero";
 import Sun from "@/components/home/Sun";
+import SelectLanguage from "@/components/SelectLanguage";
 import Loading from "@/components/ui/Loading";
 import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut } from "@clerk/nextjs";
 
@@ -19,6 +20,7 @@ export default function Home() {
           <Chart />
         </SignedIn>
         <SignedOut>
+          <SelectLanguage />
           <Hero />
           <Earth />
           <Features />
