@@ -7,6 +7,8 @@ import BadgeToast from "./Badges/BadgeToast";
 import { X } from "lucide-react";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
+import { T } from "gt-next";
+import { useGT } from "gt-next";
 
 type Dialogue = {
   id: number;
@@ -42,6 +44,7 @@ export default function DialogueAnimation({
   QuestionsBadge,
 }: Props) {
   const { user } = useUser();
+  const t = useGT();
   const [current, setCurrent] = useState(isFinished ? dialogues.length : 0);
   const [finished, setFinished] = useState(false);
   const [showToast, setShowToast] = useState<boolean>(false);
@@ -249,7 +252,7 @@ export default function DialogueAnimation({
                     onClick={() => setShowResults(true)}
                     className="px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-lg transition flex-1"
                   >
-                    Submit Answers
+                    <T>Submit Answers</T>
                   </button>
                 ) : (
                   <>
@@ -258,17 +261,17 @@ export default function DialogueAnimation({
                     </p>
                     {calculateScore() === shuffledQuestions.length ? (
                       <Link
-                        href="/levels"
+                        href="/"
                         className="px-8 py-3 bg-green-500 hover:bg-green-400 text-white rounded-xl font-bold text-lg transition"
                       >
-                        Continue
+                        <T>Continue</T>
                       </Link>
                     ) : (
                       <button
                         onClick={resetQuiz}
                         className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 text-white rounded-xl font-bold text-lg transition"
                       >
-                        Try Again
+                        <T>Try Again</T>{" "}
                       </button>
                     )}
                   </>
@@ -292,7 +295,7 @@ export default function DialogueAnimation({
                 : "bg-orange-600 hover:bg-orange-500"
             }`}
           >
-            ← Previous
+            ← <T>Previous</T>
           </motion.button>
 
           <span className="text-gray-400 font-medium">
@@ -309,7 +312,7 @@ export default function DialogueAnimation({
                 : "bg-green-600 hover:bg-green-500"
             }`}
           >
-            Next →
+            <T>Next</T> →
           </motion.button>
         </div>
       )}
@@ -322,7 +325,7 @@ export default function DialogueAnimation({
             onClick={goToNextPage}
             className="px-6 py-3 rounded-xl bg-green-600 hover:bg-green-500 transition text-white font-medium shadow-lg"
           >
-            Continue
+            <T>Continue</T>
           </motion.button>
 
           {questions.length > 0 && (
@@ -331,7 +334,7 @@ export default function DialogueAnimation({
               onClick={() => setShowQuestions(true)}
               className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 transition text-white font-medium shadow-lg"
             >
-              Exam
+              <T>Exam Questions</T>
             </motion.button>
           )}
         </div>
@@ -339,8 +342,8 @@ export default function DialogueAnimation({
       <BadgeToast
         show={showToast}
         onClose={() => setShowToast(false)}
-        title="New Badge Earned!"
-        message={`You unlocked ${toast}`}
+        title={t("New Badge Earned!")}
+        message={t(`You unlocked ${toast}`)}
       />
     </section>
   );

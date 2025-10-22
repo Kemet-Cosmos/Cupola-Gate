@@ -3,15 +3,14 @@ import { motion } from "framer-motion";
 import React from "react";
 import { FadeLeft, FadeRight, FadeUp, transition, ViewPort } from "@/Animation";
 import RollingGallery from "../ui/Bite/RollingGallery";
-import Link from "next/link";
 import Pluto from "../ui/Planets/Pluto";
 import Moon from "../ui/Planets/Moon";
 import Button from "../ui/Button";
 import { T } from "gt-next";
-
-const MotionLink = motion.create(Link);
+import { useGT } from "gt-next";
 
 const Gallery = () => {
+  const t = useGT();
   const Images = [
     "/Places/amazon.jpg",
     "/Places/Eiffel.avif",
@@ -52,7 +51,11 @@ const Gallery = () => {
       >
         <RollingGallery autoplay={true} pauseOnHover={true} images={Images} />
         <div className="w-full flex justify-center  ">
-          <Button text="Explore Now!" url="/explore" className="text-xl" />
+          <Button
+            text={t("Explore Now !")}
+            url="/explore"
+            className="text-xl"
+          />
         </div>
       </motion.div>
       <motion.div

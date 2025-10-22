@@ -70,7 +70,7 @@ const Features = () => {
           {...transition}
           className="hidden md:inline"
         >
-          <Button text="Start Now!" url="/register" className="text-xl" />
+          <Button text={t("Guide")} url="/guide" className="text-xl" />
         </motion.div>
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 rounded-2xl overflow-hidden border border-indigo-600/40">

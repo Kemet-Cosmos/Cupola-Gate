@@ -47,14 +47,14 @@ const Button: React.FC<Props> = ({
       </div>
 
       <div
-        className="relative z-10 font-semibold duration-300 ease-out transform 
+        className="relative z-10 font-bold duration-300 ease-out transform 
         group-hover:-translate-y-full group-hover:opacity-0"
       >
         {text}
       </div>
 
       <div
-        className="absolute inset-0 flex items-center justify-center font-bold text-2xl 
+        className="absolute inset-0 flex items-center justify-center font-bold 
         duration-300 ease-out transform translate-y-full opacity-0 
         group-hover:translate-y-0 group-hover:opacity-100"
       >

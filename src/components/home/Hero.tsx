@@ -7,14 +7,12 @@ import TextType from "../ui/Bite/TextType";
 import { Rocket } from "lucide-react";
 import { useGT } from "gt-next";
 import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
 const Hero = () => {
   const translate = useGT();
   const text1 = translate("Welcome to CupolaGate");
   const text2 = translate("Happy Learning!");
   const text3 = translate("We wish you an enjoyable time with us");
   const AnimatedLink = motion.create(Link);
-  const { user } = useUser();
 
   return (
     <section className="relative flex flex-col justify-center items-center gap-5 ">
@@ -50,7 +48,7 @@ const Hero = () => {
           {...Animate}
           {...FadeUp}
           transition={{ duration: transition.transition.duration, delay: 1.4 }}
-          href={user ? "/levels" : "/register"}
+          href="/register"
           className="relative group overflow-hidden text-white text-xl py-3 px-8 rounded-2xl flex justify-center items-center gap-2 bg-gradient-to-br from-blue-800 via-blue-600 to-purple-700 cursor-pointer select-none"
         >
           <div className="relative z-10 duration-300 ease-out group-hover:rotate-45 group-hover:translate-x-1 group-hover:-translate-y-1">
