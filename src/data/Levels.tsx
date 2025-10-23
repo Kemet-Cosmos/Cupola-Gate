@@ -437,6 +437,66 @@ See you among the stars.  `,
     ],
     videoLink:
       "https://drive.google.com/file/d/1YhimEC_TWhyCZQbtfeXFzj_0ckjQi-RD/preview",
-   
+    questions: [
+      {
+        id: 1,
+        question:
+          "What is the main role of the Cupola in natural disaster monitoring? ",
+        options: [
+          "Acting as a lookout to observe natural disasters on Earth",
+          "Measuring temperatures on other planets",
+          "Testing new space cameras ",
+          "Tracking stars in the galaxy",
+        ],
+        correct: "Acting as a lookout to observe natural disasters on Earth",
+      },
+      {
+        id: 2,
+        question: "How do astronauts use the Cupola during natural disasters?",
+        options: [
+          "Taking pictures of disasters to send to scientists",
+          "Building weather satellites",
+          " Studying moon craters",
+          "Monitoring space station orbits",
+        ],
+        correct: "Taking pictures of disasters to send to scientists",
+      },
+      {
+        id: 3,
+        question:
+          "What equipment helps astronauts in the Cupola capture disaster images?",
+        options: [
+          "Using a special camera and tracker to capture steady images",
+          "Using a telescope to view distant storms",
+          "Operating a robotic arm for photos",
+          "Measuring wind speeds with sensors",
+        ],
+        correct: "Using a special camera and tracker to capture steady images",
+      },
+      {
+        id: 4,
+        question:
+          "What do astronauts photograph from the Cupola during disasters?",
+        options: [
+          "Features of disasters like storm clouds and hurricane eyes",
+          "Stars and constellations",
+          "Ocean currents ",
+          " Space station components",
+        ],
+        correct: "Features of disasters like storm clouds and hurricane eyes",
+      },
+      {
+        id: 5,
+        question: "What happens to Cupola photos after they are taken?",
+        options: [
+          "They are sent to Earth for experts to analyze and add location data",
+          "They are stored on the ISS for astronauts ",
+          "They are used to navigate the ISS",
+          "They are shared with other planets",
+        ],
+        correct:
+          "They are sent to Earth for experts to analyze and add location data",
+      },
+    ],
   },
 ];

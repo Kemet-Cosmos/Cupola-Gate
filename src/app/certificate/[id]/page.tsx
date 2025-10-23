@@ -107,7 +107,7 @@ export default function Page() {
         Certificate from{" "}
         <Link
           href="/team"
-          className="mark hover:border-b-2 hover:border-indigo-600 duration-100"
+          className="mark hover:border-b-2 border-indigo-600 duration-100"
         >
           {" "}
           Kemet Cosmos
@@ -119,7 +119,7 @@ export default function Page() {
       </div>
 
       <section className="space-y-5 mt-10">
-        <h3 className="flex items-end gap-3">
+        <h3 className="flex flex-wrap items-end gap-3">
           <span className="mark">{data.Certificate.fullName} </span> Badges
           <div className="flex items-center gap-2 text-sm text-gray-300 mt-2">
             <CalendarDays className="w-4 h-4 text-blue-400" />
@@ -135,9 +135,19 @@ export default function Page() {
           </div>
         </h3>
         <p className="!text-xl">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste omnis
-          doloremque qui voluptatem, saepe eveniet voluptatum voluptate quae
-          quasi fugiat non cum neque
+          These badges represent milestones achieved by{" "}
+          <span className="font-semibold text-white">
+            {data.Certificate.fullName}
+          </span>{" "}
+          throughout their learning journey on{" "}
+          <Link
+            href={"/about"}
+            className="mark hover:border-b border-indigo-600"
+          >
+            CupolaGate
+          </Link>
+          . Each badge marks a completed stage, reflecting dedication,
+          curiosity, and continuous growth.
         </p>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           <BadgeList badges={data.badges} variant="large" />

@@ -10,11 +10,8 @@ import Loading from "@/components/ui/Loading";
 import { useRouter } from "next/navigation";
 import Sun from "@/components/ui/Planets/Sun";
 import Earth from "@/components/ui/Planets/Earth";
-import {
-  Animate,
-  FadeLeft,
-  FadeRight,
-} from "@/Animation";
+import { Animate, FadeLeft, FadeRight } from "@/Animation";
+import { AnimatedImage } from "@/components/ui/Media_UI/AnimatedImage";
 const MotionLink = motion.create(Link);
 
 export default function Page() {
@@ -26,31 +23,31 @@ export default function Page() {
   const levels = [
     {
       id: 1,
-
+      image: "/Levels/Computers.jpg",
       title: t("The Basics"),
       desc: t("Learn about the Cupola and its role"),
     },
     {
       id: 2,
-
+      image: "/Cupola.jpg",
       title: t("Level 1"),
       desc: t("Learn about the Cupola and its role"),
     },
     {
       id: 3,
-
+      image: "/Learn.jpg",
       title: t("Level 2"),
       desc: t("Natural disaster observation"),
     },
     {
       id: 4,
-
+      image: "/NBL.jpg",
       title: t("Level 3"),
       desc: t("Working with astronauts and cameras"),
     },
     {
       id: 5,
-
+      image: "/Chat.png",
       title: t("Level 4"),
       desc: t("Final mission challenge!"),
     },
@@ -106,39 +103,53 @@ export default function Page() {
         <T> Choose Your Level</T>
       </motion.h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl">
+      <div className="grid grid-cols-1 lg:grid-cols-2  gap-8  ">
         {levels.map((lvl, index) => {
           const isUnlocked = lvl.id - 1 === 0 || hasBadge(lvl.id - 2);
 
           return (
             <MotionLink
-              href={isUnlocked ? lvl.id === 1 ? `/levels/level0` :`/levels/Level_${lvl.id - 1}` : "#"}
+              href={
+                isUnlocked
+                  ? lvl.id === 1
+                    ? `/levels/level0`
+                    : `/levels/Level_${lvl.id - 1}`
+                  : "#"
+              }
               key={lvl.id}
               initial={{ opacity: 0, y: 30 }}
+              whileHover={{ y: -5, transition: { duration: 0.1 } }}
               animate={{ opacity: !isUnlocked ? 0.4 : 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className={`
-                bg-gradient-to-b from-white/3 to-white/2/0 rounded-2xl shadow-xl p-6 flex flex-col items-center text-center 
+                w-full max-w-xl lg:max-w-2xl lg:w-[500px] bg-gradient-to-b from-white/3 to-white/2/0 rounded-2xl shadow-xl p-6 flex gap-5 items-center text-start 
                ${!isUnlocked && "cursor-not-allowed"}
             `}
             >
-              <h2 className="!text-3xl font-semibold mb-3">{lvl.title}</h2>
-              <p className="!text-lg text-gray-300 mb-6">
-                {!isUnlocked
-                  ? `Complete Level ${lvl.id - 2} to unlock this level`
-                  : lvl.desc}
-              </p>
-              <motion.button
-                whileTap={{ scale: isUnlocked ? 0.9 : 1 }}
-                disabled={!isUnlocked}
-                className={`px-5 py-2 rounded-xl bg-indigo-600 ${
-                  isUnlocked
-                    ? "hover:bg-indigo-500 shadow-lg"
-                    : "bg-gray-500 cursor-not-allowed"
-                } transition font-medium`}
-              >
-                <T>Start</T>
-              </motion.button>
+              <AnimatedImage
+                src={lvl.image}
+                alt={lvl.title}
+                className="rounded-2xl w-3/5"
+              />
+              <div className="w-2/5">
+                <h2 className="!text-3xl font-semibold mb-3">{lvl.title}</h2>
+                <p className="!text-lg text-gray-300 mb-6">
+                  {!isUnlocked
+                    ? `Complete Level ${lvl.id - 2} to unlock this level`
+                    : lvl.desc}
+                </p>
+                <motion.button
+                  whileTap={{ scale: isUnlocked ? 0.9 : 1 }}
+                  disabled={!isUnlocked}
+                  className={`px-5 py-2 rounded-xl bg-indigo-600 ${
+                    isUnlocked
+                      ? "hover:bg-indigo-500 shadow-lg"
+                      : "bg-gray-500 cursor-not-allowed"
+                  } transition font-medium`}
+                >
+                  <T>Start</T>
+                </motion.button>
+              </div>
             </MotionLink>
           );
         })}
@@ -213,7 +224,7 @@ export default function Page() {
           ))}
         </div>
       </div> */}
-      <motion.div
+      {/* <motion.div
         {...Animate}
         {...FadeRight}
         transition={{ duration: 1, delay: 0.2 }}
@@ -228,7 +239,7 @@ export default function Page() {
         className="absolute -top-[570px] -left-[500px] -z-10"
       >
         <Earth />
-      </motion.div>
+      </motion.div> */}
     </section>
   );
 }

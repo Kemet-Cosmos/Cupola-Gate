@@ -107,7 +107,7 @@ export const badgeConfigs: Record<string, BadgeConfig> = {
     bgColor: "rgba(111, 66, 193, 0.15)",
     borderColor: "rgba(111, 66, 193, 0.3)",
     rarity: "epic",
-    points: 150,
+    points: 0,
   },
 
   GlobeExplorer: {
@@ -181,7 +181,7 @@ export function getBadgesByRarity(rarity: BadgeConfig["rarity"]) {
   return Object.values(badgeConfigs).filter((badge) => badge.rarity === rarity);
 }
 export function getTotalBadges(): number {
-  return Object.keys(badgeConfigs).length;
+  return Object.keys(badgeConfigs).length -1;
 }
 export function calculateTotalPoints(badgeNames: string[]): number {
   return badgeNames.reduce((total, name) => {

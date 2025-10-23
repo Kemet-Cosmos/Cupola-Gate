@@ -4,44 +4,51 @@ import { Levels } from "@/data/Levels";
 import { notFound, useParams, useRouter } from "next/navigation";
 import { T } from "gt-next";
 import { useGT } from "gt-next";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { Animate, opacity, transition } from "@/Animation";
 import { Crown } from "lucide-react";
+import axios from "axios";
+
 type Question = {
   id: number;
   question: string;
   options: string[];
   correct: string;
 };
+
 export default function Page() {
   const t = useGT();
   const route = useRouter();
   const { user } = useUser();
   const params = useParams();
   const Level = Levels.find((b) => b.href === params.name);
+  const [badgeLoading, setBadgeLoading] = useState<boolean>(false);
 
   const Add = async (newBadge: string) => {
     try {
-      const response = await fetch("/api/badge", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ title: newBadge, fullName: user?.fullName }),
-      });
+      setBadgeLoading(true);
 
-      const data = await response.json();
+      const { data } = await axios.post("/api/badge", {
+        title: newBadge,
+        fullName: user?.fullName,
+      });
 
       if (data.error) {
         console.error("Badge already exists:", data.error);
-
         return;
       }
+
       setSuccess(true);
-    } catch (error) {
-      console.error("Error fetching badges:", error);
+    } catch (error: any) {
+      if (error.response) {
+        console.error("API error:", error.response.data);
+      } else {
+        console.error("Request failed:", error.message);
+      }
+    } finally {
+      setBadgeLoading(false);
     }
   };
 
@@ -92,7 +99,7 @@ export default function Page() {
     if (!showResults) return;
     if (calculateScore() != shuffledQuestions.length) return;
     if (questions.length <= 0) return;
-    Add(`$Q_Level_${Level.id - 1}`);
+    Add(`Q_Level_${Level.id - 1}`);
   }, [showResults]);
 
   const GoToExamButton = () => {
@@ -227,6 +234,20 @@ export default function Page() {
           </motion.div>
         </motion.div>
       )}
+      <AnimatePresence>
+        {badgeLoading && (
+          <motion.div
+            {...opacity}
+            {...Animate}
+            {...transition}
+            className="fixed top-0 left-0 w-full h-full bg-black/75 flex flex-col gap-5 justify-center items-center"
+          >
+            <h1 className="animate-pulse">
+              <T>Loading Badge....</T>
+            </h1>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
