@@ -17,6 +17,8 @@
     "framer-motion": "^12.23.18",
     "gsap": "^3.13.0",
     "gt-next": "^6.6.1",
+    "html2canvas-pro": "^1.5.12",
+    "jspdf": "^3.0.3",
     "lucide-react": "^0.544.0",
     "matter-js": "^0.20.0",
     "mongoose": "^8.19.1",

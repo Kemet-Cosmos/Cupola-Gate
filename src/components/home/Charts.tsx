@@ -34,7 +34,8 @@ const Chart = () => {
   const completionPercentage = Math.round((points / totalTasks) * 100);
   const TotalBadges = badges.length;
   const TotalAllBadges = getTotalBadges();
-
+  const Certificate = true;
+  // TotalAllBadges === TotalBadges ? true : false
   const circumference = 2 * Math.PI * 40;
 
   const levels = [
@@ -270,6 +271,18 @@ const Chart = () => {
           </div>
         </MotionLink>
       </div>
+      <AnimatePresence>
+        {Certificate && (
+          <div className="flex justify-between items-center gap-5 bg-gradient-to-b from-white/10 to-white/2/0 p-10 rounded-2xl">
+            <h4>
+              <T>
+                Get Your <span className="mark"> Certificate </span>
+              </T>
+            </h4>
+            <Button text={t("Okay im Ready")} url="/certificate" />
+          </div>
+        )}
+      </AnimatePresence>
       <div>
         <motion.h2
           {...FadeUp}
