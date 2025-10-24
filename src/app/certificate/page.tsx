@@ -80,15 +80,12 @@ export default function Page() {
   useEffect(() => {
     if (exists) {
       return route.push(`/certificate/${exists._id}`);
-    }
-  }, [exists]);
-  useEffect(() => {
-    if (!Certificate) {
+    } else if (!Certificate) {
       return route.push("/");
     } else {
       setBadgeLoading(false);
     }
-  }, [Certificate]);
+  }, [Certificate, exists]);
 
   const SubmitHandler = async () => {
     setSending(true);
