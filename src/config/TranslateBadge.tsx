@@ -2,16 +2,172 @@
 
 import { useGT } from "gt-next";
 import { BadgeConfig } from "@/lib/type";
-import { badgeConfigs } from "./badgeConfig";
+import {
+  Sprout,
+  Star,
+  Sparkles,
+  Flame,
+  Crown,
+  MessageCircle,
+  Volume2,
+  HelpCircle,
+  HelpCircle as HelpCircle2,
+  Brain,
+  Lightbulb,
+  Volleyball,
+  Telescope,
+  Earth,
+} from "lucide-react";
 
-export function useTranslatedBadgeConfig(badgeName: string): BadgeConfig {
+export function useTranslatedBadgeConfigs(): Record<string, BadgeConfig> {
   const t = useGT();
-  
-  const badge = badgeConfigs[badgeName] || badgeConfigs.Level_0;
-  
+
   return {
-    ...badge,
-    title: t(badge.title),
-    description: t(badge.description),
+    Welcome: {
+      title: t("first journey"),
+      description: t("Just Started your journey"),
+      icon: Telescope,
+      color: "rgba(108, 117, 125, 0.9)",
+      bgColor: "rgba(233, 236, 239, 0.15)",
+      borderColor: "rgba(233, 236, 239, 0.3)",
+      rarity: "common",
+      points: 10,
+    },
+    Level_0: {
+      title: t("Level 0"),
+      description: t("learned the basics"),
+      icon: Sprout,
+      color: "rgba(108, 117, 125, 0.9)",
+      bgColor: "rgba(233, 236, 239, 0.15)",
+      borderColor: "rgba(233, 236, 239, 0.3)",
+      rarity: "common",
+      points: 10,
+    },
+    Level_1: {
+      title: t("Level 1"),
+      description: t("Completed first challenges"),
+      icon: Star,
+      color: "rgba(13, 110, 253, 0.9)",
+      bgColor: "rgba(13, 110, 253, 0.15)",
+      borderColor: "rgba(13, 110, 253, 0.3)",
+      rarity: "common",
+      points: 25,
+    },
+    Level_2: {
+      title: t("Level 2"),
+      description: t("Intermediate level reached"),
+      icon: Sparkles,
+      color: "rgba(25, 135, 84, 0.9)",
+      bgColor: "rgba(25, 135, 84, 0.15)",
+      borderColor: "rgba(25, 135, 84, 0.3)",
+      rarity: "rare",
+      points: 50,
+    },
+    Level_3: {
+      title: t("Level 3"),
+      description: t("Advanced achievements unlocked"),
+      icon: Flame,
+      color: "rgba(255, 193, 7, 0.9)",
+      bgColor: "rgba(255, 193, 7, 0.15)",
+      borderColor: "rgba(255, 193, 7, 0.3)",
+      rarity: "epic",
+      points: 100,
+    },
+    Level_4: {
+      title: t("Level 4"),
+      description: t("Master level achieved"),
+      icon: Crown,
+      color: "rgba(220, 53, 69, 0.9)",
+      bgColor: "rgba(220, 53, 69, 0.15)",
+      borderColor: "rgba(220, 53, 69, 0.3)",
+      rarity: "legendary",
+      points: 250,
+    },
+    Chat: {
+      title: t("Chat Master"),
+      description: t("Started conversing"),
+      icon: MessageCircle,
+      color: "rgba(23, 162, 184, 0.9)",
+      bgColor: "rgba(23, 162, 184, 0.15)",
+      borderColor: "rgba(23, 162, 184, 0.3)",
+      rarity: "common",
+      points: 30,
+    },
+    Chat_10: {
+      title: t("Chat Legend"),
+      description: t("10 conversations completed"),
+      icon: Volume2,
+      color: "rgba(111, 66, 193, 0.9)",
+      bgColor: "rgba(111, 66, 193, 0.15)",
+      borderColor: "rgba(111, 66, 193, 0.3)",
+      rarity: "epic",
+      points: 0,
+    },
+    GlobeExplorer: {
+      title: t("Globe Explorer"),
+      description: t("For Discovering all Places on the 3D Globe"),
+      icon: Earth,
+      color: "rgba(255, 107, 53, 0.9)",
+      bgColor: "rgba(255, 107, 53, 0.15)",
+      borderColor: "rgba(255, 107, 53, 0.3)",
+      rarity: "legendary",
+      points: 300,
+    },
+    NBL: {
+      title: t("NBL"),
+      description: t("National Big League member"),
+      icon: Volleyball,
+      color: "rgba(255, 107, 53, 0.9)",
+      bgColor: "rgba(255, 107, 53, 0.15)",
+      borderColor: "rgba(255, 107, 53, 0.3)",
+      rarity: "rare",
+      points: 75,
+    },
+    Q_Level_1: {
+      title: t("Question Level 1"),
+      description: t("Asked your first question"),
+      icon: HelpCircle,
+      color: "rgba(32, 201, 151, 0.9)",
+      bgColor: "rgba(32, 201, 151, 0.15)",
+      borderColor: "rgba(32, 201, 151, 0.3)",
+      rarity: "common",
+      points: 20,
+    },
+    Q_Level_2: {
+      title: t("Question Level 2"),
+      description: t("Growing questioner"),
+      icon: Lightbulb,
+      color: "rgba(0, 217, 255, 0.9)",
+      bgColor: "rgba(0, 217, 255, 0.15)",
+      borderColor: "rgba(0, 217, 255, 0.3)",
+      rarity: "rare",
+      points: 60,
+    },
+    Q_Level_3: {
+      title: t("Question Level 3"),
+      description: t("Curious explorer"),
+      icon: HelpCircle2,
+      color: "rgba(255, 0, 110, 0.9)",
+      bgColor: "rgba(255, 0, 110, 0.15)",
+      borderColor: "rgba(255, 0, 110, 0.3)",
+      rarity: "epic",
+      points: 120,
+    },
+    Q_Level_4: {
+      title: t("Question Level 4"),
+      description: t("Philosopher of questions"),
+      icon: Brain,
+      color: "rgba(143, 0, 255, 0.9)",
+      bgColor: "rgba(143, 0, 255, 0.15)",
+      borderColor: "rgba(143, 0, 255, 0.3)",
+      rarity: "legendary",
+      points: 200,
+    },
   };
+}
+
+// Helper function لو عايز ترجع badge واحد بس
+export function useTranslatedBadgeConfig(badgeName: string): BadgeConfig {
+  const configs = useTranslatedBadgeConfigs();
+  return configs[badgeName] || configs.Level_0;
 }
