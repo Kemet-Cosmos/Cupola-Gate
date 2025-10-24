@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import LanguageSelector from "@/components/LanguageSelector";
 import { SignOutButton, useUser } from "@clerk/nextjs";
 import { LogOut, Mail, User, Calendar, Shield } from "lucide-react";
+import { T } from "gt-next";
 
 const LeftSide = () => {
   const { user } = useUser();
@@ -61,7 +62,9 @@ const LeftSide = () => {
               <Mail className="w-5 h-5 text-purple-400" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="!text-sm text-gray-400 mb-1">Email Address</p>
+              <p className="!text-sm text-gray-400 mb-1">
+                <T>Email Address</T>
+              </p>
               <p className="!text-lg text-white truncate">
                 {user?.primaryEmailAddress?.emailAddress}
               </p>
@@ -78,7 +81,9 @@ const LeftSide = () => {
               <User className="w-5 h-5 text-blue-400" />
             </div>
             <div className="flex-1">
-              <p className="!text-sm text-gray-400 mb-1">Username</p>
+              <p className="!text-sm text-gray-400 mb-1">
+                <T>Username</T>
+              </p>
               <p className="!text-lg text-white">
                 {user?.username || "Not set"}
               </p>
@@ -95,7 +100,9 @@ const LeftSide = () => {
               <Calendar className="w-5 h-5 text-pink-400" />
             </div>
             <div className="flex-1">
-              <p className="!text-sm text-gray-400 mb-1">Member Since</p>
+              <p className="!text-sm text-gray-400 mb-1">
+                <T>Member Since</T>
+              </p>
               <p className="!text-lg text-white">
                 {new Date(user?.createdAt!).toLocaleDateString("en-US", {
                   month: "long",
@@ -112,8 +119,11 @@ const LeftSide = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
-          className="mt-6 mx-auto w-fit"
+          className="mt-6 mx-auto flex justify-between items-center gap-5w-fit"
         >
+          <div className="text-xl font-bold">
+            <T>Change Language</T>{" "}
+          </div>
           <LanguageSelector AnimateIt={false} />
         </motion.div>
 
@@ -128,7 +138,7 @@ const LeftSide = () => {
           className="w-full mt-6 px-6 py-3.5 rounded-xl bg-gradient-to-r from-red-500 to-red-600 text-white font-medium hover:from-red-600 hover:to-red-700 transition-all flex items-center justify-center gap-2"
         >
           <LogOut className="w-5 h-5" />
-          Sign Out
+          <T>Sign Out</T>{" "}
         </motion.button>
       </motion.div>
       {/* Confirmation Modal */}
@@ -138,7 +148,7 @@ const LeftSide = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 flex items-center justify-center bg-black/70 backdrop-blur-sm z-50 p-4"
+            className="fixed inset-0 flex items-center justify-center bg-black/70 z-50 p-4"
             onClick={() => setShowConfirm(false)}
           >
             <motion.div
@@ -155,11 +165,11 @@ const LeftSide = () => {
                 </div>
               </div>
 
-              <h2 className="text-xl font-bold text-center text-white">
-                Sign Out?
+              <h2 className="!text-xl font-bold text-center text-white">
+                <T>Sign Out ?</T>{" "}
               </h2>
-              <p className="text-sm text-gray-400 text-center mt-2">
-                Are you sure you want to sign out from your account?
+              <p className="!text-sm text-gray-400 text-center mt-2">
+                <T>Are you sure you want to sign out from your account?</T>{" "}
               </p>
 
               <div className="flex gap-3 mt-6">
@@ -169,7 +179,7 @@ const LeftSide = () => {
                   onClick={() => setShowConfirm(false)}
                   className="flex-1 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium transition-all"
                 >
-                  Cancel
+                  <T>Cancel</T>
                 </motion.button>
 
                 <SignOutButton redirectUrl="/login">
@@ -178,7 +188,7 @@ const LeftSide = () => {
                     whileTap={{ scale: 0.98 }}
                     className="flex-1 px-4 py-3 rounded-xl bg-gradient-to-r from-red-500 to-red-600 text-white font-medium hover:from-red-600 hover:to-red-700 transition-all"
                   >
-                    Yes, Sign Out
+                    <T>Yes, Sign Out</T>{" "}
                   </motion.button>
                 </SignOutButton>
               </div>

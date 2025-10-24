@@ -12,9 +12,12 @@ import BadgeList from "../Badges/BadgeList";
 import { useAuth } from "@clerk/nextjs";
 import { Badge } from "@/lib/type";
 import { Animate, opacity, transition } from "@/Animation";
+import { T } from "gt-next";
+import { useGT } from "gt-next";
 
 const RightSide = () => {
   const { isSignedIn } = useAuth();
+  const t = useGT();
   const [badges, setBadges] = useState<Badge[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [points, setPoints] = useState(0);
@@ -59,8 +62,12 @@ const RightSide = () => {
           <Trophy className="w-6 h-6 text-yellow-400" />
         </div>
         <div>
-          <h3 className="!text-2xl font-bold text-white">Achievements</h3>
-          <p className="!text-sm text-neutral-400">Your progress overview</p>
+          <h3 className="!text-2xl font-bold text-white">
+            <T>Achievements</T>
+          </h3>
+          <p className="!text-sm text-neutral-400">
+            <T>Your progress overview</T>
+          </p>
         </div>
       </div>
 
@@ -80,7 +87,7 @@ const RightSide = () => {
               transition={{ duration: 0.6 }}
               className="text-white/50"
             >
-              Loading ....
+              <T>Loading ....</T>
             </motion.h4>
           ) : (
             <motion.div
@@ -91,7 +98,7 @@ const RightSide = () => {
             >
               <div className="flex items-center justify-between mb-4">
                 <span className="text-lg text-neutral-300 font-bold">
-                  Your Points{" "}
+                  <T> Your Points</T>
                 </span>
                 <span className="text-3xl font-bold text-blue-400">
                   {points}
@@ -109,7 +116,7 @@ const RightSide = () => {
 
               <div className="flex items-center justify-between text-sm">
                 <span className="text-neutral-400">
-                  {completionPercentage}% Complete
+                  {completionPercentage}% <T>Complete</T>
                 </span>
                 <span className="text-white font-medium">
                   {points}/{totalTasks}
@@ -135,13 +142,13 @@ const RightSide = () => {
             iconColor: "text-yellow-400",
           },
           {
-            title: "ALL Badges Count",
+            title: t("ALL Badges"),
             content: TotalAllBadges,
             icon: Target,
             iconColor: "text-blue-400",
           },
           {
-            title: "Badges",
+            title: t("Badges"),
             content: TotalBadges,
             icon: Award,
             iconColor: "text-purple-400",
@@ -161,7 +168,7 @@ const RightSide = () => {
                   {...transition}
                   className="w-full h-32 bg-neutral-800/60 animate-pulse rounded-2xl flex justify-center items-center text-white/40 "
                 >
-                  Loading ...
+                  <T>Loading ...</T>
                 </motion.div>
               ) : item.link ? (
                 <Link href={item.link} key="Loaded">
@@ -209,7 +216,7 @@ const RightSide = () => {
         transition={{ delay: 0.6 }}
       >
         <h4 className="!text-lg !font-semibold text-neutral-400 mb-3">
-          Recent Milestones
+          <T>Recent Milestones</T>
         </h4>
         <Link href="/badge" className="space-y-2">
           {loading ? (
@@ -220,7 +227,7 @@ const RightSide = () => {
               className="w-full h-52 bg-neutral-800/60 animate-pulse rounded-2xl flex justify-center items-center text-white/40"
             >
               {" "}
-              loading ...
+              <T>Loading ...</T>
             </motion.div>
           ) : (
             <BadgeList badges={badges.slice(0, 2)} />

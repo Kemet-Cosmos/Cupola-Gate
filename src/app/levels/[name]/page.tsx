@@ -12,7 +12,7 @@ import { Animate, FadeUp, opacity, transition } from "@/Animation";
 import Button from "@/components/ui/Button";
 import { useUser } from "@clerk/nextjs";
 import Loading from "@/components/ui/Loading";
-import { Crown } from "lucide-react";
+import { Crown, Laugh } from "lucide-react";
 
 export default function Page() {
   const params = useParams();
@@ -175,16 +175,35 @@ export default function Page() {
               {...FadeUp}
               {...Animate}
               transition={{ ...transition.transition, delay: 0.3 }}
-              className="h-96 w-2xl bg-black border border-indigo-600 rounded-2xl p-10 flex flex-col justify-evenly"
+              className="min-h-72 w-96 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 p-6 rounded-2xl border border-white/10 flex flex-col justify-evenly"
             >
+              <div className="flex justify-center mb-4">
+                <div className="p-3 rounded-full bg-red-500/20">
+                  <Laugh className="w-8 h-8 text-red-400" />
+                </div>
+              </div>
               <motion.h3
                 {...FadeUp}
                 {...Animate}
                 transition={{ ...transition.transition, delay: 0.5 }}
-                className="text-center"
+                className="text-center mb-3"
               >
-                <T>What do you prefer</T>
+                <T>What do you prefer ?</T>
               </motion.h3>
+
+              <motion.p
+                {...FadeUp}
+                {...Animate}
+                transition={{ ...transition.transition, delay: 0.5 }}
+                className="text-neutral-400 !text-base mb-6"
+              >
+                <T>
+                  Choose how you’d like to experience the lesson. watch an
+                  explanatory video or listen to a voice-over version while
+                  learning.
+                </T>
+              </motion.p>
+
               <div className="flex justify-center items-center gap-5">
                 {[true, false].map((item, i) => (
                   <motion.div
@@ -193,7 +212,15 @@ export default function Page() {
                     {...Animate}
                     transition={{ ...transition.transition, delay: 0.5 }}
                     onClick={() => setIsVideo(item)}
-                    className="text-2xl font-bold border border-indigo-500 p-5 rounded-2xl cursor-pointer hover:bg-indigo-600 duration-150"
+                    className={`flex-1 px-4 py-3 rounded-xl text-white font-medium transition-all *:
+                      ${
+                        item
+                          ? " bg-white/5 hover:bg-white/10 border border-white/10 "
+                          : "  bg-indigo-600/50  hover:bg-indigo-600/60 border border-indigo-600/10 "
+                      }
+                      cursor-pointer
+                      duration-100
+                      `}
                   >
                     <div>{item ? t("Video") : t("Voice only")}</div>
                   </motion.div>

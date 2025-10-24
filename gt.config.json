@@ -1,6 +1,6 @@
 {
   "defaultLocale": "en",
-  "locales": ["ar", "es"],
+  "locales": ["ar"],
   "files": {
     "gt": {
       "output": "public/i18n/[locale].json"
