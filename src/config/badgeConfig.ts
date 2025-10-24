@@ -1,3 +1,4 @@
+import { Badge, BadgeConfig } from "@/lib/type";
 import {
   Sprout,
   Star,
@@ -15,17 +16,6 @@ import {
   Telescope,
   Earth,
 } from "lucide-react";
-
-export interface BadgeConfig {
-  title: string;
-  description: string;
-  icon: LucideIcon;
-  color: string;
-  bgColor: string;
-  borderColor: string;
-  rarity?: "common" | "rare" | "epic" | "legendary";
-  points?: number;
-}
 
 export const badgeConfigs: Record<string, BadgeConfig> = {
   Welcome: {
@@ -181,7 +171,7 @@ export function getBadgesByRarity(rarity: BadgeConfig["rarity"]) {
   return Object.values(badgeConfigs).filter((badge) => badge.rarity === rarity);
 }
 export function getTotalBadges(): number {
-  return Object.keys(badgeConfigs).length -1;
+  return Object.keys(badgeConfigs).length - 1;
 }
 export function calculateTotalPoints(badgeNames: string[]): number {
   return badgeNames.reduce((total, name) => {
@@ -200,4 +190,30 @@ export function hasLegendaryBadge(userBadges: string[]): boolean {
     const badge = getBadgeConfig(name);
     return badge.rarity === "legendary";
   });
+}
+
+export function sgetMissingBadges(userBadges: Badge[]): BadgeConfig[] {
+  const userBadgeTitles = userBadges.map((b) => b.title);
+
+  const missingBadges = Object.entries(badgeConfigs)
+    .filter(([name]) => !userBadgeTitles.includes(name))
+    .map(([_, config]) => config);
+
+  console.log("missingBadges:", ...missingBadges);
+
+  return missingBadges.length > 0 ? missingBadges : [{} as BadgeConfig];
+}
+
+export function getMissingBadges(
+  userBadges: Badge[]
+): (BadgeConfig & { title: string })[] {
+  const userBadgeTitles = new Set(userBadges.map((badge) => badge.title));
+
+   return Object.entries(badgeConfigs)
+    .filter(([key, config]) => !userBadgeTitles.has(key))
+    .map(([key, config]) => ({
+      ...config,
+      title: key
+    }));
+
 }

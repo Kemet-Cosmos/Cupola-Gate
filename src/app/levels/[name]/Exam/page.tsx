@@ -7,9 +7,10 @@ import { useGT } from "gt-next";
 import { AnimatePresence, motion } from "framer-motion";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
-import { Animate, opacity, transition } from "@/Animation";
+import { Animate, FadeLeft, opacity, transition } from "@/Animation";
 import { Crown } from "lucide-react";
 import axios from "axios";
+import { GoTopScreen } from "@/Hook/GoTopScreen";
 
 type Question = {
   id: number;
@@ -106,13 +107,28 @@ export default function Page() {
     route.push("/");
   };
 
+  useEffect(() => {
+    GoTopScreen();
+  }, []);
+  
   return (
     <section className="mt-20">
-      <h1>
+      <motion.h1 {...FadeLeft} {...Animate} {...transition}>
         <T>Exam</T> <span className="mark">{Level.title}</span>
-      </h1>
-      <p>{Level.desc}</p>
-      <div className="flex flex-col justify-center items-center max-w-4xl mx-auto my-5">
+      </motion.h1>
+      <motion.p
+        {...FadeLeft}
+        {...Animate}
+        transition={{ ...transition.transition, delay: 0.25 }}
+      >
+        {Level.desc}
+      </motion.p>
+      <motion.div
+        {...FadeLeft}
+        {...Animate}
+        transition={{ ...transition.transition, delay: 0.5 }}
+        className="flex flex-col justify-center items-center max-w-4xl mx-auto my-5"
+      >
         <div className="space-y-6 h-fit pr-4">
           {shuffledQuestions.map((q, idx) => (
             <div
@@ -184,7 +200,7 @@ export default function Page() {
             </>
           )}
         </div>
-      </div>
+      </motion.div>
 
       {success && (
         <motion.div

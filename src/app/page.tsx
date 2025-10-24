@@ -4,16 +4,16 @@ import FAQs from "@/components/home/FAQs";
 import Features from "@/components/home/Features";
 import Gallery from "@/components/home/Gallery";
 import Hero from "@/components/home/Hero";
+import HomeLoading from "@/components/home/HomeLoading";
 import Sun from "@/components/home/Sun";
 import SelectLanguage from "@/components/SelectLanguage";
-import Loading from "@/components/ui/Loading";
 import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut } from "@clerk/nextjs";
 
 export default function Home() {
   return (
     <main className="min-h-screen w-full flex flex-col items-center justify-center">
       <ClerkLoading>
-        <Loading />
+        <HomeLoading />
       </ClerkLoading>
       <ClerkLoaded>
         <SignedIn>

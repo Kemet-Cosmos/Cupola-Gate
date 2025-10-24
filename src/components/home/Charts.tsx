@@ -11,13 +11,13 @@ import Link from "next/link";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { Badge } from "@/lib/type";
 import { Animate, FadeLeft, FadeUp, transition, ViewPort } from "@/Animation";
-import Loading from "../ui/Loading";
 import { useRouter } from "next/navigation";
 import { useGT } from "gt-next";
 import { T } from "gt-next";
 import { AnimatedImage } from "../ui/Media_UI/AnimatedImage";
 import Button from "../ui/Button";
 import LanguageSelector from "../LanguageSelector";
+import HomeLoading from "./HomeLoading";
 
 const MotionLink = motion.create(Link);
 
@@ -163,12 +163,8 @@ const Chart = () => {
     }
   }, [isSignedIn]);
 
-  if (loading || !FirstBadge())
-    return (
-      <section className="flex justify-center items-center">
-        <Loading />
-      </section>
-    );
+  if (loading || !FirstBadge()) return <HomeLoading />;
+
   return (
     <div className="mt-24 mx-auto p-6 rounded-2xl shadow-2xl bg-gradient-to-b from-white/3 to-white/2/0  overflow-hidden w-11/12 min-h-screen">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-10">
@@ -464,7 +460,7 @@ const Chart = () => {
             </motion.div>
           )}
         </div>
-         {/* <motion.div
+        {/* <motion.div
           {...FadeUp}
           {...Animate}
           transition={{ ...transition.transition, delay: 1.3 }}
