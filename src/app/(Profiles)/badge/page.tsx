@@ -10,6 +10,7 @@ import { Animate, FadeUp, transition } from "@/Animation";
 import BadgeCard from "@/components/Badges/BadgeCard";
 import { GoTopScreen } from "@/Hook/GoTopScreen";
 import { getMissingBadges } from "@/config/badgeConfig";
+import { T } from "gt-next";
 
 export default function Page() {
   const { isSignedIn } = useAuth();
@@ -54,10 +55,12 @@ export default function Page() {
           transition={{ ...transition.transition }}
           className="text-2xl mb-10"
         >
-          Your Badges{" "}
+          <T>Your Badges </T>
         </motion.h2>
         {badges.length === 0 ? (
-          <p>You don't have any badges yet</p>
+          <p>
+            <T>You don't have any badges yet</T>
+          </p>
         ) : (
           <motion.div
             {...FadeUp}
@@ -76,11 +79,13 @@ export default function Page() {
           transition={{ ...transition.transition }}
           className="text-2xl mb-10"
         >
-          Missing Badges
+          <T>Missing Badges</T>
         </motion.h2>
 
         {missedBadges.length === 0 ? (
-          <p>You've collected all available badges! 🎉</p>
+          <p>
+            <T>You've collected all available badges! </T>
+          </p>
         ) : (
           <motion.div
             {...FadeUp}

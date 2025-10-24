@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { getBadgeConfig } from "@/config/badgeConfig";
 import { useTranslatedBadgeConfig } from "@/config/TranslateBadge";
 
 interface BadgeCardProps {

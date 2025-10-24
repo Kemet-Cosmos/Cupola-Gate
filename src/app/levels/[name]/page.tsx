@@ -1,7 +1,7 @@
 "use client";
 import CustomAudioPlayer from "@/components/ui/CustomAudioPlayer";
 import { AnimatedImage } from "@/components/ui/Media_UI/AnimatedImage";
-import { Levels } from "@/data/Levels";
+import { useTranslatedLevels } from "@/config/LevelsContent";
 import { AnimatePresence } from "framer-motion";
 import { useGT } from "gt-next";
 import { T } from "gt-next";
@@ -19,8 +19,10 @@ export default function Page() {
   const { user } = useUser();
   const route = useRouter();
   const [isVideo, setIsVideo] = useState<boolean | null>(null);
-  console.log(params.name);
-  const Level = Levels.find((b) => b.href === params.name);
+  // console.log(params.name);
+  const translatedLevels = useTranslatedLevels();
+  const Level = translatedLevels.find((b) => b.href === params.name);
+
   if (!Level) return notFound();
   const t = useGT();
   const [wait, setWait] = useState<boolean>(false);

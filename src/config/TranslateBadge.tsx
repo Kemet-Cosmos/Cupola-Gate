@@ -166,7 +166,6 @@ export function useTranslatedBadgeConfigs(): Record<string, BadgeConfig> {
   };
 }
 
-// Helper function لو عايز ترجع badge واحد بس
 export function useTranslatedBadgeConfig(badgeName: string): BadgeConfig {
   const configs = useTranslatedBadgeConfigs();
   return configs[badgeName] || configs.Level_0;

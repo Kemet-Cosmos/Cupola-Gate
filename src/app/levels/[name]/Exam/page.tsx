@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Levels } from "@/data/Levels";
-import { notFound, useParams, useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { T } from "gt-next";
 import { useGT } from "gt-next";
 import { AnimatePresence, motion } from "framer-motion";
@@ -11,6 +10,7 @@ import { Animate, FadeLeft, opacity, transition } from "@/Animation";
 import { Crown } from "lucide-react";
 import axios from "axios";
 import { GoTopScreen } from "@/Hook/GoTopScreen";
+import { useTranslatedLevels } from "@/config/LevelsContent";
 
 type Question = {
   id: number;
@@ -24,7 +24,47 @@ export default function Page() {
   const route = useRouter();
   const { user } = useUser();
   const params = useParams();
-  const Level = Levels.find((b) => b.href === params.name);
+
+  const slug =
+    typeof params?.name === "string"
+      ? params.name
+      : Array.isArray(params?.name)
+      ? params.name[0]
+      : undefined;
+
+  const translatedLevels = useTranslatedLevels();
+  const Level = translatedLevels.find((b) => b.href === slug);
+
+  useEffect(() => {
+    if (slug && !Level) {
+      try {
+        route.replace("/404");
+      } catch (e) {
+        route.push("/");
+      }
+    }
+  }, [slug, Level, route]);
+
+  useEffect(() => {
+    if (Level && (!Level.questions || Level.questions.length === 0)) {
+      try {
+        route.replace("/404");
+      } catch (e) {
+        route.push("/");
+      }
+    }
+  }, [Level, route]);
+
+  if (!Level) return null;
+  const questions: Question[] = (Level.questions as Question[]) || [];
+  if (!questions || questions.length === 0) return null;
+
+  const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>(
+    [] as Question[]
+  );
+  const [showResults, setShowResults] = useState(false);
+  const [answers, setAnswers] = useState<{ [key: number]: string }>({});
+  const [success, setSuccess] = useState<boolean | null>(null);
   const [badgeLoading, setBadgeLoading] = useState<boolean>(false);
 
   const Add = async (newBadge: string) => {
@@ -53,28 +93,19 @@ export default function Page() {
     }
   };
 
-  if (!Level) return notFound();
-  const questions = Level.questions && Level.questions;
-  if (!questions) return notFound();
-
-  const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>([]);
-  const [showResults, setShowResults] = useState(false);
-  const [answers, setAnswers] = useState<{ [key: number]: string }>({});
-  const [success, setSuccess] = useState<boolean | null>(null);
-
   const shuffleArray = <T,>(arr: T[]): T[] => {
     return [...arr].sort(() => Math.random() - 0.5);
   };
 
   useEffect(() => {
-    if (questions.length > 0) {
-      const randomized = questions.map((q) => ({
+    if (Level && Level.questions && Level.questions.length > 0) {
+      const randomized = (Level.questions as Question[]).map((q) => ({
         ...q,
         options: shuffleArray(q.options),
       }));
       setShuffledQuestions(randomized);
     }
-  }, [questions]);
+  }, [Level?.id]);
 
   const resetQuiz = () => {
     const randomized = shuffledQuestions.map((q) => ({
@@ -110,23 +141,23 @@ export default function Page() {
   useEffect(() => {
     GoTopScreen();
   }, []);
-  
+
   return (
     <section className="mt-20">
       <motion.h1 {...FadeLeft} {...Animate} {...transition}>
         <T>Exam</T> <span className="mark">{Level.title}</span>
       </motion.h1>
-      <motion.p
+      {/* <motion.p
         {...FadeLeft}
         {...Animate}
         transition={{ ...transition.transition, delay: 0.25 }}
       >
         {Level.desc}
-      </motion.p>
+      </motion.p> */}
       <motion.div
         {...FadeLeft}
         {...Animate}
-        transition={{ ...transition.transition, delay: 0.5 }}
+        transition={{ ...transition.transition, delay: 0.25 }}
         className="flex flex-col justify-center items-center max-w-4xl mx-auto my-5"
       >
         <div className="space-y-6 h-fit pr-4">
@@ -151,7 +182,7 @@ export default function Page() {
                       whileTap={{ scale: 0.97 }}
                       disabled={showResults}
                       onClick={() => handleAnswer(q.id, opt)}
-                      className={`w-full text-left p-3 rounded-lg border transition font-medium ${
+                      className={`w-full text-start p-3 rounded-lg border transition font-medium ${
                         isCorrect
                           ? "border-green-500 bg-green-900 text-green-100"
                           : isWrong
