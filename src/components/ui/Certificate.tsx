@@ -7,6 +7,7 @@ import { Certificate } from "@/lib/type";
 import { Animate, FadeUp, transition, ViewPort } from "@/Animation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUser } from "@clerk/nextjs";
+import { T } from "gt-next";
 
 type CertificateProps = {
   certificate: Certificate;
@@ -135,7 +136,7 @@ export default function CertificatePDf({ certificate }: CertificateProps) {
             onClick={handleDownload}
             className="mt-6 bg-indigo-500 text-white px-6 py-2 rounded-lg hover:bg-indigo-600 transition"
           >
-            Download PDF
+            <T>Download PDF</T>
           </motion.button>
         )}
       </AnimatePresence>

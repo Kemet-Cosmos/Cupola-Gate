@@ -14,6 +14,8 @@ import Earth from "@/components/ui/Planets/Earth";
 import { CalendarDays } from "lucide-react";
 import { formatDate } from "@/Hook/Date";
 import CertificatePDf from "@/components/ui/Certificate";
+import { T } from "gt-next";
+import { GoTopScreen } from "@/Hook/GoTopScreen";
 
 export default function Page() {
   const params = useParams();
@@ -26,6 +28,7 @@ export default function Page() {
   useEffect(() => {
     if (params?.id) {
       setId(params.id as string);
+      GoTopScreen();
     }
   }, [params]);
   useEffect(() => {
@@ -65,14 +68,16 @@ export default function Page() {
           {...Animate}
           transition={{ ...transition.transition, delay: 0.3 }}
         >
-          certificate <span className="mark"> not Found </span>
+          <T>
+            certificate <span className="mark"> not Found </span>
+          </T>{" "}
         </motion.h1>
         <motion.p
           {...FadeUp}
           {...Animate}
           transition={{ ...transition.transition, delay: 0.6 }}
         >
-          go to home page or just contact us and tell us what happened
+          <T>go to home page or just contact us and tell us what happened</T>{" "}
         </motion.p>
         <div className="flex justify-center items-center gap-5 my-5">
           {[
@@ -104,14 +109,16 @@ export default function Page() {
   return (
     <section className="mt-24">
       <h3 className="text-center">
-        Certificate from{" "}
-        <Link
-          href="/team"
-          className="mark hover:border-b-2 border-indigo-600 duration-100"
-        >
-          {" "}
-          Kemet Cosmos
-        </Link>
+        <T>
+          Certificate from{" "}
+          <Link
+            href="/team"
+            className="mark hover:border-b-2 border-indigo-600 duration-100"
+          >
+            {" "}
+            Kemet Cosmos
+          </Link>
+        </T>
       </h3>
       {/* certification */}
       <div className={`relative w-full  mt-10 text-center overflow-hidden `}>
@@ -120,7 +127,9 @@ export default function Page() {
 
       <section className="space-y-5 mt-10">
         <h3 className="flex flex-wrap items-end gap-3">
-          <span className="mark">{data.Certificate.fullName} </span> Badges
+          <span className="mark">
+            <T>Badges</T>
+          </span>
           <div className="flex items-center gap-2 text-sm text-gray-300 mt-2">
             <CalendarDays className="w-4 h-4 text-blue-400" />
             <p className="!text-lg ">
@@ -135,19 +144,21 @@ export default function Page() {
           </div>
         </h3>
         <p className="!text-xl">
-          These badges represent milestones achieved by{" "}
+          <T> These badges represent milestones achieved by </T> {" "}
           <span className="font-semibold text-white">
             {data.Certificate.fullName}
           </span>{" "}
-          throughout their learning journey on{" "}
-          <Link
-            href={"/about"}
-            className="mark hover:border-b border-indigo-600"
-          >
-            CupolaGate
-          </Link>
-          . Each badge marks a completed stage, reflecting dedication,
-          curiosity, and continuous growth.
+          <T>
+            throughout their learning journey on{" "}
+            <Link
+              href={"/about"}
+              className="mark hover:border-b border-indigo-600"
+            >
+              CupolaGate
+            </Link>
+            . Each badge marks a completed stage, reflecting dedication,
+            curiosity, and continuous growth.
+          </T>
         </p>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           <BadgeList badges={data.badges} variant="large" />

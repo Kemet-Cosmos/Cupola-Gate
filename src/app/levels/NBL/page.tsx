@@ -5,8 +5,11 @@ import Matter from "matter-js";
 import BadgeToast from "@/components/Badges/BadgeToast";
 import { Animate, FadeLeft, transition } from "@/Animation";
 import { useUser } from "@clerk/nextjs";
+import { T } from "gt-next";
+import { useGT } from "gt-next";
 
 const NBLSimulation = () => {
+  const t = useGT();
   const { user } = useUser();
   const [weight, setWeight] = useState<number>(0);
   const [buoyantForce, setBuoyantForce] = useState<number>(0);
@@ -49,14 +52,14 @@ const NBLSimulation = () => {
       netForceRef.current = net;
 
       if (Math.abs(net) < 10) {
-        setStatus("Balance achieved! Task unlocked");
+        setStatus(t("Balance achieved! Task unlocked"));
         setTaskUnlocked(true);
       } else if (net > 0) {
-        setStatus(" You're sinking — add floaties!");
+        setStatus(t(" You're sinking — add floaties!"));
         setTaskUnlocked(false);
         setIsStatusBad(true);
       } else {
-        setStatus(" You're floating — add weights!");
+        setStatus(t(" You're floating — add weights!"));
         setIsStatusBad(true);
         setTaskUnlocked(false);
       }
@@ -152,7 +155,7 @@ const NBLSimulation = () => {
               (pair.bodyA === tool && pair.bodyB === hatch) ||
               (pair.bodyA === hatch && pair.bodyB === tool)
             ) {
-              setStatus("Task Completed");
+              setStatus(t("Task Completed"));
               setIsStatusBad(false);
               Add("NBL");
               console.log("Task complete!");
@@ -210,20 +213,22 @@ const NBLSimulation = () => {
       transition={{ duration: 0.5 }}
       className="!pt-24 lg:!pt-20 p-6 min-h-screen flex flex-col items-center"
     >
-      <h1 className="text-4xl font-bold mb-2">Buoyancy Simulation</h1>
+      <h1 className="text-4xl font-bold mb-2">
+        <T>Buoyancy Simulation</T>
+      </h1>
       <p className=" my-8">
-        Enter your weight and try to achieve perfect balance!
+        <T>Enter your weight and try to achieve perfect balance!</T>
       </p>
 
       <div className="flex flex-col lg:flex-row justify-center items-center gap-10 my-10 w-full max-w-6xl">
         <div className="p-6 rounded-2xl shadow-2xl bg-gradient-to-b from-white/3 to-white/2/0 w-full lg:w-96">
           <div className="mb-6">
             <label className="block text-sm font-bold mb-2">
-              Your weight (kg):
+              <T>Your weight (kg):</T>
             </label>
             <input
               type="number"
-              placeholder="Enter your weight"
+              placeholder={t("Enter your weight")}
               onChange={(e) => {
                 const newWeight = parseFloat(e.target.value) || 0;
                 setWeight(newWeight);
@@ -237,26 +242,30 @@ const NBLSimulation = () => {
               onClick={addWeight}
               className="bg-red-500 hover:bg-red-600 text-white font-bold px-4 py-3 rounded-lg transition transform hover:scale-105"
             >
-              Add Weight (-10N)
+              <T>Add Weight (-10N)</T>
             </button>
             <button
               onClick={addFloatie}
               className="bg-green-500 hover:bg-green-600 text-white font-bold px-4 py-3 rounded-lg transition transform hover:scale-105"
             >
-              Add Floatie (+10N)
+              <T>Add Floatie (+10N)</T>{" "}
             </button>
           </div>
 
           <div className="bg-gradient-to-b from-white/3 to-white/2/0  p-4 rounded-lg mb-4">
             <p className="mb-3 text-sm">
-              <span className="font-bold">Buoyant Force:</span>{" "}
+              <span className="font-bold">
+                <T>Buoyant Force:</T>
+              </span>{" "}
               <span className="text-blue-600 font-bold text-lg">
                 {buoyantForce.toFixed(2)}
               </span>{" "}
               N
             </p>
             <p className="text-sm">
-              <span className="font-bold">Net Force:</span>{" "}
+              <span className="font-bold">
+                <T>Net Force:</T>
+              </span>{" "}
               <span className="text-blue-600 font-bold text-lg">
                 {netForce.toFixed(2)}
               </span>{" "}
@@ -289,7 +298,7 @@ const NBLSimulation = () => {
               {taskUnlocked && (
                 <div className="  border-2 border-green-500 p-4 rounded-lg text-center">
                   <div className="text-white font-bold">
-                    Drag the orange tool into the gray slot!
+                    <T>Drag the orange tool into the gray slot!</T>
                   </div>
                 </div>
               )}

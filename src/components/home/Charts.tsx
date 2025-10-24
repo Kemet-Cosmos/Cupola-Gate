@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Award, Settings, Target, Trophy, Zap } from "lucide-react";
+import { Award, CircleUser, Settings, Target, Zap } from "lucide-react";
 import {
   calculateAllBadgePoints,
   calculateTotalPoints,
@@ -174,7 +174,7 @@ const Chart = () => {
         <div className="flex items-center gap-4">
           <LanguageSelector />
           <Link href={`/profile`} className="bg-indigo-500 rounded-2xl p-2 ">
-            <Settings size={35} />
+            <CircleUser size={35} />
           </Link>
         </div>{" "}
       </div>
