@@ -6,10 +6,10 @@ import BadgeList from "@/components/Badges/BadgeList";
 import HomeLoading from "@/components/home/HomeLoading";
 import { motion } from "framer-motion";
 import { Animate, FadeUp, transition } from "@/Animation";
-import { getMissingBadges } from "@/config/badgeConfig";
+
 import BadgeCard from "@/components/Badges/BadgeCard";
 import { GoTopScreen } from "@/Hook/GoTopScreen";
-
+import { getMissingBadges } from "@/config/badgeConfig";
 
 export default function Page() {
   const { isSignedIn } = useAuth();

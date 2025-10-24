@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { getBadgeConfig } from "@/config/badgeConfig";
+import { useTranslatedBadgeConfig } from "@/config/TranslateBadge";
 
 interface BadgeCardProps {
   title: string;
@@ -14,7 +15,7 @@ export default function BadgeCard({
   variant = "card",
   onClick,
 }: BadgeCardProps) {
-  const config = getBadgeConfig(title);
+  const config = useTranslatedBadgeConfig(title);
   const Icon = config.icon;
 
   if (variant === "inline") {
