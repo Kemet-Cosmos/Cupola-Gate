@@ -6,6 +6,8 @@ import { FadeUp, transition, ViewPort } from "@/Animation";
 import Jupiter from "../ui/Planets/Jupiter";
 import { useGT } from "gt-next";
 import { T } from "gt-next";
+import Button from "../ui/Button";
+import Tag from "../ui/Tag";
 
 const FAQs = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -60,6 +62,8 @@ const FAQs = () => {
   };
   return (
     <section className="relative overflow-hidden my-20">
+      <Tag text={t("FAQs")} className="block mx-auto w-fit" />
+
       <T>
         <motion.h3
           {...FadeUp}
@@ -88,12 +92,12 @@ const FAQs = () => {
             {...FadeUp}
             {...ViewPort}
             {...transition}
-            className="bg-gradient-to-b from-white/3 to-white/2/0 p-4 rounded-lg cursor-pointer w-full lg:w-4xl"
+            className="border border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10 p-4 rounded-lg cursor-pointer w-full lg:w-4xl"
             onClick={() => toggle(i)}
           >
             <div
               className={`flex justify-between items-center w-full ${
-                activeIndex === i && "text-indigo-600"
+                activeIndex === i && "mark font-bold"
               } duration-100`}
             >
               <div className="text-xl"> {item.question}</div>
@@ -116,6 +120,8 @@ const FAQs = () => {
           </motion.div>
         ))}
       </div>
+
+      <Button text={t("Contact Us")} url="/contact" className="mx-auto w-fit" />
 
       <div className="absolute top-2/4 left-2/4 -translate-2/4 scale-50 opacity-25 -z-10">
         <Jupiter />

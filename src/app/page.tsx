@@ -1,4 +1,6 @@
+import AboutUs from "@/components/home/AboutUs";
 import Chart from "@/components/home/Charts";
+import Community from "@/components/home/Community";
 import Earth from "@/components/home/Earth";
 import FAQs from "@/components/home/FAQs";
 import Features from "@/components/home/Features";
@@ -25,6 +27,8 @@ export default function Home() {
           <Earth />
           <Features />
           <Gallery />
+          <AboutUs />
+          <Community />
           <FAQs />
           <Sun />
         </SignedOut>

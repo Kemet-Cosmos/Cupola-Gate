@@ -40,7 +40,7 @@ const Button: React.FC<Props> = ({
       className={cn(
         `relative group overflow-hidden text-white text-lg py-3 px-8 
          rounded-2xl flex justify-center items-center gap-2 
-         bg-gradient-to-br from-blue-800 via-blue-600 to-purple-700 
+         bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-600
          cursor-pointer select-none transition-all duration-300`,
         className
       )}

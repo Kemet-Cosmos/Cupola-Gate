@@ -8,6 +8,7 @@ import Moon from "../ui/Planets/Moon";
 import Button from "../ui/Button";
 import { T } from "gt-next";
 import { useGT } from "gt-next";
+import Tag from "../ui/Tag";
 
 const Gallery = () => {
   const t = useGT();
@@ -24,6 +25,7 @@ const Gallery = () => {
 
   return (
     <div className="relative overflow-hidden mt-20 w-full min-h-[500px] ">
+      <Tag text={t("Gallery")} className="block mx-auto w-fit" />
       <motion.h1
         {...FadeUp}
         {...ViewPort}
