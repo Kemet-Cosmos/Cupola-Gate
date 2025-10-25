@@ -47,7 +47,7 @@ export default function Page() {
 
   if (loading) return <HomeLoading />;
   return (
-    <section className="mt-20 mx-auto p-4">
+    <section className="my-20 mx-auto p-4">
       <div>
         <motion.h2
           {...FadeUp}

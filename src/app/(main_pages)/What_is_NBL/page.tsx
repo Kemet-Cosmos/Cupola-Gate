@@ -10,12 +10,13 @@ import {
 } from "@/Animation";
 import Button from "@/components/ui/Button";
 import { motion } from "framer-motion";
+import { useGT } from "gt-next";
 import { T } from "gt-next";
 import Image from "next/image";
 
 const MotionImage = motion.create(Image);
-
 export default function NBLPage() {
+  const t = useGT();
   return (
     <main className=" ">
       <div className="relative h-[70vh] flex items-center justify-center bg-blue-950 text-white ">
@@ -194,7 +195,7 @@ export default function NBLPage() {
         </motion.div>
       </div>
       <Button
-        text="Lets Practice !"
+        text={t("Lets Practice !")}
         url="/levels/NBL"
         className="mx-auto mb-20"
       />

@@ -8,7 +8,14 @@ import { T } from "gt-next";
 import { notFound, useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Animate, FadeUp, opacity, transition } from "@/Animation";
+import {
+  Animate,
+  FadeLeft,
+  FadeRight,
+  FadeUp,
+  opacity,
+  transition,
+} from "@/Animation";
 import Button from "@/components/ui/Button";
 import { useUser } from "@clerk/nextjs";
 import Loading from "@/components/ui/Loading";
@@ -25,7 +32,7 @@ export default function Page() {
 
   if (!Level) return notFound();
   const t = useGT();
-  const [wait, setWait] = useState<boolean>(false);
+  const [wait, setWait] = useState<boolean | null>(null);
   const [success, setSuccess] = useState<boolean | null>(null);
   const [exists, setExists] = useState<boolean | null>(null);
 
@@ -90,79 +97,127 @@ export default function Page() {
   };
   return (
     <section className="mt-24 !px-5 flex flex-col lg:flex-row justify-center gap-10 max-w-7xl mx-auto">
-      <div className="w-full lg:w-2/4">
-        <div className="mb-5">
-          <h1 className="mark">{`${Level.title}`}</h1>
-          <p>{`${Level.desc}`}</p>
-        </div>
-        {isVideo ? (
-          <iframe
-            src={Level.videoLink}
-            className="w-full max-w-2xl aspect-video rounded-2xl bg-transparent"
-            allow="autoplay"
-            allowFullScreen
-          ></iframe>
-        ) : (
-          <div className="flex flex-col items-center justify-center">
-            <CustomAudioPlayer
-              src={Level.Voice}
-              title={`${Level.teacher.name} Voice`}
-              className="max-w-full"
-            />
-          </div>
+      <AnimatePresence>
+        {isVideo != null && (
+          <>
+            <motion.div {...opacity} {...Animate} className="w-full lg:w-2/4">
+              <div className="mb-5">
+                <motion.h1
+                  {...FadeLeft}
+                  {...Animate}
+                  transition={{ ...transition.transition, delay: 0 }}
+                  className="mark"
+                >{`${Level.title}`}</motion.h1>
+                <motion.p
+                  {...FadeLeft}
+                  {...Animate}
+                  transition={{ ...transition.transition, delay: 0.2 }}
+                >{`${Level.desc}`}</motion.p>
+              </div>
+              {isVideo ? (
+                <motion.iframe
+                  {...FadeLeft}
+                  {...Animate}
+                  transition={{ ...transition.transition, delay: 0.4 }}
+                  src={Level.videoLink}
+                  className="w-full max-w-2xl aspect-video rounded-2xl bg-transparent"
+                  allow="autoplay"
+                  allowFullScreen
+                ></motion.iframe>
+              ) : (
+                <motion.div
+                  {...FadeLeft}
+                  {...Animate}
+                  transition={{ ...transition.transition, delay: 0.4 }}
+                  className="flex flex-col items-center justify-center"
+                >
+                  <CustomAudioPlayer
+                    src={Level.Voice}
+                    title={`${Level.teacher.name} Voice`}
+                    className="max-w-full"
+                  />
+                </motion.div>
+              )}
+              <motion.div
+                {...FadeLeft}
+                {...Animate}
+                transition={{ ...transition.transition, delay: 0.6 }}
+                className="bg-gradient-to-b from-white/3 to-white/2/0 border border-white/40 rounded-2xl mt-5 p-5"
+              >
+                <h5 className="mb-5 text- center">
+                  <T>
+                    Teacher <span className="mark">Info</span>
+                  </T>
+                </h5>
+                <div className="flex items-center gap-5 ">
+                  <AnimatedImage
+                    src={Level.teacher?.image}
+                    alt="teacher Image"
+                    className="w-16 border border-indigo-500 rounded-full bg-black"
+                    icon
+                    noAnimate
+                  />
+                  <h6 className="text-2xl font-bold">{Level.teacher.name}</h6>
+                </div>
+              </motion.div>
+              <motion.div
+                {...FadeLeft}
+                {...Animate}
+                transition={{ ...transition.transition, delay: 0.8 }}
+                className="flex flex-col justify-center items-center gap-5 mt-5 bg-gradient-to-b from-white/3 to-white/2/0 border border-white/40 rounded-2xl p-5"
+              >
+                <h5 className="text-center">
+                  {Level.questions ? (
+                    <T>
+                      Ready For <span className="mark"> Exam </span> ?
+                    </T>
+                  ) : (
+                    <T>
+                      Go Home , and Complete Your Tasks to earn{" "}
+                      <span className="mark"> Certificate </span>
+                    </T>
+                  )}
+                </h5>
+                <Button
+                  disabled={exists === null ? true : false}
+                  title={exists === null ? "Loading" : "Exam"}
+                  text={t("Okay, Im Ready ")}
+                  onClick={ExamHandleButton}
+                />
+                {/* disabled={exists  ? "true" : "false"} */}
+              </motion.div>
+            </motion.div>
+            <motion.div
+              {...opacity}
+              {...Animate}
+              className="w-full lg:w-2/4 lg:mt-10"
+            >
+              <motion.h4
+                {...FadeRight}
+                {...Animate}
+                transition={{ ...transition.transition, delay: 0 }}
+                className="mb-10 mark"
+              >
+                <T>Content</T>
+              </motion.h4>
+              <div className="flex flex-col justify-center items-center gap-10 max-w-4xl pb-10">
+                {Level.content.map((item) => (
+                  <motion.div
+                    key={item.title}
+                    {...FadeRight}
+                    {...Animate}
+                    transition={{ ...transition.transition, delay: 0.2 }}
+                  >
+                    <h4 className="!text-2xl mb-3">{item.title}</h4>
+                    <p className="!text-xl">{item.desc}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </>
         )}
-        <div className="bg-gradient-to-b from-white/3 to-white/2/0 border border-white/40 rounded-2xl mt-5 p-5">
-          <h5 className="mb-5 text- center">
-            <T>
-              Teacher <span className="mark">Info</span>
-            </T>
-          </h5>
-          <div className="flex items-center gap-5 ">
-            <AnimatedImage
-              src={Level.teacher?.image}
-              alt="teacher Image"
-              className="w-16 border border-indigo-500 rounded-full bg-black"
-              icon
-              noAnimate
-            />
-            <h6 className="text-2xl font-bold">{Level.teacher.name}</h6>
-          </div>
-        </div>
-        <div className="flex flex-col justify-center items-center gap-5 mt-5 bg-gradient-to-b from-white/3 to-white/2/0 border border-white/40 rounded-2xl p-5">
-          <h5 className="text-center">
-            {Level.questions ? (
-              <T>
-                Ready For <span className="mark"> Exam </span> ?
-              </T>
-            ) : (
-              <T>
-                Go Home , and Complete Your Tasks to earn{" "}
-                <span className="mark"> Certificate </span>
-              </T>
-            )}
-          </h5>
-          <Button
-            disabled={exists === null ? true : false}
-            title={exists === null ? "Loading" : "Exam"}
-            text={t("Okay, Im Ready ")}
-            onClick={ExamHandleButton}
-          />
-          {/* disabled={exists  ? "true" : "false"} */}
-        </div>
-      </div>
-      <div className="w-full lg:w-2/4 lg:mt-10">
-        <h4 className="mb-10 mark">
-          <T>Content</T>
-        </h4>
-        <div className="flex flex-col justify-center items-center gap-10 max-w-4xl pb-10">
-          {Level.content.map((item) => (
-            <div key={item.title}>
-              <h4 className="!text-2xl mb-3">{item.title}</h4>
-              <p className="!text-xl">{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      </AnimatePresence>
+
       <AnimatePresence>
         {isVideo === null && (
           <motion.div
@@ -175,11 +230,11 @@ export default function Page() {
               {...FadeUp}
               {...Animate}
               transition={{ ...transition.transition, delay: 0.3 }}
-              className="min-h-72 w-96 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 p-6 rounded-2xl border border-white/10 flex flex-col justify-evenly"
+              className="min-h-72 w-96 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 p-6 rounded-2xl border border-white/10 flex flex-col justify-evenly text-center"
             >
               <div className="flex justify-center mb-4">
-                <div className="p-3 rounded-full bg-red-500/20">
-                  <Laugh className="w-8 h-8 text-red-400" />
+                <div className="p-3 rounded-full bg-yellow-500/20">
+                  <Laugh className="w-8 h-8 text-yellow-400" />
                 </div>
               </div>
               <motion.h3

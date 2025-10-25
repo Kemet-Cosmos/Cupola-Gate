@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useUser } from "@clerk/nextjs";
 import BadgeToast from "@/components/Badges/BadgeToast";
 import { opacity, Animate, FadeUp, transition, FadeLeft } from "@/Animation";
+import { useGT } from "gt-next";
 
 type Message = {
   id: number;
@@ -14,11 +15,12 @@ type Message = {
 
 export default function MarsAIChat() {
   const { user } = useUser();
+  const t = useGT();
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
       from: "ai",
-      text: `Hello ${user?.firstName}, I'm Star`,
+      text: `${t("Hello")} ${user?.firstName}, ${t("I'm Star")}`,
     },
   ]);
 
@@ -88,9 +90,17 @@ export default function MarsAIChat() {
 
     try {
       const res = await axios.post(`${process.env.NEXT_PUBLIC_CHAT_BOT}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         model: `${process.env.NEXT_PUBLIC_CHAT_BOT_MODEL}`,
         messages: [
-          { role: "system", content: "you are programmer , talk shorter" },
+          {
+            role: "system",
+            content:
+              "CupolaGate is an interactive, AI-based simulation webpage educating users about the ISS Cupola and the NBL. NBL and Cupola from Nasa Docs, talk shorter",
+          },
           { role: "user", content: input },
         ],
       });
@@ -100,19 +110,19 @@ export default function MarsAIChat() {
       setMessages((s) =>
         s.map((m) =>
           m.id === typingMsgId
-            ? { ...m, text: aiReply || "Sorry, I couldn't process that." }
+            ? { ...m, text: aiReply || t("Sorry, I couldn't process that.") }
             : m
         )
       );
     } catch (err) {
-      console.error(err);
+      // console.error(err);
 
       setMessages((s) =>
         s.map((m) =>
           m.id === typingMsgId
             ? {
                 ...m,
-                text: " Connection issue . Please try again.",
+                text: t(" Connection issue . Please try again."),
               }
             : m
         )
@@ -169,10 +179,11 @@ export default function MarsAIChat() {
             <motion.input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Type your waste description or question..."
+              placeholder={t("Type your waste description or question...")}
               whileFocus={{ scale: 1.01 }}
               {...FadeUp}
               {...Animate}
+              maxLength={500}
               transition={{ delay: 0.2, ...transition.transition }}
               className="flex-1 w-full rounded-2xl p-3 bg-white/5 placeholder:text-neutral-400 outline-none"
             />
@@ -186,7 +197,7 @@ export default function MarsAIChat() {
               transition={{ delay: 0.2, ...transition.transition }}
               className="px-4 py-2 rounded-2xl bg-gradient-to-br from-indigo-600 to-indigo-400 text-white flex items-center gap-2 disabled:opacity-50"
             >
-              {sending ? "Analyzing..." : "Send"}
+              {sending ? t("Analyzing...") : t("Send")}
             </motion.button>
           </form>
 

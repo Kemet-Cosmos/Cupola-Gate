@@ -38,7 +38,7 @@ const page = () => {
     <div>
       <DialogueAnimation
         dialogues={dialogues}
-        link="/levels"
+        link="/"
         scanBadge="Welcome"
       />
     </div>

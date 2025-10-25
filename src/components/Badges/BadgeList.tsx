@@ -3,16 +3,20 @@
 import { motion } from "framer-motion";
 import { Badge } from "@/lib/type";
 import BadgeCard from "./BadgeCard";
+import { Animate, FadeUp, transition, ViewPort } from "@/Animation";
 
 interface BadgeListProps {
   badges: Badge[];
   all?: boolean;
   variant?: "card" | "inline" | "large";
+
+  viewPort?: boolean;
 }
 
 export default function BadgeList({
   badges,
   variant = "card",
+  viewPort,
 }: BadgeListProps) {
   const sortedBadges = [...badges].sort(
     (a, b) =>
@@ -95,7 +99,9 @@ export default function BadgeList({
         {sortedBadges.map((badge) => (
           <motion.div
             key={badge._id}
-            variants={itemVariants}
+            {...FadeUp}
+            {...(viewPort ? ViewPort : Animate)}
+            transition={{ duration: 0.2 }}
             whileHover={{
               y: -8,
               boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.3)",
@@ -131,7 +137,7 @@ export default function BadgeList({
           }}
           className="rounded-lg overflow-hidden bg-white/5 backdrop-blur-md border border-white/10 transition-all duration-300 cursor-pointer"
         >
-          <BadgeCard title={badge.title}  />
+          <BadgeCard title={badge.title} />
           <motion.div
             className="px-4 py-3 border-t border-white/10"
             initial={{ opacity: 0 }}

@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 
 import { ClerkLoaded, ClerkLoading, useAuth, useUser } from "@clerk/nextjs";
 import { Animate, FadeUp } from "@/Animation";
-import Loading from "@/components/ui/Loading";
 
 import RightSide from "@/components/Profile/RightSide";
 import LeftSide from "@/components/Profile/LeftSide";
+import ProfileLoading from "@/components/Profile/ProfileLoading";
 
 export default function Page() {
   const { user } = useUser();
@@ -33,14 +33,14 @@ export default function Page() {
   if (!user)
     return (
       <section className="flex justify-center items-center min-h-screen">
-        <Loading />
+        <ProfileLoading />
       </section>
     );
 
   return (
     <section className="flex flex-col justify-center items-center mt-20 px-4">
       <ClerkLoading>
-        <Loading />
+        <ProfileLoading />
       </ClerkLoading>
 
       <ClerkLoaded>

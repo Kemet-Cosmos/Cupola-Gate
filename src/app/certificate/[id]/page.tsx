@@ -4,13 +4,11 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { CertificatePage } from "@/lib/type";
 import axios from "axios";
-import { Animate, FadeUp, opacity, transition } from "@/Animation";
+import { Animate, FadeLeft, FadeUp, transition, ViewPort } from "@/Animation";
 import BadgeList from "@/components/Badges/BadgeList";
-import { AnimatedImage } from "@/components/ui/Media_UI/AnimatedImage";
 import Link from "next/link";
 import { useGT } from "gt-next";
 import Button from "@/components/ui/Button";
-import Earth from "@/components/ui/Planets/Earth";
 import { CalendarDays } from "lucide-react";
 import { formatDate } from "@/Hook/Date";
 import CertificatePDf from "@/components/ui/Certificate";
@@ -107,8 +105,13 @@ export default function Page() {
       </section>
     );
   return (
-    <section className="mt-24">
-      <h3 className="text-center">
+    <section className="my-24">
+      <motion.h3
+        {...FadeUp}
+        {...Animate}
+        transition={{ ...transition.transition, delay: 0 }}
+        className="text-center"
+      >
         <T>
           Certificate from{" "}
           <Link
@@ -119,14 +122,24 @@ export default function Page() {
             Kemet Cosmos
           </Link>
         </T>
-      </h3>
+      </motion.h3>
       {/* certification */}
-      <div className={`relative w-full  mt-10 text-center overflow-hidden `}>
+      <motion.div
+        {...FadeUp}
+        {...Animate}
+        transition={{ ...transition.transition, delay: 0.2 }}
+        className={`relative w-full  mt-10 text-center overflow-hidden `}
+      >
         <CertificatePDf certificate={data.Certificate} />
-      </div>
+      </motion.div>
 
       <section className="space-y-5 mt-10">
-        <h3 className="flex flex-wrap items-end gap-3">
+        <motion.h3
+          {...FadeLeft}
+          {...ViewPort}
+          transition={{ ...transition.transition }}
+          className="flex flex-wrap items-end gap-3"
+        >
           <span className="mark">
             <T>Badges</T>
           </span>
@@ -142,9 +155,14 @@ export default function Page() {
               </span>
             </p>
           </div>
-        </h3>
-        <p className="!text-xl">
-          <T> These badges represent milestones achieved by </T> {" "}
+        </motion.h3>
+        <motion.p
+          {...FadeLeft}
+          {...ViewPort}
+          transition={{ ...transition.transition }}
+          className="!text-xl"
+        >
+          <T> These badges represent milestones achieved by </T>{" "}
           <span className="font-semibold text-white">
             {data.Certificate.fullName}
           </span>{" "}
@@ -159,9 +177,9 @@ export default function Page() {
             . Each badge marks a completed stage, reflecting dedication,
             curiosity, and continuous growth.
           </T>
-        </p>
+        </motion.p>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-          <BadgeList badges={data.badges} variant="large" />
+          <BadgeList viewPort badges={data.badges} variant="large" />
         </div>
       </section>
     </section>

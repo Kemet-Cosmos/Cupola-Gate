@@ -157,7 +157,7 @@ const RightSide = () => {
         ].map((item) => (
           <div
             key={item.title}
-            className="  rounded-xl border border-white/10 hover:bg-white/10 transition-all"
+            className="  rounded-xl border border-white/10 hover:bg-white/10 transition-all overflow-hidden"
           >
             <AnimatePresence mode="wait">
               {loading ? (
