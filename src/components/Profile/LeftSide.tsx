@@ -18,7 +18,6 @@ const LeftSide = () => {
         transition={{ delay: 0.2 }}
         className="py-8 px-6 rounded-3xl bg-gradient-to-b from-white/3 to-white/2/0 shadow-2xl"
       >
-        {/* Profile Header */}
         <div className="flex flex-col items-center">
           <motion.div
             whileHover={{ scale: 1.05 }}
@@ -50,7 +49,6 @@ const LeftSide = () => {
           </motion.div>
         </div>
 
-        {/* Info Cards */}
         <div className="mt-8 space-y-3">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -114,7 +112,6 @@ const LeftSide = () => {
           </motion.div>
         </div>
 
-        {/* Language Selector */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -127,7 +124,6 @@ const LeftSide = () => {
           <LanguageSelector AnimateIt={false} />
         </motion.div>
 
-        {/* Sign Out Button */}
         <motion.button
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -141,7 +137,7 @@ const LeftSide = () => {
           <T>Sign Out</T>{" "}
         </motion.button>
       </motion.div>
-      {/* Confirmation Modal */}
+
       <AnimatePresence>
         {showConfirm && (
           <motion.div

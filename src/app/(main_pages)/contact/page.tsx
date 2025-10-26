@@ -7,6 +7,7 @@ import { BadgeInfo, Lock } from "lucide-react";
 import Pluto from "@/components/ui/Planets/Pluto";
 import Earth from "@/components/ui/Planets/Earth";
 import { opacity } from "@/Animation";
+import Tag from "@/components/ui/Tag";
 
 export default function Page() {
   const t = useGT();
@@ -92,23 +93,27 @@ export default function Page() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="w-full max-w-2xl bg-white/[0.03] backdrop-blur-xl border border-white/10 p-6 sm:p-10 rounded-3xl shadow-2xl relative z-10"
+        className="w-full max-w-2xl bg-white/5 backdrop-blur-sm border border-white/10 p-6 sm:p-10 rounded-2xl shadow-2xl relative z-10"
       >
-        {/* Header */}
         <div className="mb-8">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-3xl sm:text-4xl font-bold mb-2 bg-gradient-to-br from-indigo-600 to-indigo-400  bg-clip-text text-transparent"
-          >
-            <T>Contact Us</T>
-          </motion.div>
-          <motion.p
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+          <Tag text={t("Get In Touch")} />
+
+          <motion.h1
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="!text-sm"
+            className="text-3xl sm:text-4xl font-bold mb-3"
+          >
+            <T>
+              Contact <span className="mark">Us</span>
+            </T>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="!text-base text-white/70"
           >
             <T>
               We'd love to hear from you. Send us a message and we'll respond as
@@ -121,11 +126,11 @@ export default function Page() {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="mb-6 p-4 bg-indigo-500/10 border border-indigo-500/20 rounded-xl"
+            transition={{ delay: 0.5 }}
+            className="mb-6 p-4 bg-blue-500/10 border border-blue-500/20 rounded-xl"
           >
-            <p className="!text-sm text-indigo-300 flex items-center gap-2">
-              <BadgeInfo size={26} />
+            <p className="!text-sm text-blue-300 flex items-center gap-2">
+              <BadgeInfo size={20} />
               <T>We prefilled your name and email from your account</T>
             </p>
           </motion.div>
@@ -163,7 +168,7 @@ export default function Page() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.2, type: "spring" }}
-                className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4"
+                className="w-20 h-20 bg-green-500/20 border border-green-500/30 rounded-full flex items-center justify-center mx-auto mb-6"
               >
                 <svg
                   className="w-10 h-10 text-green-400"
@@ -179,10 +184,10 @@ export default function Page() {
                   />
                 </svg>
               </motion.div>
-              <h3 className="text-2xl font-bold text-green-400 mb-2">
+              <h3 className="text-2xl font-bold text-green-400 mb-3">
                 <T>Message Sent!</T>
               </h3>
-              <p className="text-slate-400">
+              <p className="text-white/70">
                 <T>Thank you for reaching out. We'll get back to you soon.</T>
               </p>
             </motion.div>
@@ -194,17 +199,16 @@ export default function Page() {
               onSubmit={handleSubmit}
               className="space-y-5"
             >
-              {/* Name Field */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
+                transition={{ delay: 0.6 }}
               >
-                <label className="block text-sm font-medium mb-2 text-slate-300">
+                <label className="block text-sm font-medium mb-2 text-white/80">
                   <T>Name</T> <span className="text-red-400">*</span>
                 </label>
                 <motion.input
-                  whileFocus={{ scale: 1.01 }}
+                  whileFocus={{ scale: 1.005 }}
                   type="text"
                   value={name}
                   onChange={(e) => {
@@ -212,32 +216,31 @@ export default function Page() {
                   }}
                   readOnly={isSignedIn}
                   required
-                  className={`w-full p-3.5 rounded-xl  border border-white/10 outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all ${
+                  className={`w-full p-3.5 rounded-xl border outline-none focus:border-white/30 transition-all ${
                     isSignedIn
-                      ? "cursor-not-allowed opacity-70 bg-indigo-600/30"
-                      : " bg-white/5"
+                      ? "cursor-not-allowed bg-white/5 border-white/10 opacity-60"
+                      : "bg-white/5 border-white/10 hover:border-white/20 focus:bg-white/10"
                   }`}
                   placeholder={t("Enter your name")}
                 />
                 {isSignedIn && (
-                  <p className="!text-xs mt-1.5 flex items-center gap-1">
-                    <Lock size={16} />
+                  <p className="!text-xs text-white/50 mt-2 flex items-center gap-1.5">
+                    <Lock size={14} />
                     <T>Taken from your account — not editable</T>
                   </p>
                 )}
               </motion.div>
 
-              {/* Email Field */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
+                transition={{ delay: 0.7 }}
               >
-                <label className="block text-sm font-medium mb-2 text-slate-300">
+                <label className="block text-sm font-medium mb-2 text-white/80">
                   <T>Email</T> <span className="text-red-400">*</span>
                 </label>
                 <motion.input
-                  whileFocus={{ scale: 1.01 }}
+                  whileFocus={{ scale: 1.005 }}
                   type="email"
                   value={email}
                   onChange={(e) => {
@@ -245,100 +248,98 @@ export default function Page() {
                   }}
                   readOnly={isSignedIn}
                   required
-                  className={`w-full p-3.5 rounded-xl border border-white/10 outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all ${
+                  className={`w-full p-3.5 rounded-xl border outline-none focus:border-white/30 transition-all ${
                     isSignedIn
-                      ? "cursor-not-allowed opacity-70 bg-indigo-600/30"
-                      : "bg-white/5"
+                      ? "cursor-not-allowed bg-white/5 border-white/10 opacity-60"
+                      : "bg-white/5 border-white/10 hover:border-white/20 focus:bg-white/10"
                   }`}
                   placeholder={t("your@email.com")}
                 />
                 {isSignedIn && (
-                  <p className="!text-xs mt-1.5 flex items-center gap-1">
-                    <Lock size={16} />
+                  <p className="!text-xs text-white/50 mt-2 flex items-center gap-1.5">
+                    <Lock size={14} />
                     <T>Taken from your account — not editable</T>
                   </p>
                 )}
               </motion.div>
 
-              {/* Phone Field */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
-              >
-                <label className="block text-sm font-medium mb-2 text-slate-300">
-                  <T>Phone</T>
-                </label>
-                <motion.input
-                  whileFocus={{ scale: 1.01 }}
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="w-full p-3.5 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all"
-                  placeholder={t("+20 123 456 7890")}
-                />
-              </motion.div>
-
-              {/* Type Field */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
               >
-                <label className="block text-sm font-medium mb-2 text-slate-300">
+                <label className="block text-sm font-medium mb-2 text-white/80">
+                  <T>Phone</T>{" "}
+                  <span className="text-white/40 text-xs">(Optional)</span>
+                </label>
+                <motion.input
+                  whileFocus={{ scale: 1.005 }}
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="w-full p-3.5 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 outline-none focus:border-white/30 focus:bg-white/10 transition-all"
+                  placeholder={t("+20 123 456 7890")}
+                />
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9 }}
+              >
+                <label className="block text-sm font-medium mb-2 text-white/80">
                   <T>Type</T> <span className="text-red-400">*</span>
                 </label>
                 <motion.select
                   whileTap={{ scale: 0.995 }}
                   value={type}
                   onChange={(e) => setType(e.target.value)}
-                  className="w-full p-3.5 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all cursor-pointer"
+                  className="w-full p-3.5 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 outline-none focus:border-white/30 focus:bg-white/10 transition-all cursor-pointer"
                   required
                 >
-                  <option value="issue" className="bg-[#1e293b]">
+                  <option value="issue" className="bg-slate-900">
                     {t("Issue")}
                   </option>
-                  <option value="inquiry" className="bg-[#1e293b]">
+                  <option value="inquiry" className="bg-slate-900">
                     {t("Inquiry")}
                   </option>
-                  <option value="compliment" className="bg-[#1e293b]">
+                  <option value="compliment" className="bg-slate-900">
                     {t("Compliment")}
                   </option>
                 </motion.select>
               </motion.div>
 
-              {/* Message Field */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9 }}
+                transition={{ delay: 1 }}
               >
-                <label className="block text-sm font-medium mb-2 text-slate-300">
+                <label className="block text-sm font-medium mb-2 text-white/80">
                   <T>Message</T> <span className="text-red-400">*</span>
                 </label>
                 <motion.textarea
-                  whileFocus={{ scale: 1.01 }}
+                  whileFocus={{ scale: 1.005 }}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   required
-                  className="w-full p-3.5 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all h-32 resize-none"
+                  maxLength={500}
+                  className="w-full p-3.5 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 outline-none focus:border-white/30 focus:bg-white/10 transition-all h-32 resize-none"
                   placeholder={t("Tell us how we can help you...")}
                 />
-                <p className="!text-xs mt-1.5">
+                <p className="!text-xs text-white/50 mt-2 text-right">
                   {message.length} / 500 {t("characters")}
                 </p>
               </motion.div>
 
-              {/* Submit Button */}
               <motion.button
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1 }}
+                transition={{ delay: 1.1 }}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full px-6 py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 transition-all font-semibold text-base shadow-lg shadow-indigo-500/25 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full px-6 py-4 rounded-xl bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-indigo-600/40   hover:border-indigo-600/60 transition-all font-semibold text-base disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>

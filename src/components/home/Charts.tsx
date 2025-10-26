@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Award, CircleUser, Settings, Target, Zap } from "lucide-react";
+import { Award, CircleUser, Target, Zap } from "lucide-react";
 import {
   calculateAllBadgePoints,
   calculateTotalPoints,
@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { Badge } from "@/lib/type";
-import { Animate, FadeLeft, FadeUp, transition, ViewPort } from "@/Animation";
+import { Animate, FadeUp, transition, ViewPort } from "@/Animation";
 import { useRouter } from "next/navigation";
 import { useGT } from "gt-next";
 import { T } from "gt-next";
@@ -18,6 +18,7 @@ import { AnimatedImage } from "../ui/Media_UI/AnimatedImage";
 import Button from "../ui/Button";
 import LanguageSelector from "../LanguageSelector";
 import HomeLoading from "./HomeLoading";
+import axios from "axios";
 
 const MotionLink = motion.create(Link);
 
@@ -104,12 +105,11 @@ const Chart = () => {
 
   const fetchBadges = async () => {
     try {
-      const response = await fetch("/api/badge");
-      const data = await response.json();
+      const { data } = await axios.get("/api/badge");
       setBadges(data);
-      setLoading(false);
     } catch (error) {
       console.error("Error fetching badges:", error);
+    } finally {
       setLoading(false);
     }
   };
@@ -147,14 +147,16 @@ const Chart = () => {
   useEffect(() => {
     const syncUser = async () => {
       try {
-        const res = await fetch("/api/user", {
-          method: "POST",
-        });
-        if (!res.ok) {
-          console.error("Failed to sync user data");
-        }
+        const res = await axios.post("/api/user");
       } catch (error) {
-        console.error("Error syncing user:", error);
+        if (axios.isAxiosError(error)) {
+          console.error(
+            "Failed to sync user data:",
+            error.response?.data || error.message
+          );
+        } else {
+          console.error("Unexpected error syncing user:", error);
+        }
       }
     };
 
@@ -586,8 +588,8 @@ const Chart = () => {
                   noAnimate
                 />
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                  <p className="text-sm text-white/70 line-clamp-2">
+                  <h3 className="!text-2xl font-bold mb-2">{item.title}</h3>
+                  <p className="!text-lg text-white/70 line-clamp-2">
                     {item.description}
                   </p>
                 </div>

@@ -14,6 +14,7 @@ import { Badge } from "@/lib/type";
 import { Animate, opacity, transition } from "@/Animation";
 import { T } from "gt-next";
 import { useGT } from "gt-next";
+import axios from "axios";
 
 const RightSide = () => {
   const { isSignedIn } = useAuth();
@@ -26,17 +27,18 @@ const RightSide = () => {
   const completionPercentage = Math.round((points / totalTasks) * 100);
   const TotalBadges = badges.length;
   const TotalAllBadges = getTotalBadges();
+  
   const fetchBadges = async () => {
     try {
-      const response = await fetch("/api/badge");
-      const data = await response.json();
+      const { data } = await axios.get("/api/badge");
       setBadges(data);
-      setLoading(false);
     } catch (error) {
       console.error("Error fetching badges:", error);
+    } finally {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     if (badges.length > 0) {
       const total = calculateTotalPoints(badges.map((b) => b.title));
@@ -71,7 +73,6 @@ const RightSide = () => {
         </div>
       </div>
 
-      {/* Main Achievement Card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -127,7 +128,6 @@ const RightSide = () => {
         </AnimatePresence>
       </motion.div>
 
-      {/* Stats Grid */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -209,7 +209,6 @@ const RightSide = () => {
         ))}
       </motion.div>
 
-      {/* Recent Achievements */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
