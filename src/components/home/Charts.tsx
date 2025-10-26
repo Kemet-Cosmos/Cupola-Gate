@@ -166,29 +166,42 @@ const Chart = () => {
   if (loading || !FirstBadge()) return <HomeLoading />;
 
   return (
-    <div className="mt-24 mx-auto p-6 rounded-2xl shadow-2xl bg-gradient-to-b from-white/3 to-white/2/0  overflow-hidden w-11/12 min-h-screen">
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-10">
-        <motion.h1 {...FadeUp} {...Animate} {...transition} className="mb-4">
-          <T>Hi </T> <span className="mark"> {user?.fullName} </span>
+    <div className="mt-24 mx-auto p-6 rounded-2xl shadow-2xl bg-white/5 border border-white/10 overflow-hidden w-11/12 min-h-screen">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-10 pb-6 border-b border-white/10">
+        <motion.h1
+          {...FadeUp}
+          {...Animate}
+          {...transition}
+          className="mb-4 md:mb-0"
+        >
+          <T>Hi </T> <span className="mark">{user?.fullName}</span>
         </motion.h1>
         <div className="flex items-center gap-4">
           <LanguageSelector />
-          <Link href={`/profile`} className="bg-indigo-500 rounded-2xl p-2 ">
-            <CircleUser size={35} />
+          <Link
+            href={`/profile`}
+            className="w-12 h-12 bg-white/10 border border-white/20 hover:bg-white/15 hover:border-white/30 rounded-xl flex items-center justify-center transition-all duration-300"
+          >
+            <CircleUser size={24} />
           </Link>
-        </div>{" "}
+        </div>
       </div>
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <motion.div
           {...FadeUp}
           {...Animate}
           transition={{ ...transition.transition, delay: 0.1 }}
-          className="flex flex-col items-center justify-center p-5 rounded-xl bg-gradient-to-b from-white/10 to-white/2/0 shadow-inner cursor-default"
+          className="flex flex-col items-center justify-center p-6 rounded-xl bg-white/5 border border-white/10 shadow-lg"
         >
-          <Zap className="mb-3 h-10 w-10 text-blue-400" />
-          <span className="text-4xl font-bold tracking-wide">{points}</span>
-          <span className="text-sm uppercase tracking-wider text-gray-300">
-            <T> Points Earned</T>
+          <div className="w-14 h-14 rounded-xl bg-blue-500/20 border border-blue-500/30 flex items-center justify-center mb-4">
+            <Zap className="w-7 h-7 text-blue-400" />
+          </div>
+          <span className="text-4xl font-bold tracking-wide mb-2">
+            {points}
+          </span>
+          <span className="text-sm uppercase tracking-wider text-white/60">
+            <T>Points Earned</T>
           </span>
         </motion.div>
 
@@ -196,14 +209,16 @@ const Chart = () => {
           {...FadeUp}
           {...Animate}
           transition={{ ...transition.transition, delay: 0.2 }}
-          className="flex flex-col items-center justify-center p-5 rounded-xl bg-gradient-to-b from-white/10 to-white/2/0 shadow-inner cursor-default"
+          className="flex flex-col items-center justify-center p-6 rounded-xl bg-white/5 border border-white/10 shadow-lg"
         >
-          <Award className="mb-3 h-10 w-10 text-purple-400" />
-          <span className="text-4xl font-bold tracking-wide">
+          <div className="w-14 h-14 rounded-xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center mb-4">
+            <Award className="w-7 h-7 text-purple-400" />
+          </div>
+          <span className="text-4xl font-bold tracking-wide mb-2">
             {TotalBadges}/{TotalAllBadges}
           </span>
-          <span className="text-sm uppercase tracking-wider text-gray-300">
-            <T> Badges Unlocked</T>
+          <span className="text-sm uppercase tracking-wider text-white/60">
+            <T>Badges Unlocked</T>
           </span>
         </motion.div>
 
@@ -215,37 +230,40 @@ const Chart = () => {
           variants={{
             rest: { ...FadeUp.initial },
             animate: { ...Animate.animate },
+            hover: { scale: 1.02 },
           }}
-          transition={{ ...transition.transition, delay: 0.2 }}
-          className="relative col-span-2 lg:col-span-1 flex flex-col items-center w-full p-5 rounded-xl bg-gradient-to-b from-white/10 to-white/2/0 shadow-inner "
+          transition={{ ...transition.transition, delay: 0.3 }}
+          className="relative col-span-1 md:col-span-2 lg:col-span-1 flex flex-col items-center p-6 rounded-xl bg-white/5 border border-white/10 shadow-lg group"
         >
           <motion.div
             variants={{
               rest: { opacity: 0 },
               hover: { opacity: 1 },
             }}
-            transition={{ ...transition.transition, delay: 0.4 }}
-            className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black/50 rounded-xl z-20 cursor-pointer"
+            transition={{ duration: 0.3 }}
+            className="absolute inset-0 flex flex-col justify-center items-center bg-black/70 backdrop-blur-sm rounded-xl z-20 cursor-pointer"
           >
-            <T>Click to explore badges</T>
+            <T className="text-lg font-semibold">Click to explore badges</T>
           </motion.div>
-          <h3 className="!text-xl font-semibold mb-4 flex items-center tracking-tight">
-            <Target className="mr-2 h-6 w-6 text-green-400" />
-            <T> Progress Overview</T>
+          <div className="w-14 h-14 rounded-xl bg-green-500/20 border border-green-500/30 flex items-center justify-center mb-4">
+            <Target className="w-7 h-7 text-green-400" />
+          </div>
+          <h3 className="!text-lg font-semibold mb-4 text-white/90">
+            <T>Progress Overview</T>
           </h3>
-          <div className="relative w-40 h-40">
+          <div className="relative w-32 h-32">
             <svg className="w-full h-full" viewBox="0 0 100 100">
               <circle
-                className="stroke-current text-gray-700"
-                strokeWidth="10"
+                className="stroke-current text-white/10"
+                strokeWidth="8"
                 cx="50"
                 cy="50"
                 r="40"
                 fill="transparent"
               />
               <motion.circle
-                className="stroke-current text-indigo-500"
-                strokeWidth="10"
+                className="stroke-current text-green-400"
+                strokeWidth="8"
                 strokeLinecap="round"
                 cx="50"
                 cy="50"
@@ -260,42 +278,57 @@ const Chart = () => {
                 transition={{ duration: 1.5, ease: "easeOut", delay: 0.5 }}
               />
             </svg>
-            <div className="absolute inset-0 flex items-center justify-center text-4xl font-bold">
+            <div className="absolute inset-0 flex items-center justify-center text-3xl font-bold">
               {completionPercentage}%
             </div>
           </div>
         </MotionLink>
       </div>
+
       <AnimatePresence>
         {Certificate && (
           <motion.div
             {...FadeUp}
             {...Animate}
-            transition={{ ...transition.transition, delay: 0.46 }}
-            className="flex justify-between items-center gap-5 bg-gradient-to-b from-white/10 to-white/2/0 p-10 rounded-2xl"
+            transition={{ ...transition.transition, delay: 0.4 }}
+            className="flex flex-col sm:flex-row justify-between items-center gap-5 bg-gradient-to-r from-green-500/20 to-blue-500/20 border border-green-500/30 p-6 rounded-2xl mb-8"
           >
-            <h4>
-              <T>
-                Get Your <span className="mark"> Certificate </span>
-              </T>
-            </h4>
-            <Button text={t("Okay im Ready")} url="/certificate" />
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-green-500/30 border border-green-500/50 flex items-center justify-center">
+                <Award className="w-6 h-6 text-green-400" />
+              </div>
+              <div>
+                <h4 className="text-xl font-bold mb-1">
+                  <T>
+                    Get Your <span className="mark">Certificate</span>
+                  </T>
+                </h4>
+                <p className="text-sm text-white/60">
+                  <T>You've completed all requirements!</T>
+                </p>
+              </div>
+            </div>
+            <Button text={t("Claim Certificate")} url="/certificate" />
           </motion.div>
         )}
       </AnimatePresence>
-      <div>
+
+      <div className="mb-12">
         <motion.h2
           {...FadeUp}
           {...Animate}
           transition={{ ...transition.transition, delay: 0.6 }}
-          className="text-2xl font-bold mb-6"
+          className="text-2xl font-bold mb-6 flex items-center gap-3"
         >
-          <T>Levels</T>{" "}
-          <span className="mark text-lg">
-            {allLevelsCompleted ? t("( All Completed )") : ""}
-          </span>
+          <T>Levels</T>
+          {allLevelsCompleted && (
+            <span className="px-3 py-1 rounded-lg bg-green-500/20 border border-green-500/30 text-sm font-semibold text-green-400">
+              <T>All Completed</T>
+            </span>
+          )}
         </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-2   gap-6">
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           {currentLevelData?.id && (
             <MotionLink
               href={
@@ -309,23 +342,27 @@ const Chart = () => {
               variants={{
                 rest: { ...FadeUp.initial },
                 animate: { ...Animate.animate },
+                hover: { y: -5, scale: 1.02 },
               }}
-              transition={{ ...transition.transition, delay: 0.9 }}
-              className="relative min-h-60 rounded-2xl flex flex-col justify-center items-center gap-3 border border-white/45 text-center p-5 bg-gradient-to-b from-white/3 to-white/2/0 overflow-hidden"
+              transition={{ ...transition.transition, delay: 0.8 }}
+              className="group relative min-h-60 rounded-xl flex flex-col justify-center items-center gap-3 border border-white/20 text-center p-6 bg-white/5 hover:bg-white/10 hover:border-white/30 overflow-hidden transition-all duration-300"
             >
               <motion.div
                 variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
-                className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black/60 cursor-pointer text-2xl font-bold "
+                className="absolute inset-0 flex flex-col justify-center items-center bg-black/70 backdrop-blur-sm cursor-pointer"
               >
-                <T>Click To Replay </T>
+                <p className="text-xl font-bold">
+                  <T>Click To Replay</T>
+                </p>
               </motion.div>
-              <h2>{currentLevelData?.title}</h2>
-              <p>{currentLevelData?.desc}</p>
-              <span className="absolute top-2 left-2 bg-indigo-500 p-2 rounded-2xl ">
-                {t("Current Level")}
+              <h3 className="text-2xl font-bold">{currentLevelData?.title}</h3>
+              <p className="text-white/70">{currentLevelData?.desc}</p>
+              <span className="absolute top-3 left-3 px-3 py-1.5 bg-blue-500/80 border border-blue-500/50 rounded-lg text-sm font-semibold">
+                <T>Current Level</T>
               </span>
             </MotionLink>
           )}
+
           {nextLevelData ? (
             <MotionLink
               href={`/levels/Level_${nextLevelData?.id! - 1}`}
@@ -335,60 +372,71 @@ const Chart = () => {
               variants={{
                 rest: { ...FadeUp.initial },
                 animate: { ...Animate.animate },
+                hover: { y: -5, scale: 1.02 },
               }}
-              transition={{ ...transition.transition, delay: 1.1 }}
-              className="relative min-h-60 rounded-2xl flex flex-col justify-center items-center gap-3 border border-indigo-500 text-center p-5 bg-gradient-to-b from-white/3 to-white/2/0 overflow-hidden"
+              transition={{ ...transition.transition, delay: 1 }}
+              className="group relative min-h-60 rounded-xl flex flex-col justify-center items-center gap-3 border border-green-500/30 text-center p-6 bg-white/5 hover:bg-white/10 hover:border-green-500/50 overflow-hidden transition-all duration-300"
             >
               <motion.div
                 variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
-                className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black/60 cursor-pointer text-2xl font-bold "
+                className="absolute inset-0 flex flex-col justify-center items-center bg-black/70 backdrop-blur-sm cursor-pointer"
               >
-                <T>Click when You ready </T>
+                <p className="text-xl font-bold">
+                  <T>Click When Ready</T>
+                </p>
               </motion.div>
-
-              <h2>{nextLevelData?.title}</h2>
-              <p>{nextLevelData?.desc}</p>
-              <span className="absolute top-2 left-2 bg-indigo-500 p-2 rounded-2xl ">
-                {t("Next Level")}
+              <h3 className="text-2xl font-bold">{nextLevelData?.title}</h3>
+              <p className="text-white/70">{nextLevelData?.desc}</p>
+              <span className="absolute top-3 left-3 px-3 py-1.5 bg-green-500/80 border border-green-500/50 rounded-lg text-sm font-semibold">
+                <T>Next Level</T>
               </span>
             </MotionLink>
           ) : (
             <motion.div
               {...FadeUp}
               {...Animate}
-              transition={{ ...transition.transition, delay: 1.1 }}
-              className="rounded-2xl border border-white/45 bg-indigo-500/70 flex flex-col justify-center items-center min-h-60"
+              transition={{ ...transition.transition, delay: 1 }}
+              className="rounded-xl border border-white/20 bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex flex-col justify-center items-center min-h-60 p-6 text-center"
             >
-              <T>
-                <h5>Its the End of your journey</h5>
-                <p> Finish Your Exams to get Certificate </p>
-              </T>
+              <div className="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center mb-4">
+                <Award className="w-8 h-8" />
+              </div>
+              <h5 className="text-xl font-bold mb-2">
+                <T>Journey Complete!</T>
+              </h5>
+              <p className="text-white/70">
+                <T>Finish your exams to get certificate</T>
+              </p>
             </motion.div>
           )}
         </div>
+
         <motion.div
           {...FadeUp}
           {...Animate}
-          transition={{ ...transition.transition, delay: 1.3 }}
-          className="flex justify-center items-center my-4"
+          transition={{ ...transition.transition, delay: 1.2 }}
+          className="flex justify-center"
         >
           <Button text={t("See All Levels")} url="/levels" />
         </motion.div>
       </div>
-      <div>
+
+      <div className="mb-12">
         <motion.h2
           {...FadeUp}
           {...Animate}
           transition={{ ...transition.transition, delay: 0.6 }}
-          className="text-2xl font-bold mb-6"
+          className="text-2xl font-bold mb-6 flex items-center gap-3"
         >
           <T>Exams</T>
-          <span className="mark text-lg">
-            {" "}
-            {allExamsCompleted ? t("( All Completed )") : ""}
-          </span>
+          {allExamsCompleted && (
+            <span className="px-3 py-1 rounded-lg bg-green-500/20 border border-green-500/30 text-sm font-semibold text-green-400">
+              <T>All Completed</T>
+            </span>
+          )}
         </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-2   gap-6">
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {currentLevelExamData?.id != 1 && (
             <MotionLink
               href={`/levels/Level_${currentLevelExamData?.id! - 1}/Exam`}
@@ -398,26 +446,29 @@ const Chart = () => {
               variants={{
                 rest: { ...FadeUp.initial },
                 animate: { ...Animate.animate },
+                hover: { y: -5, scale: 1.02 },
               }}
-              transition={{ ...transition.transition, delay: 0.9 }}
-              className="relative min-h-60 rounded-2xl flex flex-col justify-center items-center gap-3 border border-white/45 text-center p-5 bg-gradient-to-b from-white/3 to-white/2/0 overflow-hidden"
+              transition={{ ...transition.transition, delay: 0.8 }}
+              className="group relative min-h-60 rounded-xl flex flex-col justify-center items-center gap-3 border border-white/20 text-center p-6 bg-white/5 hover:bg-white/10 hover:border-white/30 overflow-hidden transition-all duration-300"
             >
               <motion.div
                 variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
-                className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black/60 cursor-pointer text-2xl font-bold "
+                className="absolute inset-0 flex flex-col justify-center items-center bg-black/70 backdrop-blur-sm cursor-pointer"
               >
-                <T>Click To Replay </T>
+                <p className="text-xl font-bold">
+                  <T>Click To Replay</T>
+                </p>
               </motion.div>
-              <h2>
-                <T>Exam</T>
-                {currentLevelExamData?.id! - 1}
-              </h2>
-              <p>{currentLevelExamData?.desc}</p>
-              <span className="absolute top-2 left-2 bg-indigo-500 p-2 rounded-2xl ">
-                {t("Completed Exam")}
+              <h3 className="text-2xl font-bold">
+                <T>Exam</T> {currentLevelExamData?.id! - 1}
+              </h3>
+              <p className="text-white/70">{currentLevelExamData?.desc}</p>
+              <span className="absolute top-3 left-3 px-3 py-1.5 bg-blue-500/80 border border-blue-500/50 rounded-lg text-sm font-semibold">
+                <T>Completed</T>
               </span>
             </MotionLink>
           )}
+
           {nextLevelExamData ? (
             <MotionLink
               href={`/levels/Level_${nextLevelExamData?.id! - 1}/Exam`}
@@ -427,54 +478,58 @@ const Chart = () => {
               variants={{
                 rest: { ...FadeUp.initial },
                 animate: { ...Animate.animate },
+                hover: { y: -5, scale: 1.02 },
               }}
-              transition={{ ...transition.transition, delay: 1.1 }}
-              className="relative min-h-60 rounded-2xl flex flex-col justify-center items-center gap-3 border border-indigo-500 text-center p-5 bg-gradient-to-b from-white/3 to-white/2/0 overflow-hidden"
+              transition={{ ...transition.transition, delay: 1 }}
+              className="group relative min-h-60 rounded-xl flex flex-col justify-center items-center gap-3 border border-green-500/30 text-center p-6 bg-white/5 hover:bg-white/10 hover:border-green-500/50 overflow-hidden transition-all duration-300"
             >
               <motion.div
                 variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
-                className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black/60 cursor-pointer text-2xl font-bold "
+                className="absolute inset-0 flex flex-col justify-center items-center bg-black/70 backdrop-blur-sm cursor-pointer"
               >
-                <T>Click when You ready </T>
+                <p className="text-xl font-bold">
+                  <T>Click When Ready</T>
+                </p>
               </motion.div>
-
-              <h2>
-                {" "}
-                <T>Exam</T>
-                {nextLevelExamData?.id! - 1}
-              </h2>
-              <p>{nextLevelExamData?.desc}</p>
-              <span className="absolute top-2 left-2 bg-indigo-500 p-2 rounded-2xl ">
-                {t("Next Exam")}
+              <h3 className="text-2xl font-bold">
+                <T>Exam</T> {nextLevelExamData?.id! - 1}
+              </h3>
+              <p className="text-white/70">{nextLevelExamData?.desc}</p>
+              <span className="absolute top-3 left-3 px-3 py-1.5 bg-green-500/80 border border-green-500/50 rounded-lg text-sm font-semibold">
+                <T>Next Exam</T>
               </span>
             </MotionLink>
           ) : (
             <motion.div
               {...FadeUp}
               {...Animate}
-              transition={{ ...transition.transition, delay: 1.1 }}
-              className="rounded-2xl border border-white/45 bg-indigo-500/70 flex flex-col justify-center items-center min-h-60"
+              transition={{ ...transition.transition, delay: 1 }}
+              className="rounded-xl border border-white/20 bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex flex-col justify-center items-center min-h-60 p-6 text-center"
             >
-              <h5>Its the End of your journey</h5>
-              <p> Finish Your Exams to get Certificate </p>
+              <div className="w-16 h-16 rounded-full bg-white/10 border border-white/20 flex items-center justify-center mb-4">
+                <Award className="w-8 h-8" />
+              </div>
+              <h5 className="text-xl font-bold mb-2">
+                <T>Journey Complete!</T>
+              </h5>
+              <p className="text-white/70">
+                <T>Finish your exams to get certificate</T>
+              </p>
             </motion.div>
           )}
         </div>
-        {/* <motion.div
-          {...FadeUp}
-          {...Animate}
-          transition={{ ...transition.transition, delay: 1.3 }}
-          className="flex justify-center items-center my-4"
-        >
-          <Button text={t("See All Exams")} url="/exams" />
-        </motion.div> */}
       </div>
 
-      <div className="mt-20 flex flex-col justify-center items-center">
-        <motion.h1 {...ViewPort} {...FadeUp}>
-          <T>Try Those Too</T>
-        </motion.h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-fit gap-5 my-10">
+      <div className="mt-20">
+        <motion.h2
+          {...ViewPort}
+          {...FadeUp}
+          className="text-3xl font-bold text-center mb-10"
+        >
+          <T>Try These Too</T>
+        </motion.h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
             {
               title: t("NBL"),
@@ -508,37 +563,51 @@ const Chart = () => {
               variants={{
                 rest: { ...FadeUp.initial },
                 animate: { ...Animate.animate },
-                hover: { y: -5 },
+                hover: { y: -8, scale: 1.02 },
               }}
-              className={`relative w-full max-w-xl h-[200px] border p-5 overflow-hidden flex items-center justify-between gap-4 bg-gradient-to-b from-white/3 to-white/2/0 rounded-2xl shadow-xl  ${
+              transition={{ duration: 0.3, delay: i * 0.1 }}
+              className={`group relative overflow-hidden rounded-xl border p-5 bg-white/5 hover:bg-white/10 transition-all duration-300 ${
                 hasBadge(item.badgeTitle)
-                  ? "border border-green-500"
-                  : "border-neutral-400/20"
-              } `}
+                  ? "border-green-500/50"
+                  : "border-white/10 hover:border-white/20"
+              }`}
             >
               {hasBadge(item.badgeTitle) && (
-                <motion.div
-                  {...FadeLeft}
-                  {...Animate}
-                  className="absolute top-2 left-2 p-1.5 bg-green-600/50 z-10 rounded-2xl flex flex-col justify-center items-center"
-                >
-                  <T className="text-center px-4">Discoverd</T>
-                </motion.div>
+                <span className="absolute top-3 right-3 px-3 py-1.5 bg-green-500/80 border border-green-500/50 rounded-lg text-sm font-semibold z-10">
+                  <T>Discovered</T>
+                </span>
               )}
 
-              <div className="w-2/4">
-                <h3 className="!text-2xl">{item.title}</h3>
-                <p className="!text-xl">
-                  {item.description.slice(0, 60) + "...."}
-                </p>
+              <div className="flex gap-4 items-center">
+                <AnimatedImage
+                  src={item.image}
+                  alt={item.title}
+                  className="w-24 h-24 object-cover rounded-xl border border-white/10"
+                  noAnimate
+                />
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                  <p className="text-sm text-white/70 line-clamp-2">
+                    {item.description}
+                  </p>
+                </div>
               </div>
 
-              <AnimatedImage
-                src={item.image}
-                alt={item.title}
-                className="w-2/4 h-full object-cover rounded-2xl"
-                noAnimate
-              />
+              <div className="absolute bottom-3 right-3 w-8 h-8 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </svg>
+              </div>
             </MotionLink>
           ))}
         </div>
