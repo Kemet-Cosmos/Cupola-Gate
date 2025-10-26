@@ -47,6 +47,7 @@ export default function DialogueAnimation({
   const t = useGT();
   const [current, setCurrent] = useState(isFinished ? dialogues.length : 0);
   const [finished, setFinished] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [showToast, setShowToast] = useState<boolean>(false);
   const [showQuestions, setShowQuestions] = useState(false);
   const [toast, setToast] = useState<string>("");
@@ -57,6 +58,7 @@ export default function DialogueAnimation({
 
   const Add = async (newBadge: string) => {
     try {
+      setLoading(true);
       const response = await fetch("/api/badge", {
         method: "POST",
         headers: {
@@ -78,6 +80,8 @@ export default function DialogueAnimation({
     } catch (error) {
       console.error("Error fetching badges:", error);
       setShowToast(false);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -148,8 +152,7 @@ export default function DialogueAnimation({
   };
 
   return (
-    <section className="flex flex-col items-center justify-center p-6 relative">
-      {/* Dialogue Animation */}
+    <section className="flex flex-col items-center justify-center p-6 relative min-h-screen">
       <div className="relative w-full max-w-4xl min-h-[600px] flex items-center justify-center">
         <AnimatePresence mode="wait">
           {!showQuestions && current < dialogues.length && (
@@ -160,27 +163,52 @@ export default function DialogueAnimation({
               className="flex flex-col items-center gap-8 w-full"
             >
               {dialogues[current].slideImage && (
-                <img
+                <motion.img
                   key={dialogues[current].slideImage}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4 }}
                   src={dialogues[current].slideImage}
                   alt="Slide"
-                  className="w-96 h-auto object-contain rounded-xl shadow-lg border border-white/20"
+                  className="w-full max-w-2xl h-auto object-contain rounded-2xl shadow-2xl border border-white/10 bg-white/5 p-4"
                 />
               )}
-              <div className="flex flex-col lg:flex-row items-center gap-4">
-                <img
+              <div className="flex flex-col lg:flex-row items-center gap-6">
+                <motion.img
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 0.2 }}
                   src={dialogues[current].image}
                   alt={dialogues[current].character}
-                  className="w-full md:w-60 h-auto md:h-60 max-w-sm object-cover rounded-lg"
+                  className={` object-cover rounded-2xl border border-white/10 shadow-xl
+                     ${
+                       dialogues[current].slideImage
+                         ? "w-60 "
+                         : " w-full md:w-64 h-auto md:h-64 max-w-sm"
+                     }
+                    `}
                 />
-                <div className="p-4 rounded-2xl shadow-xl max-w-md text-center text-white">
-                  <h3 className="font-bold text-lg mb-2">
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 }}
+                  className="p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-2xl max-w-md"
+                >
+                  <h3
+                    className={` 
+                     ${dialogues[current].slideImage ? " !text-xl" : "  "}
+                     font-bold  mb-3 text-white/90`}
+                  >
                     {dialogues[current].character}
                   </h3>
-                  <p className="text-base leading-relaxed">
+                  <p
+                    className={` 
+                     ${dialogues[current].slideImage ? " !text-base" : "  "}
+                     leading-relaxed text-white/80`}
+                  >
                     {dialogues[current].text}
                   </p>
-                </div>
+                </motion.div>
               </div>
             </motion.div>
           )}
@@ -191,26 +219,33 @@ export default function DialogueAnimation({
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.4 }}
-              className="mt-20 w-full shadow-2xl"
+              className="w-full max-w-3xl"
             >
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-3xl font-bold">Questions</h2>
+              <div className="flex justify-between items-center mb-8 pb-6 border-b border-white/10">
+                <h2 className="text-3xl font-bold">
+                  <T>Questions</T>
+                </h2>
                 <button
                   onClick={() => setShowQuestions(false)}
-                  className="text-2xl font-bold"
+                  className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 flex items-center justify-center transition-all duration-300 group"
                 >
-                  <X size={40} />
+                  <X
+                    size={24}
+                    className="group-hover:rotate-90 transition-transform duration-300"
+                  />
                 </button>
               </div>
 
-              {/* Questions List */}
-              <div className="space-y-6 h-fit pr-4">
+              <div className="space-y-6 max-h-[60vh] overflow-y-auto pr-4 custom-scrollbar">
                 {shuffledQuestions.map((q, idx) => (
-                  <div
+                  <motion.div
                     key={q.id}
-                    className="p-3 rounded-xl bg-gradient-to-b from-white/3 to-white/2/0"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: idx * 0.05 }}
+                    className="p-5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm"
                   >
-                    <p className="font-bold text-lg mb-4">
+                    <p className="font-bold text-lg mb-4 text-white/90">
                       {idx + 1}. {q.question}
                     </p>
                     <div className="space-y-3">
@@ -223,17 +258,18 @@ export default function DialogueAnimation({
                         return (
                           <motion.button
                             key={i}
-                            whileTap={{ scale: 0.97 }}
+                            whileHover={{ scale: showResults ? 1 : 1.02 }}
+                            whileTap={{ scale: showResults ? 1 : 0.98 }}
                             disabled={showResults}
                             onClick={() => handleAnswer(q.id, opt)}
-                            className={`w-full text-left p-3 rounded-lg border transition font-medium ${
+                            className={`w-full text-left p-4 rounded-xl border transition-all duration-300 font-medium ${
                               isCorrect
-                                ? "border-green-500 bg-green-900 text-green-100"
+                                ? "border-green-500/50 bg-green-500/20 text-green-100"
                                 : isWrong
-                                ? "border-red-500 bg-red-900 text-red-100"
+                                ? "border-red-500/50 bg-red-500/20 text-red-100"
                                 : isSelected
-                                ? "border-neutral-500 bg-neutral-100 text-neutral-900"
-                                : "border-white/20"
+                                ? "border-white/30 bg-white/10 text-white"
+                                : "border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 text-white/80"
                             }`}
                           >
                             {opt}
@@ -241,37 +277,38 @@ export default function DialogueAnimation({
                         );
                       })}
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-
-              {/* Result Buttons */}
-              <div className="mt-8 flex justify-between items-center gap-4">
+              <div className="mt-8 flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 border-t border-white/10">
                 {!showResults ? (
                   <button
                     onClick={() => setShowResults(true)}
-                    className="px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-lg transition flex-1"
+                    className="w-full sm:w-auto px-8 py-4 bg-white/10 hover:bg-white/15 border border-white/20 hover:border-white/30 text-white rounded-xl font-bold text-lg transition-all duration-300"
                   >
                     <T>Submit Answers</T>
                   </button>
                 ) : (
                   <>
-                    <p className="font-bold text-xl text-gray-800">
-                      Score: {calculateScore()} / {shuffledQuestions.length}
-                    </p>
+                    <div className="px-6 py-4 rounded-xl bg-white/5 border border-white/10">
+                      <p className="font-bold text-xl text-white">
+                        <T>Score</T>: {calculateScore()} /{" "}
+                        {shuffledQuestions.length}
+                      </p>
+                    </div>
                     {calculateScore() === shuffledQuestions.length ? (
                       <Link
                         href="/"
-                        className="px-8 py-3 bg-green-500 hover:bg-green-400 text-white rounded-xl font-bold text-lg transition"
+                        className="px-8 py-4 bg-green-500/80 hover:bg-green-500 border border-green-500/50 text-white rounded-xl font-bold text-lg transition-all duration-300"
                       >
-                        <T>Continue</T>
+                        <T>Continue</T> →
                       </Link>
                     ) : (
                       <button
                         onClick={resetQuiz}
-                        className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 text-white rounded-xl font-bold text-lg transition"
+                        className="px-8 py-4 bg-orange-500/80 hover:bg-orange-500 border border-orange-500/50 text-white rounded-xl font-bold text-lg transition-all duration-300"
                       >
-                        <T>Try Again</T>{" "}
+                        ↺ <T>Try Again</T>
                       </button>
                     )}
                   </>
@@ -282,34 +319,35 @@ export default function DialogueAnimation({
         </AnimatePresence>
       </div>
 
-      {/* Navigation Buttons for Dialogues */}
       {!showQuestions && current < dialogues.length && (
         <div className="flex gap-4 mt-8 justify-center items-center">
           <motion.button
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: current === 0 ? 1 : 1.05 }}
+            whileTap={{ scale: current === 0 ? 1 : 0.95 }}
             onClick={goPrev}
             disabled={current === 0}
-            className={`px-6 py-3 rounded-xl font-medium text-white transition ${
+            className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
               current === 0
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-orange-600 hover:bg-orange-500"
+                ? "bg-white/5 border border-white/10 text-white/30 cursor-not-allowed"
+                : "bg-white/10 border border-white/20 hover:bg-white/15 hover:border-white/30 text-white"
             }`}
           >
             ← <T>Previous</T>
           </motion.button>
 
-          <span className="text-gray-400 font-medium">
+          <span className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white/70 font-medium">
             {current + 1} / {dialogues.length}
           </span>
 
           <motion.button
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: current === dialogues.length - 1 ? 1 : 1.05 }}
+            whileTap={{ scale: current === dialogues.length - 1 ? 1 : 0.95 }}
             onClick={goNext}
             disabled={current === dialogues.length - 1}
-            className={`px-6 py-3 rounded-xl font-medium text-white transition ${
+            className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
               current === dialogues.length - 1
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-green-600 hover:bg-green-500"
+                ? "bg-white/5 border border-white/10 text-white/30 cursor-not-allowed"
+                : "bg-white/10 border border-white/20 hover:bg-white/15 hover:border-white/30 text-white"
             }`}
           >
             <T>Next</T> →
@@ -317,28 +355,42 @@ export default function DialogueAnimation({
         </div>
       )}
 
-      {/* Action Buttons when finished */}
       {finished && !showQuestions && (
         <div className="flex gap-4 mt-8">
           <motion.button
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={goToNextPage}
-            className="px-6 py-3 rounded-xl bg-green-600 hover:bg-green-500 transition text-white font-medium shadow-lg"
+            className="px-8 py-4 rounded-xl bg-green-500/80 hover:bg-green-500 border border-green-500/50 transition-all duration-300 text-white font-bold shadow-lg"
           >
-            <T>Continue</T>
+            <T>Continue</T> →
           </motion.button>
 
           {questions.length > 0 && (
             <motion.button
-              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setShowQuestions(true)}
-              className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 transition text-white font-medium shadow-lg"
+              className="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 hover:border-white/30 transition-all duration-300 text-white font-bold shadow-lg"
             >
-              <T>Exam Questions</T>
+              📝 <T>Exam Questions</T>
             </motion.button>
           )}
         </div>
       )}
+      <AnimatePresence>
+        {loading && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm flex flex-col gap-4 items-center justify-center z-50"
+          >
+            <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin" />
+            Loading...
+          </motion.div>
+        )}
+      </AnimatePresence>
       <BadgeToast
         show={showToast}
         onClose={() => setShowToast(false)}
