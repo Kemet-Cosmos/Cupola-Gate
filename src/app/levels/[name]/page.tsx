@@ -292,11 +292,10 @@ export default function Page() {
             {...opacity}
             {...Animate}
             {...transition}
-            className="fixed top-0 left-0 w-full h-full bg-black/70 flex justify-center items-center z-40"
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm flex flex-col gap-4 items-center justify-center z-50"
           >
-            <div>
-              <Loading />
-            </div>
+            <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin" />
+            Loading...
           </motion.div>
         )}
         {success && (

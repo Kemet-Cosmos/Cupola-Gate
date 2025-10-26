@@ -75,15 +75,10 @@ export default function MarsAIChat() {
 
   const addBadge = async (badgeTitle: string) => {
     try {
-      const response = await fetch("/api/badge", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ title: badgeTitle, fullName: user?.fullName }),
+      const { data } = await axios.post("/api/badge", {
+        title: badgeTitle,
+        fullName: user?.fullName,
       });
-
-      const data = await response.json();
 
       if (data.error) {
         console.error("Badge already exists:", data.error);
@@ -93,10 +88,16 @@ export default function MarsAIChat() {
       setShowToast(true);
       console.log(`Badge awarded: ${badgeTitle}`);
     } catch (error) {
-      console.error("Error adding badge:", error);
+      if (axios.isAxiosError(error)) {
+        console.error(
+          "Error adding badge:",
+          error.response?.data || error.message
+        );
+      } else {
+        console.error("Unexpected error adding badge:", error);
+      }
     }
   };
-
   async function onSend(e?: React.FormEvent) {
     e?.preventDefault();
     if (!input.trim()) return;
@@ -159,7 +160,6 @@ export default function MarsAIChat() {
   return (
     <div className="min-h-screen p-6 flex items-center justify-center">
       <div className="w-full max-w-6xl mt-10">
-        {/* Chat area */}
         <motion.main
           {...FadeUp}
           {...Animate}
@@ -198,7 +198,6 @@ export default function MarsAIChat() {
             </ul>
           </motion.div>
 
-          {/* Input */}
           <form onSubmit={onSend} className="mt-6 flex items-center gap-3">
             <motion.input
               value={input}
@@ -225,7 +224,6 @@ export default function MarsAIChat() {
             </motion.button>
           </form>
 
-          {/* Badges Display */}
           <BadgeToast
             show={showToast}
             onClose={() => setShowToast(false)}
