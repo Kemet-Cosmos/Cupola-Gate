@@ -12,6 +12,8 @@ import Earth from "@/components/ui/Planets/Earth";
 import { Animate, FadeLeft, FadeRight } from "@/Animation";
 import { AnimatedImage } from "@/components/ui/Media_UI/AnimatedImage";
 import LevelLoading from "@/components/loading/Level";
+import Tag from "@/components/ui/Tag";
+import axios from "axios";
 const MotionLink = motion.create(Link);
 
 export default function Page() {
@@ -55,12 +57,11 @@ export default function Page() {
 
   const fetchBadges = async () => {
     try {
-      const response = await fetch("/api/badge");
-      const data = await response.json();
+      const { data } = await axios.get("/api/badge");
       setBadges(data);
-      setLoading(false);
     } catch (error) {
       console.error("Error fetching badges:", error);
+    } finally {
       setLoading(false);
     }
   };
@@ -89,20 +90,28 @@ export default function Page() {
   if (loading || !FirstBadge()) return <LevelLoading />;
 
   return (
-    <section className="relative !pt-24 lg:!pt-20 flex flex-col items-center justify-center text-white px-6 py-12 overflow-hidden">
-      <motion.h1
+    <section className="relative !pt-24 lg:!pt-20 flex flex-col items-center justify-center text-white px-6 py-12 overflow-hidden min-h-screen">
+      <motion.div
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-4xl font-bold mb-10 text-center"
+        className="text-center mb-16"
       >
-        <T>
-          {" "}
-          Choose Your <span className="mark"> Level </span>
-        </T>
-      </motion.h1>
+        <Tag text={t("Your Learning")} />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2  gap-8  ">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <T>
+            Choose Your <span className="mark">Level</span>
+          </T>
+        </h1>
+        <p className="!text-lg text-white/70 max-w-2xl mx-auto">
+          <T>
+            Progress through each level to unlock new challenges and earn
+            badges.
+          </T>
+        </p>
+      </motion.div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl w-full">
         {levels.map((lvl, index) => {
           const isUnlocked = lvl.id - 1 === 0 || hasBadge(lvl.id - 2);
 
@@ -117,53 +126,134 @@ export default function Page() {
               }
               key={lvl.id}
               initial={{ opacity: 0, y: 30 }}
-              whileHover={{ y: -5 }}
+              whileHover={isUnlocked ? { y: -8, scale: 1.02 } : {}}
               animate={{
-                opacity: !isUnlocked ? 0.4 : 1,
+                opacity: !isUnlocked ? 0.5 : 1,
                 y: 0,
               }}
-              transition={{ duration: 0.1 }}
+              transition={{ duration: 0.3 }}
               className={`
-                w-full max-w-xl lg:max-w-xl lg:w-[475px] bg-gradient-to-b from-white/3 to-white/2/0 rounded-2xl shadow-xl p-6 flex gap-5 items-center text-start 
-               ${!isUnlocked && "cursor-not-allowed"}
-            `}
+                group relative w-full bg-white/5 border border-white/10 hover:border-white/20 rounded-2xl shadow-xl overflow-hidden transition-all duration-300
+                ${!isUnlocked && "cursor-not-allowed"}
+                ${isUnlocked && "hover:bg-white/10"}
+              `}
             >
-              <AnimatedImage
-                src={lvl.image}
-                alt={lvl.title}
-                className="rounded-2xl w-3/5"
-              />
-              <div className="w-2/5">
-                <h2 className="!text-3xl font-semibold mb-3">{lvl.title}</h2>
-                <p className="!text-lg text-gray-300 mb-6">
-                  {!isUnlocked
-                    ? `Complete Level ${lvl.id - 2} to unlock this level`
-                    : lvl.desc}
-                </p>
-                <motion.button
-                  whileTap={{ scale: isUnlocked ? 0.9 : 1 }}
-                  disabled={!isUnlocked}
-                  className={`px-5 py-2 rounded-xl bg-indigo-600 ${
-                    isUnlocked
-                      ? "hover:bg-indigo-500 shadow-lg"
-                      : "bg-gray-500 cursor-not-allowed"
-                  } transition font-medium`}
-                >
-                  <T>Start</T>
-                </motion.button>
+              {!isUnlocked && (
+                <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px] z-10 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
+                      <svg
+                        className="w-8 h-8"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                        />
+                      </svg>
+                    </div>
+                    <p className="text-sm font-semibold text-white/80">
+                      <T>Complete Level</T> {lvl.id - 2} <T>to unlock</T>
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              <div className="flex gap-6 p-6">
+                <div className="relative w-2/5 shrink-0">
+                  <AnimatedImage
+                    src={lvl.image}
+                    alt={lvl.title}
+                    className="w-full h-full object-cover rounded-xl border border-white/10"
+                  />
+
+                  <div className="absolute top-2 left-2 w-10 h-10 rounded-lg bg-black/50 backdrop-blur-sm border border-white/20 flex items-center justify-center font-bold text-lg">
+                    {lvl.id - 1}
+                  </div>
+                </div>
+
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <h2 className="!text-2xl md:text-3xl font-bold mb-3">
+                      {lvl.title}
+                    </h2>
+                    <p className="!text-base text-white/70 leading-relaxed">
+                      {isUnlocked
+                        ? lvl.desc
+                        : `Complete Level ${lvl.id - 2} to unlock this level`}
+                    </p>
+                  </div>
+
+                  <motion.button
+                    whileTap={{ scale: isUnlocked ? 0.95 : 1 }}
+                    disabled={!isUnlocked}
+                    className={`mt-4 px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 w-fit ${
+                      isUnlocked
+                        ? "bg-white/10 border border-white/20 hover:bg-white/15 hover:border-white/30 text-white"
+                        : "bg-white/5 border border-white/10 text-white/40 cursor-not-allowed"
+                    }`}
+                  >
+                    <T>Start Level</T>
+                    {isUnlocked && (
+                      <svg
+                        className="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M13 7l5 5m0 0l-5 5m5-5H6"
+                        />
+                      </svg>
+                    )}
+                  </motion.button>
+                </div>
               </div>
+
+              {isUnlocked && (
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                  <div className="absolute inset-0 bg-white/5 rounded-2xl blur-xl" />
+                </div>
+              )}
             </MotionLink>
           );
         })}
       </div>
       <motion.div
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.2 }}
+        className="absolute top-1/4 -left-32 w-96 h-96 bg-white/5 rounded-full blur-3xl -z-10"
+      />
+      <motion.div
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.4 }}
+        className="absolute bottom-1/4 -right-32 w-96 h-96 bg-white/5 rounded-full blur-3xl -z-10"
+      />
+      <motion.div
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.6 }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/3 rounded-full blur-3xl -z-10"
+      />
+
+      <motion.div
         {...Animate}
-        {...FadeRight}
+        {...FadeLeft}
         transition={{ duration: 1, delay: 0.2 }}
         className="absolute -bottom-[600px] -right-[500px] -z-10"
       >
         <Sun />
       </motion.div>
+
       <motion.div
         {...Animate}
         {...FadeLeft}
