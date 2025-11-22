@@ -490,9 +490,11 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                   baseTheme: dark,
                 }}
               >
-                <button className="px-4 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition">
-                  Sign In
-                </button>
+                <T>
+                  <button className="px-4 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition">
+                    Sign In
+                  </button>
+                </T>
               </SignInButton>
             </SignedOut>
 
