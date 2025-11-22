@@ -78,14 +78,13 @@ export default function Page() {
   }, []);
 
   useEffect(() => {
-    if (exists) {
-      return route.push(`/certificate/${exists._id}`);
-    } else if (!Certificate) {
+    if (loading) return;
+    if (!Certificate || !user) {
       return route.push("/");
     } else {
       setBadgeLoading(false);
     }
-  }, [Certificate, exists]);
+  }, [Certificate, exists, badgeLoading, loading, user]);
 
   const SubmitHandler = async () => {
     setSending(true);
@@ -238,7 +237,7 @@ export default function Page() {
             <AnimatedImage
               src={show}
               alt="Image"
-              className="z-20 border border-indigo-600"
+              className="z-20 border border-indigo-600 h-3/4"
             />
           </motion.div>
         )}
@@ -298,55 +297,3 @@ export default function Page() {
     </section>
   );
 }
-
-// <div className="w-2xl grid grid-cols-1  my-10">
-//         <motion.h3
-//           {...FadeUp}
-//           {...ViewPort}
-//           {...transition}
-//           className="mt-10 mb-5 mark"
-//         >
-//           <T>certificate details</T>
-//         </motion.h3>
-//         <motion.p
-//           {...FadeUp}
-//           {...ViewPort}
-//           {...transition}
-//           className="mb-4 flex items-center justify-center gap-3"
-//         >
-//           <T>edit your Name and see how certificate will look like</T>
-//         </motion.p>
-//         <motion.p
-//           {...FadeUp}
-//           {...ViewPort}
-//           {...transition}
-//           className="mb-10 flex items-center justify-center gap-3 !text-xl !text-red-600/70"
-//         >
-//           <T>
-//             <TriangleAlert />
-//             you cant edit this after get certificate
-//           </T>
-//         </motion.p>
-//         <motion.div {...FadeUp} {...ViewPort} {...transition}>
-//           <label className="block text-start text-sm font-medium mb-2 text-slate-300">
-//             <T>Name</T> <span className="text-red-400">*</span>
-//           </label>
-//           <motion.input
-//             whileFocus={{ scale: 1.01 }}
-//             type="text"
-//             value={name}
-//             onChange={(e) => {
-//               setName(e.target.value);
-//             }}
-//             required
-//             className={`w-full p-3.5 rounded-xl  border border-white/10 outline-none focus:border-indigo-500/50 focus:bg-white/10 transition-all `}
-//             placeholder={t("Enter your name")}
-//           />
-//           {isSignedIn && (
-//             <p className="!text-xs mt-1.5 flex items-center gap-1">
-//               <Lock size={16} />
-//               <T>Taken from your account — You Can edit it </T>
-//             </p>
-//           )}
-//         </motion.div>
-//       </div>
