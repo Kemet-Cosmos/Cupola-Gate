@@ -2,13 +2,12 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import { GTProvider } from "gt-next";
-import { useGT } from "gt-next";
-import { useDetectLanguage } from "@/Hook/Language";
 import { Russo_One } from "next/font/google";
 import NavBar from "@/components/NavBar";
 import { StarField } from "@/components/ui/Planets/SpaceBg";
 import { ClerkProvider } from "@clerk/nextjs";
 import Footer from "@/components/Footer";
+import { getLocale, getLocaleDirection } from "gt-next/server";
 const russoOne = Russo_One({
   subsets: ["latin"],
   weight: "400",
@@ -19,22 +18,17 @@ export const metadata: Metadata = {
   description: "",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // for fix Dir Issue
-  const translate = useGT();
-  const translatedString = translate("Hello, world!");
-  const dir = useDetectLanguage(translatedString);
-  // end
 
   return (
     <ClerkProvider>
       <html
-        lang="en"
-        dir={dir === "ar" ? "rtl" : "ltr"}
+        lang={await getLocale()}
+        dir={await getLocaleDirection()}
         className={russoOne.variable}
       >
         <body className={`  font-russo`}>

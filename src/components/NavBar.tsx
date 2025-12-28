@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
 import StaggeredMenu from "./ui/Bite/StaggeredMenu";
-import { useGT } from "gt-next";
-import { useDetectLanguage } from "@/Hook/Language";
+import { useGT, useLocaleDirection } from "gt-next";
 
 const NavBar = () => {
   const t = useGT();
+  const dir = useLocaleDirection()
   const menuItems = [
     { label: t("Home"), ariaLabel: t("Go to home page"), link: "/" },
     { label: t("About"), ariaLabel: t("Learn about us"), link: "/about" },
@@ -20,16 +20,10 @@ const NavBar = () => {
     { label: "LinkedIn", link: "https://linkedin.com" },
   ];
 
-  // for fix Dir Issue
-  const translate = useGT();
-  const translatedString = translate("Hello, world!");
-  const dir = useDetectLanguage(translatedString);
-  // end
-
   return (
     <div className="fixed top-0 left-0 w-full z-50">
       <StaggeredMenu
-        position={dir === "ar" ? "left" : "right"}
+        position={dir === "rtl" ? "left" : "right"}
         items={menuItems}
         socialItems={socialItems}
         displaySocials={true}
